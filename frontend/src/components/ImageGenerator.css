@@ -1,29 +1,80 @@
+.ig {
+  display: flex;
+}
+
+.createInputBox {
+  width: 40%;
+  height: 80vh;
+  padding-top: 4%;
+  padding-left: 4%;
+}
+
+.createInputDesc {
+  width: 88%;
+  height: 30vh;
+  margin-left: 5%;
+  margin-top: 4%;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 1% 1% 1% 1%;
+}
+
+.createImageBox {
+  width: 50%;
+  height: 100vh;
+}
+
 .igTitle {
   text-align: center;
 }
 
 .igTextBar {
-  width: 20%;
+  width: 73%;
   height: 4vh;
-  margin-left: 40%;
+  margin-left: 5%;
+  border: 2px solid black;
+  border-radius: 4px;
 }
 
 .igBtn {
-  width: 5%;
-  height: 4.5vh;
+  width: 15%;
+  height: 4.6vh;
   overflow: hidden;
   margin-left: 1%;
   border: 2px solid black;
   border-radius: 4px;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   font-weight: bold;
 }
 
 .createImage {
-  width: 40%;
-  height: 40%;
-  margin-left: 30%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  width: 90%;
+  height: 100%;
+  border: 2px solid black;
+  text-align: center;
+  color: #888;
+}
+
+.placeholder,
+.loadingBox {
+  width: 90%;
+  height: 60%;
+  border: 2px solid black;
+  text-align: center;
+  padding-top: 30%;
+  color: #888;
+}
+
+.placeholderImage {
+  width: 60%;
+  height: 30%;
+}
+
+.loadingImage {
+  width: 60%;
+  height: 30%;
+  text-align: center;
+  color: #888;
 }
