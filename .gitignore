@@ -3,7 +3,6 @@
 # Ignoring specific React file
 MindSync/app/env
 MindSync/frontend/env
-MindSync/app/model/**
 
 .github/workflows
 
