@@ -81,7 +81,7 @@ main {
 
 main {
   flex-grow: 1;
-  padding-bottom: 70px; /* footer의 높이만큼 여백을 주어 내용이 footer 위에 겹치지 않도록 */
+  padding-bottom: 20px; /* footer의 높이만큼 여백을 주어 내용이 footer 위에 겹치지 않도록 */
 }
 
 footer {
@@ -92,7 +92,7 @@ footer {
   background-color: #f8f9fa; /* 배경색 */
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 10px; /* 다른 컴포넌트와의 여백 */
+  margin-top: 2%; /* 다른 컴포넌트와의 여백 */
 }
 
 .footerLogo {

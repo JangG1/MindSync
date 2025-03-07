@@ -6,15 +6,20 @@ import "aos/dist/aos.css";
 import Home from "./components/Home";
 import ImageGenerator from "./components/ImageGenerator";
 
-function App() {
-  const [isBurgerModalVisible, setIsBurgerModalVisible] = useState(false);
+// BurgerModal 상태를 관리하는 타입
+type BurgerModalState = boolean;
 
+const App: React.FC = () => {
+  const [isBurgerModalVisible, setIsBurgerModalVisible] =
+    useState<BurgerModalState>(false);
+
+  // AOS 초기화
   useEffect(() => {
     AOS.init();
   }, []);
 
   // 버거 메뉴를 토글하는 함수
-  const toggleBurgerModal = () => {
+  const toggleBurgerModal = (): void => {
     setIsBurgerModalVisible((prev) => !prev);
   };
 
@@ -72,24 +77,38 @@ function App() {
 
           <div className="burgerLinkList">
             <div className="burgerLinkLink">
-              <Link to="/ImageGenerator">ImageGenerator</Link>
+              <Link to="/ImageGenerator" onClick={toggleBurgerModal}>
+                Image Generator
+              </Link>
             </div>
             <br />
             <div className="burgerLinkLink">
-              <Link to="/Memo">Memo</Link>
+              <Link to="/Memo" onClick={toggleBurgerModal}>
+                STT
+              </Link>
             </div>
             <br />
             <div className="burgerLinkLink">
-              <Link to="/Memo">Memo</Link>
+              <Link to="/Memo" onClick={toggleBurgerModal}>
+                Memo
+              </Link>
             </div>
           </div>
         </div>
 
         <footer>
           <div>
-            <img src="/image/logo.jpg" className="footerLogo" />
+            <img
+              src="/image/logo.jpg"
+              className="footerLogo"
+              alt="Footer Logo"
+            />
             <a className="focus" href="/">
-              <img src="/image/topBtn.png" className="topBtn" />
+              <img
+                src="/image/topBtn.png"
+                className="topBtn"
+                alt="Top Button"
+              />
             </a>
           </div>
           <br />
@@ -98,6 +117,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;

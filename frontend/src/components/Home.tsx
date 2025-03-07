@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import "./Home.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-function Home() {
+
+// React.FC 타입을 사용하여 함수형 컴포넌트 정의
+const Home: React.FC = () => {
   useEffect(() => {
     AOS.init({
       duration: 1000, // 애니메이션 지속 시간 (ms)
@@ -24,6 +26,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

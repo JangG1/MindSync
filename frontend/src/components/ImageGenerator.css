@@ -9,20 +9,31 @@
   padding-left: 4%;
 }
 
-.createInputDesc {
+.createDesc {
   width: 88%;
-  height: 30vh;
-  margin-left: 5%;
+  height: 90vh;
   margin-top: 4%;
+  margin-left: 5%;
   border: 2px solid black;
   border-radius: 4px;
   font-weight: bold;
-  padding: 1% 1% 1% 1%;
+  font-size: 20px;
+  padding: 0% 1% 1% 1%;
+  overflow-y: auto;
+}
+
+.createDesc > li {
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 1%;
+  margin-top: 2%;
 }
 
 .createImageBox {
-  width: 50%;
-  height: 100vh;
+  width: 55%;
+  height: 132vh;
+  margin-left: 2%;
+  margin-top: 4%;
 }
 
 .igTitle {
@@ -47,11 +58,12 @@
   background-color: black;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .createImage {
   width: 90%;
-  height: 100%;
+  height: 88%;
   border: 2px solid black;
   text-align: center;
   color: #888;
