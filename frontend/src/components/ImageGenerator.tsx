@@ -1,5 +1,5 @@
 // ImageGenerator.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./ImageGenerator.css";
 
@@ -121,7 +121,12 @@ const App: React.FC = () => {
           </div>
         )}
         {!loading && error && (
-          <div className="errorBox">
+          <div className="placeholder">
+            <img
+              src="/image/logo.jpg"
+              className="placeholderImage"
+              alt="Placeholder"
+            />
             <p>{error}</p>
           </div>
         )}
