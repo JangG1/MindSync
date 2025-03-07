@@ -1,0 +1,115 @@
+.menuBar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 9;
+  margin-bottom: 4%;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  width: 200px;
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+
+.burgerMenuBtn {
+  width: 32px;
+  height: 35px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.burgerMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18%;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  z-index: 10;
+}
+
+.burgerMenu.show {
+  transform: translateX(0);
+}
+
+.burgerMenu.hide {
+  transform: translateX(-100%);
+}
+
+.burgerLinkList {
+  padding: 60px;
+}
+
+.burgerLinkLink > a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  display: block;
+  margin: 10px 0;
+}
+
+.burgerLinkLink > a:hover {
+  text-decoration: underline;
+}
+
+/* 오버레이 (메뉴 바깥 영역 클릭 시 닫히도록 설정) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 8;
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  padding-bottom: 70px; /* footer의 높이만큼 여백을 주어 내용이 footer 위에 겹치지 않도록 */
+}
+
+footer {
+  position: relative; /* footer를 고정하지 않고 페이지 하단에 위치하도록 설정 */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa; /* 배경색 */
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px; /* 다른 컴포넌트와의 여백 */
+}
+
+.footerLogo {
+  width: 100px; /* 로고 크기 조정 */
+  padding: 2% 0% 0% 2%;
+}
+
+.topBtn {
+  width: 40px;
+  height: 40px;
+  margin-top: 2%;
+  margin-right: 3%;
+  float: right;
+}
+
+.footerDesc {
+  margin-left: 2%;
+  margin-bottom: 2%;
+}

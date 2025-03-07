@@ -1,0 +1,29 @@
+.igTitle {
+  text-align: center;
+}
+
+.igTextBar {
+  width: 20%;
+  height: 4vh;
+  margin-left: 40%;
+}
+
+.igBtn {
+  width: 5%;
+  height: 4.5vh;
+  overflow: hidden;
+  margin-left: 1%;
+  border: 2px solid black;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.createImage {
+  width: 40%;
+  height: 40%;
+  margin-left: 30%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

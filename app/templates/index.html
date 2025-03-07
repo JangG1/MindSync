@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 메모 & 태스크 관리 웹앱</title>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
+
+    <!-- JS -->
+    <script src="{{ url_for('static', path='js/script.js') }}" defer></script>
+
+    <!-- Alpine.js CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
+      defer
+    ></script>
+
+    <!-- HTMX CDN -->
+    <script
+      src="https://unpkg.com/htmx.org@1.6.1"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div x-data="{ title: '', content: '' }">
+      <h1 class="fastAPITitle">{{ message }}</h1>
+
+      <div class="fastAPIBody">This is FastAPI</div>
+      <!-- 메모 제출 후 응답 메시지 표시 -->
+      <div id="memo-response">
+        <!-- 서버에서 응답이 오면 여기에 표시됨 -->
+      </div>
+    </div>
+  </body>
+</html>
