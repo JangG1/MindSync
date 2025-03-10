@@ -33,7 +33,7 @@ function Board() {
         month: "2-digit",
         day: "2-digit",
       })
-      .replaceAll(".", ""); // '2025-02-10'으로 형식 맞추기
+      .replaceAll(".", "");
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./BoardWrite.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 
 function BoardWrite() {
   const [message1, setMessage1] = useState("");

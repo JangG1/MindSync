@@ -38,14 +38,19 @@ const STT = () => {
   // 할 일을 추가하는 함수
   const handleAddTodo = () => {
     if (input.trim()) {
-      const currentTime = new Date().toLocaleTimeString(); // 현재 시간을 "HH:MM:SS" 형식으로 저장
+      const currentTime = new Date()
+        .toISOString() // UTC로 ISO 형식 (YYYY-MM-DDTHH:mm:ss.sssZ)
+        .slice(0, 16) // 'YYYY-MM-DDTHH:mm' 까지 자르고
+        .replace("T", " "); // 'T'를 공백으로 변경하여 'YYYY-MM-DD HH:mm' 형식으로 저장
       addTodo({ id: Date.now(), text: input, time: currentTime });
       setInput("");
     }
 
     if (transcript.trim()) {
-      // transcript가 있을 경우 저장
-      const currentTime = new Date().toLocaleTimeString();
+      const currentTime = new Date()
+        .toISOString() // UTC로 ISO 형식 (YYYY-MM-DDTHH:mm:ss.sssZ)
+        .slice(0, 16) // 'YYYY-MM-DDTHH:mm' 까지 자르고
+        .replace("T", " "); // 'T'를 공백으로 변경하여 'YYYY-MM-DD HH:mm' 형식으로 저장
       addTodo({ id: Date.now(), text: transcript, time: currentTime });
       setTranscript(""); // 텍스트 저장 후 초기화
     }
@@ -131,7 +136,7 @@ const STT = () => {
 
   return (
     <div className="stt">
-      <div className="createInputBox">
+      <div className="todoInputBox">
         <div className="inputArea">
           <input
             className="sttTextBar"
@@ -177,7 +182,7 @@ const STT = () => {
           disabled={isRecording || loading}
           className="sttBtn"
         >
-          {isRecording ? "음성 변환중..." : "음성 변환하기"}
+          {isRecording ? "음성 변환중..." : "음성 생성하기"}
         </button>
         {!transcript ? (
           <button className="sttSaveDisBtn">음성 저장하기</button>
@@ -193,26 +198,19 @@ const STT = () => {
             음성 저장하기
           </button>
         )}
+        <h4>* 음성을 통해 일정을 추가해보세요!</h4>
       </div>
 
-      <div className="createImageBox">
+      <div className="sstBox">
         {loading && (
-          <div className="loadingBox">
-            <img
-              src="/image/logo.jpg"
-              alt="Loading..."
-              className="loadingImage"
-            />
-            <p>음성을 생성하고 있습니다...</p>
+          <div className="sstLoadingBox">
+            <img src="/image/MS_Icon.png" alt="Loading..." />
+            <h3>음성을 생성하고 있습니다...</h3>
           </div>
         )}
         {!loading && error && (
-          <div className="placeholder">
-            <img
-              src="/image/logo.jpg"
-              className="placeholderImage"
-              alt="Placeholder"
-            />
+          <div className="sstPlaceholder">
+            <img src="/image/MS_Icon.png" alt="Placeholder" />
             <p>{error}</p>
           </div>
         )}
@@ -222,7 +220,7 @@ const STT = () => {
               <div className="createVoiceAfter">{transcript}</div>
             ) : (
               <div className="createVoiceBefore">
-                <h1 className="sttTitle">SPEECH TO MEMO</h1>
+                <img src="/image/MS_Icon.png" alt="Loading..." />
                 <h3>음성을 생성해주세요.</h3>
               </div>
             )}
