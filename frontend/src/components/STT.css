@@ -1,0 +1,201 @@
+.stt {
+  display: flex;
+}
+
+.createInputBox {
+  width: 40%;
+
+  padding-top: 4%;
+  padding-left: 4%;
+}
+
+.createMemo {
+  width: 88%;
+  margin-top: 4%;
+  margin-left: 5%;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0% 1% 1% 1%;
+  overflow-y: auto;
+}
+
+.sttTextBar {
+  width: 81%;
+  height: 34px;
+  margin-right: 1%;
+  margin-bottom: 2%;
+  border-radius: 4px;
+  font-weight: bold;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  padding-left: 10px;
+}
+
+.memoInputBtn {
+  width: 15%;
+  height: 38px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.todoList {
+  border: 2px solid black;
+  width: 100%;
+  height: 99.5vh;
+  border-radius: 8px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.todoList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.todoList::-webkit-scrollbar-thumb {
+  background-color: rgba(18, 51, 120, 0.8);
+  border-radius: 10px;
+}
+
+.todoList::-webkit-scrollbar-track {
+  background-color: rgba(18, 51, 120, 0.2);
+  border-radius: 10px;
+}
+
+.todoListTitle {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+
+  font-weight: bold;
+  padding: 10px 10px 10px 10px;
+}
+
+.todoIdx {
+  border: 0.1px solid black;
+  display: flex;
+
+  padding: 10px 0px 10px 10px;
+}
+
+.todoTime {
+  /* border: 0.1px solid black; */
+  width: 130px;
+  padding: 15px 10px 10px 10px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.todoText {
+  font-size: 1rem;
+  color: #333;
+  padding: 13px 0px 10px 0px;
+  width: 90%;
+  text-align: left;
+  padding-right: 3%;
+}
+
+.todoDeleteBtn {
+  flex: 0 0 auto; /* 오른쪽 고정 */
+  width: 25px;
+  height: 26px;
+  margin-right: 1.5%;
+  margin-top: 1%;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.todoDeleteBtn:hover {
+  background-color: rgb(36, 73, 152); /* 삭제 버튼 hover 시 색상 변경 */
+}
+.sttTitle {
+  text-align: center;
+}
+
+.conventBox {
+  width: 10%;
+  margin-top: 25%;
+}
+
+.sttBtn,
+.sttSaveBtn {
+  width: 100%;
+  height: 4.6vh;
+  overflow: hidden;
+  margin-left: 12%;
+  border: 2px solid black;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sttSaveDisBtn {
+  width: 100%;
+  height: 4.6vh;
+  overflow: hidden;
+  margin-left: 12%;
+  border: 2px solid #888;
+  border-radius: 4px;
+  background-color: #888;
+  color: #d5d5d5;
+  margin-top: 10%;
+  font-weight: bold;
+}
+
+.sttSaveBtn {
+  margin-left: 10%;
+  margin-top: 10%;
+}
+
+.createVoice {
+  width: 90%;
+  height: 106.5vh;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 70px rgba(0, 0, 0, 0.5);
+  color: #888;
+}
+
+.createVoiceBefore {
+  text-align: center;
+  margin-top: 50%;
+}
+
+.createVoiceAfter {
+  padding: 2% 2% 2% 2%;
+}
+
+.placeholder,
+.loadingBox {
+  width: 90%;
+  height: 80%;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 70px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding-top: 30%;
+  color: #888;
+}
+
+.placeholderImage {
+  width: 60%;
+}
+
+.loadingImage {
+  width: 60%;
+  text-align: center;
+  color: #888;
+}

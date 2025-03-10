@@ -1,10 +1,16 @@
+// STT.tsx (음성 인식 및 메모 기능을 가진 컴포넌트)
 import React, { useState, useEffect } from "react";
+import "./STT.css";
+import { useStore } from "../store/Store"; // Zustand 스토어 import
 
 const STT = () => {
+  const { todos, addTodo, deleteTodo } = useStore();
+  const [input, setInput] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+  const [error, setError] = useState<string>(""); // 음성 생성 실패 시 에러 메시지 저장
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 사용자 미디어 스트림을 가져옴
@@ -29,33 +35,50 @@ const STT = () => {
     };
   }, []);
 
+  // 할 일을 추가하는 함수
+  const handleAddTodo = () => {
+    if (input.trim()) {
+      const currentTime = new Date().toLocaleTimeString(); // 현재 시간을 "HH:MM:SS" 형식으로 저장
+      addTodo({ id: Date.now(), text: input, time: currentTime });
+      setInput("");
+    }
+
+    if (transcript.trim()) {
+      // transcript가 있을 경우 저장
+      const currentTime = new Date().toLocaleTimeString();
+      addTodo({ id: Date.now(), text: transcript, time: currentTime });
+      setTranscript(""); // 텍스트 저장 후 초기화
+    }
+  };
+
   // Web Speech API 인식 시작 함수
   const startSpeechRecognition = () => {
     const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.continuous = true; // 연속적인 음성 인식 활성화
-    recognition.lang = "ko-KR"; // 한국어로 언어 설정
+    recognition.continuous = false; // 자동 종료를 위해 false 설정
+    recognition.lang = "ko-KR";
 
     recognition.onstart = () => {
-      console.log("음성 인식 시작"); // 시작 로그 추가
+      console.log("음성 인식 시작");
       setIsRecording(true);
-      setTranscript(""); // 새로 녹음할 때 텍스트 초기화
+      setTranscript("");
       setLoading(true);
-    };
-
-    recognition.onspeechstart = () => {
-      console.log("음성 인식이 시작되었습니다"); // 음성이 시작되었을 때 로그 추가
     };
 
     recognition.onresult = (event: any) => {
       const currentTranscript = event.results[event.resultIndex][0].transcript;
-      setTranscript(currentTranscript); // 인식된 텍스트 업데이트
+      setTranscript(currentTranscript);
+    };
+
+    recognition.onspeechend = () => {
+      console.log("음성이 멈춰서 자동 종료됨");
+      recognition.stop(); // 자동으로 인식 종료
     };
 
     recognition.onend = () => {
-      console.log("음성 인식 종료"); // 종료 로그 추가
+      console.log("음성 인식 종료");
       setIsRecording(false);
       setLoading(false);
-      sendAudioToVosk(); // 녹음이 끝난 후 Vosk로 음성 전송
+      sendAudioToVosk(); // Vosk 서버로 데이터 전송
     };
 
     recognition.onerror = (error: any) => {
@@ -63,12 +86,7 @@ const STT = () => {
       setLoading(false);
     };
 
-    recognition.start(); // 음성 인식 시작
-  };
-
-  // 음성 인식을 중지하는 함수
-  const stopRecording = () => {
-    setIsRecording(false);
+    recognition.start();
   };
 
   // Vosk 서버로 오디오 데이터를 전송하는 함수
@@ -107,24 +125,108 @@ const STT = () => {
       mediaRecorder.start();
     } catch (error) {
       console.error("Vosk로 음성을 전송하는 중 오류 발생:", error);
+      setError("이미지를 불러오지 못했습니다. 다시 시도해주세요.");
     }
   };
 
   return (
-    <div>
-      <h2>음성 메모</h2>
-      <p>음성을 입력하세요. 예: "내일 3시 미팅"</p>
-      <button
-        onClick={startSpeechRecognition}
-        disabled={isRecording || loading}
-      >
-        {isRecording ? "Recording..." : "Start Recording"}
-      </button>
-      <button onClick={stopRecording} disabled={!isRecording}>
-        Stop Recording
-      </button>
-      <div>
-        {loading ? <p>음성 변환 중...</p> : <p>변환된 텍스트: {transcript}</p>}
+    <div className="stt">
+      <div className="createInputBox">
+        <input
+          className="sttTextBar"
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="메모를 입력하세요"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAddTodo();
+            }
+          }}
+        />
+        <button
+          className="memoInputBtn"
+          disabled={loading}
+          onClick={handleAddTodo}
+        >
+          {loading ? "저장중..." : "저장하기"}
+        </button>
+
+        <div className="todoList">
+          <div className="todoListTitle">TO-DO LIST</div>
+          {todos.map((todo) => (
+            <div className="todoIdx" key={todo.id}>
+              <div className="todoTime">{todo.time}</div>
+              <div className="todoText">{todo.text}</div>
+
+              <button
+                className="todoDeleteBtn"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="conventBox">
+        <button
+          onClick={startSpeechRecognition}
+          disabled={isRecording || loading}
+          className="sttBtn"
+        >
+          {isRecording ? "음성 변환중..." : "음성 변환하기"}
+        </button>
+        {!transcript ? (
+          <button className="sttSaveDisBtn">음성 저장하기</button>
+        ) : (
+          <button
+            disabled={!transcript}
+            className="sttSaveBtn"
+            onClick={() => {
+              handleAddTodo(); // 음성을 저장하는 함수 호출
+              setTranscript(""); // 저장 후 텍스트 초기화
+            }}
+          >
+            음성 저장하기
+          </button>
+        )}
+      </div>
+
+      <div className="createImageBox">
+        {loading && (
+          <div className="loadingBox">
+            <img
+              src="/image/logo.jpg"
+              alt="Loading..."
+              className="loadingImage"
+            />
+            <p>음성을 생성하고 있습니다...</p>
+          </div>
+        )}
+        {!loading && error && (
+          <div className="placeholder">
+            <img
+              src="/image/logo.jpg"
+              className="placeholderImage"
+              alt="Placeholder"
+            />
+            <p>{error}</p>
+          </div>
+        )}
+        {!loading && !error && (
+          <div className="createVoice">
+            {transcript ? (
+              <div className="createVoiceAfter">{transcript}</div>
+            ) : (
+              <div className="createVoiceBefore">
+                <h1 className="sttTitle">SPEECH TO MEMO</h1>
+                <h3>음성을 생성해주세요.</h3>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

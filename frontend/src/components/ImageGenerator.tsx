@@ -106,27 +106,23 @@ const App: React.FC = () => {
             한글 입력 시 자동 번역되므로, 번역 결과를 확인하고 싶다면 영어로
             입력하세요.
           </li>
+          <li style={{ color: "red" }}>
+            무료 버전의 API 특성상 트래픽 증가로 인해 일시적으로 이미지 생성이
+            불가할 수 있습니다.
+          </li>
           <h4>🚀 이제 원하는 이미지를 직접 만들어 보세요!</h4>
         </div>
       </div>
       <div className="createImageBox">
         {loading && (
           <div className="loadingBox">
-            <img
-              src="/image/logo.jpg"
-              alt="Loading..."
-              className="loadingImage"
-            />
+            <img src="/image/logo.jpg" alt="Loading..." />
             <p>이미지를 생성하고 있습니다...</p>
           </div>
         )}
         {!loading && error && (
           <div className="placeholder">
-            <img
-              src="/image/logo.jpg"
-              className="placeholderImage"
-              alt="Placeholder"
-            />
+            <img src="/image/logo.jpg" alt="Placeholder" />
             <p>{error}</p>
           </div>
         )}
@@ -136,11 +132,7 @@ const App: React.FC = () => {
             <img src={image} alt="Generated" className="createImage" />
           ) : (
             <div className="placeholder">
-              <img
-                src="/image/logo.jpg"
-                className="placeholderImage"
-                alt="Placeholder"
-              />
+              <img src="/image/logo.jpg" alt="Placeholder" />
               <p>이미지가 생성되면 이곳에 표시됩니다.</p>
             </div>
           ))}

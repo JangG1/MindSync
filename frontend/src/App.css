@@ -1,3 +1,15 @@
+@font-face {
+  font-family: NanumBarunGothic; /* 폰트 이름 */
+  src: url(/public/fonts/NanumBarunGothic.woff) format(woff); /* 폰트 파일 경로 */
+  font-weight: normal; /* 폰트 두께 (옵션) */
+  font-style: normal; /* 폰트 스타일 (옵션) */
+}
+
+* {
+  font-weight: 900;
+  font-family: NanumBarunGothic; /* 폰트 이름 */
+}
+
 .menuBar {
   display: flex;
   align-items: center;
@@ -92,7 +104,7 @@ footer {
   background-color: #f8f9fa; /* 배경색 */
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 2%; /* 다른 컴포넌트와의 여백 */
+  margin-top: 10%; /* 다른 컴포넌트와의 여백 */
 }
 
 .footerLogo {
