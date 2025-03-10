@@ -5,7 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Home from "./components/Home";
 import ImageGenerator from "./components/ImageGenerator";
-import STT from "./components/STT";
+import ToDo from "./components/ToDo";
 import Memo from "./components/Memo";
 
 // BurgerModal 상태를 관리하는 타입
@@ -48,7 +48,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/ImageGenerator" element={<ImageGenerator />} />
-            <Route path="/STT" element={<STT />} />
+            <Route path="/ToDo" element={<ToDo />} />
             <Route path="/Memo" element={<Memo />} />
           </Routes>
         </main>
@@ -87,8 +87,8 @@ const App: React.FC = () => {
             </div>
             <br />
             <div className="burgerLinkLink">
-              <Link to="/STT" onClick={toggleBurgerModal}>
-                STT
+              <Link to="/ToDo" onClick={toggleBurgerModal}>
+                To-Do
               </Link>
             </div>
             <br />

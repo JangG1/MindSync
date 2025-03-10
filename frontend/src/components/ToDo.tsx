@@ -1,6 +1,6 @@
 // STT.tsx (음성 인식 및 메모 기능을 가진 컴포넌트)
 import React, { useState, useEffect } from "react";
-import "./STT.css";
+import "./ToDo.css";
 import { useStore } from "../store/Store"; // Zustand 스토어 import
 
 const STT = () => {
@@ -132,26 +132,27 @@ const STT = () => {
   return (
     <div className="stt">
       <div className="createInputBox">
-        <input
-          className="sttTextBar"
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="메모를 입력하세요"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleAddTodo();
-            }
-          }}
-        />
-        <button
-          className="memoInputBtn"
-          disabled={loading}
-          onClick={handleAddTodo}
-        >
-          {loading ? "저장중..." : "저장하기"}
-        </button>
-
+        <div className="inputArea">
+          <input
+            className="sttTextBar"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="일정을 입력하세요"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleAddTodo();
+              }
+            }}
+          />
+          <button
+            className="memoInputBtn"
+            disabled={loading}
+            onClick={handleAddTodo}
+          >
+            {loading ? "저장중..." : "저장하기"}
+          </button>
+        </div>
         <div className="todoList">
           <div className="todoListTitle">TO-DO LIST</div>
           {todos.map((todo) => (
