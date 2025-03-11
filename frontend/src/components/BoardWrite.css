@@ -1,8 +1,9 @@
 .boardTop {
-  padding-top: 10%;
+  padding-top: 1%;
   padding-bottom: 2%;
   text-align: center;
 }
+
 .boardWriteClushLogo {
   width: 7%;
   margin-bottom: 2%;
@@ -11,13 +12,17 @@
 
 .toBoardBtnByBW {
   margin-left: 20%;
-  background-color: rgb(18, 51, 120);
-  color: white;
-  border: 2px solid rgb(18, 51, 120);
+  background-color: rgb(248, 197, 202);
+  border: 2px solid rgb(248, 197, 202);
   border-radius: 4px;
   font-weight: bold;
   padding: 10px 10px 10px 10px;
   cursor: pointer;
+}
+
+.toBoardBtnByBW > a {
+  color: #333;
+  text-decoration: none;
 }
 
 .boardWriteBody {
@@ -25,25 +30,15 @@
   height: 100%;
   margin-left: 20%;
   margin-top: 1%;
-  border: 2px solid rgb(18, 51, 120);
+  padding-top: 1%;
+  border: 3px solid rgb(248, 197, 202);
 }
 
-.boardWriteBodyTitle1 {
-  margin-left: 1%;
-  margin-top: 1%;
-  color: rgb(18, 51, 120);
-  padding: 10px 10px 10px 10px;
-}
-
-.boardWriteBodyTitle2 {
-  margin-left: 1%;
-  color: rgb(18, 51, 120);
-  padding: 10px 10px 10px 10px;
-}
-
+.boardWriteBodyTitle1,
+.boardWriteBodyTitle2,
 .boardWriteBodyTitle3 {
   margin-left: 1%;
-  color: rgb(18, 51, 120);
+  color: #333;
   padding: 10px 10px 10px 10px;
 }
 
@@ -72,8 +67,8 @@
   margin-top: 2%;
   margin-left: 45%;
   margin-bottom: 5%;
-  background-color: rgb(18, 51, 120);
-  border: 2px solid rgb(18, 51, 120);
+  background-color: rgb(248, 197, 202);
+  border: 2px solid rgb(248, 197, 202);
   color: white;
   border-radius: 4px;
   font-size: 18px;

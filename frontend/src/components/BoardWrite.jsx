@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./BoardWrite.css";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function BoardWrite() {
   const [message1, setMessage1] = useState("");
@@ -29,7 +29,7 @@ function BoardWrite() {
   return (
     <div>
       <div className="boardTop"></div>
-      <img src="/image/clush_logo2.png" className="boardWriteClushLogo" />
+      <img src="/image/MS_Icon.png" className="boardWriteClushLogo" />
       <div>
         <button className="toBoardBtnByBW">
           <Link to="/Board">뒤로가기</Link>

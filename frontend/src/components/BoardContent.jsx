@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // URL 파라미터 가져오기
 import "./BoardContent.css";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function BoardContent() {
   const [boardDetails, setBoardDetails] = useState(null);
@@ -180,7 +180,7 @@ function BoardContent() {
     <div>
       {isLoading ? (
         <div className="boardLoading">
-          <img src="/image/clush_logo2.png" className="LoadingImage" />
+          <img src="/image/MS_Icon.png" className="LoadingImage" />
           <br></br>
           <p>게시글 불러오는 중...</p>
         </div>
