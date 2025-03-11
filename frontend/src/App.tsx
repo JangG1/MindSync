@@ -7,10 +7,10 @@ import Home from "./components/Home";
 import ImageGenerator from "./components/ImageGenerator";
 import ToDo from "./components/ToDo";
 import Calendar from "./components/Calendar";
-import Memo from "./components/Memo";
 import Board from "./components/Board";
 import BoardWrite from "./components/BoardWrite";
 import BoardContent from "./components/BoardContent";
+import Chatbot from "./components/Chatbot";
 
 // BurgerModal 상태를 관리하는 타입
 type BurgerModalState = boolean;
@@ -30,53 +30,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="appContainer">
-      {/* 네비게이션 바 */}
-      <div className="menuBar">
-        <img
-          src="/image/burgerBtn.png"
-          className="burgerMenuBtn"
-          onClick={toggleBurgerModal}
-          alt="메뉴 버튼"
-        />
-
-        <div>
-          <a href="/">
-            <img src="/image/logo.jpg" className="logo" alt="로고" />
-          </a>
-        </div>
-      </div>
-
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ImageGenerator" element={<ImageGenerator />} />
-          <Route path="/ToDo" element={<ToDo />} />
-          <Route path="/Calendar" element={<Calendar />} />
-          <Route path="/Memo" element={<Memo />} />
-          <Route path="/Board" element={<Board />} />
-          <Route path="/BoardWrite" element={<BoardWrite />} />
-          <Route path="/BoardContent/:boardNo" element={<BoardContent />} />
-        </Routes>
-      </main>
-
-      {/* 배경을 클릭하면 메뉴 닫기 */}
-      {isBurgerModalVisible && (
-        <div
-          className="overlay"
-          onClick={() => setIsBurgerModalVisible(false)}
-        />
-      )}
-
-      {/* 버거 메뉴 모달 */}
-      <div className={`burgerMenu ${isBurgerModalVisible ? "show" : "hide"}`}>
+    <Router>
+      <div className="appContainer">
+        {/* 네비게이션 바 */}
         <div className="menuBar">
-          {/* 내부 햄버거 버튼 클릭 시 닫기 */}
           <img
             src="/image/burgerBtn.png"
             className="burgerMenuBtn"
             onClick={toggleBurgerModal}
-            alt="닫기 버튼"
+            alt="메뉴 버튼"
           />
 
           <div>
@@ -86,50 +48,98 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="burgerLinkList">
-          <div className="burgerLinkLink">
-            <Link to="/ImageGenerator" onClick={toggleBurgerModal}>
-              Image Generator
-            </Link>
-          </div>
-          <br />
-          <div className="burgerLinkLink">
-            <Link to="/ToDo" onClick={toggleBurgerModal}>
-              To-Do
-            </Link>
-          </div>
-          <br />
-          <div className="burgerLinkLink">
-            <Link to="/Calendar" onClick={toggleBurgerModal}>
-              Calendar
-            </Link>
-          </div>
-          <br />
-          <div className="burgerLinkLink">
-            <Link to="/Memo" onClick={toggleBurgerModal}>
-              Memo
-            </Link>
-          </div>
-          <br />
-          <div className="burgerLinkLink">
-            <Link to="/Board" onClick={toggleBurgerModal}>
-              Board
-            </Link>
-          </div>
-        </div>
-      </div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/ImageGenerator" element={<ImageGenerator />} />
+            <Route path="/ToDo" element={<ToDo />} />
+            <Route path="/Calendar" element={<Calendar />} />
+            <Route path="/Chatbot" element={<Chatbot />} />
+            <Route path="/Board" element={<Board />} />
+            <Route path="/BoardWrite" element={<BoardWrite />} />
+            <Route path="/BoardContent/:boardNo" element={<BoardContent />} />
+          </Routes>
+        </main>
 
-      <footer>
-        <div>
-          <img src="/image/logo.jpg" className="footerLogo" alt="Footer Logo" />
-          <a className="focus" href="/">
-            <img src="/image/topBtn.png" className="topBtn" alt="Top Button" />
-          </a>
+        {/* 배경을 클릭하면 메뉴 닫기 */}
+        {isBurgerModalVisible && (
+          <div
+            className="overlay"
+            onClick={() => setIsBurgerModalVisible(false)}
+          />
+        )}
+
+        {/* 버거 메뉴 모달 */}
+        <div className={`burgerMenu ${isBurgerModalVisible ? "show" : "hide"}`}>
+          <div className="menuBar">
+            {/* 내부 햄버거 버튼 클릭 시 닫기 */}
+            <img
+              src="/image/burgerBtn.png"
+              className="burgerMenuBtn"
+              onClick={toggleBurgerModal}
+              alt="닫기 버튼"
+            />
+
+            <div>
+              <a href="/">
+                <img src="/image/logo.jpg" className="logo" alt="로고" />
+              </a>
+            </div>
+          </div>
+
+          <div className="burgerLinkList">
+            <div className="burgerLinkLink">
+              <Link to="/ImageGenerator" onClick={toggleBurgerModal}>
+                Image Generator
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
+              <Link to="/ToDo" onClick={toggleBurgerModal}>
+                To-Do
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
+              <Link to="/Calendar" onClick={toggleBurgerModal}>
+                Calendar
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
+              <Link to="/Chatbot" onClick={toggleBurgerModal}>
+                Chatbot
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
+              <Link to="/Board" onClick={toggleBurgerModal}>
+                Board
+              </Link>
+            </div>
+          </div>
         </div>
-        <br />
-        <div className="footerDesc">MingSync is comming...</div>
-      </footer>
-    </div>
+
+        <footer>
+          <div>
+            <img
+              src="/image/logo.jpg"
+              className="footerLogo"
+              alt="Footer Logo"
+            />
+            <a className="focus" href="/">
+              <img
+                src="/image/topBtn.png"
+                className="topBtn"
+                alt="Top Button"
+              />
+            </a>
+          </div>
+          <br />
+          <div className="footerDesc">MingSync is comming...</div>
+        </footer>
+      </div>
+    </Router>
   );
 };
 

@@ -4,6 +4,7 @@ import requests
 import logging
 import time
 import logging
+
 # 환경 변수 로드
 load_dotenv(dotenv_path="app/.env")  # app 폴더 내 .env 파일 지정
 
