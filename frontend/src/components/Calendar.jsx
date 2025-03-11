@@ -3,7 +3,6 @@ import { Calendar, Badge, Modal, Input, Button } from "antd";
 import "./Calendar.css"; // ✅ CSS 파일 추가
 import axios from "axios";
 import dayjs from "dayjs";
-import { data } from "react-router-dom";
 const MyCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜
   const [schedule, setSchedule] = useState({}); // 각 날짜별 일정 관리
@@ -18,11 +17,10 @@ const MyCalendar = () => {
 
   useEffect(() => {
     const EX_IP = process.env.REACT_APP_EX_IP || "https://clush.shop:7777";
-    
+
     // 날씨 데이터를 API로부터 가져옴
     axios
       .get(`${EX_IP}/clushAPI/weather`) // 요청 URL 수정
-
       .then((response) => {
         setWeatherData(response.data); // 날씨 데이터 상태에 저장
       })
@@ -106,19 +104,19 @@ const MyCalendar = () => {
 
   const getWeatherImage = (weather) => {
     const weatherImages = {
-      "clear sky": "/image/weather/ClearSky.PNG",
-      "few clouds": "/image/weather/FewClouds.PNG",
-      "scattered clouds": "/image/weather/ScatteredClouds.PNG",
-      "broken clouds": "/image/weather/BrokenClouds.PNG",
-      "overcast clouds": "/image/weather/OvercastClouds.PNG",
-      "shower rain": "/image/weather/ShowerRain.PNG",
-      rain: "/image/weather/Rain.PNG",
-      thunderstorm: "/image/weather/Thunderstorm.PNG",
-      snow: "/image/weather/Snow.PNG",
-      mist: "/image/weather/Mist.PNG",
-      haze: "/image/weather/Haze.PNG",
-      fog: "/image/weather/Fog.PNG",
-      tornado: "/image/weather/Tornado.PNG",
+      "clear sky": "/weather/ClearSky.PNG",
+      "few clouds": "/weather/FewClouds.PNG",
+      "scattered clouds": "/weather/ScatteredClouds.PNG",
+      "broken clouds": "/weather/BrokenClouds.PNG",
+      "overcast clouds": "/weather/OvercastClouds.PNG",
+      "shower rain": "/weather/ShowerRain.PNG",
+      rain: "/weather/Rain.PNG",
+      thunderstorm: "/weather/Thunderstorm.PNG",
+      snow: "/weather/Snow.PNG",
+      mist: "/weather/Mist.PNG",
+      haze: "/weather/Haze.PNG",
+      fog: "/weather/Fog.PNG",
+      tornado: "/weather/Tornado.PNG",
     };
 
     // 매핑된 이미지가 있으면 반환, 없으면 기본 이미지 반환
@@ -225,10 +223,6 @@ const MyCalendar = () => {
             <div className="weatherModal">
               <div className="weatherModalLeft">
                 {/* 날씨 데이터에 기반한 정보 출력 */}
-                <img
-                  src="/image/clush_logo1.png"
-                  className="weatherLeftImage"
-                ></img>
                 <div className="weatherTitle">날씨</div>
                 <p>{selectedDate}</p>
                 <p>기온: {weatherData[selectedDate]?.avg_temp}°C</p>

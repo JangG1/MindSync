@@ -6,7 +6,11 @@ import "aos/dist/aos.css";
 import Home from "./components/Home";
 import ImageGenerator from "./components/ImageGenerator";
 import ToDo from "./components/ToDo";
+import Calendar from "./components/Calendar";
 import Memo from "./components/Memo";
+import Board from "./components/Board";
+import BoardWrite from "./components/BoardWrite";
+import BoardContent from "./components/BoardContent";
 
 // BurgerModal 상태를 관리하는 타입
 type BurgerModalState = boolean;
@@ -49,7 +53,11 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/ImageGenerator" element={<ImageGenerator />} />
             <Route path="/ToDo" element={<ToDo />} />
+            <Route path="/Calendar" element={<Calendar />} />
             <Route path="/Memo" element={<Memo />} />
+            <Route path="/Board" element={<Board />} />
+            <Route path="/BoardWrite" element={<BoardWrite />} />
+            <Route path="/BoardContent/:boardNo" element={<BoardContent />} />
           </Routes>
         </main>
 
@@ -93,8 +101,20 @@ const App: React.FC = () => {
             </div>
             <br />
             <div className="burgerLinkLink">
+              <Link to="/Calendar" onClick={toggleBurgerModal}>
+                Calendar
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
               <Link to="/Memo" onClick={toggleBurgerModal}>
                 Memo
+              </Link>
+            </div>
+            <br />
+            <div className="burgerLinkLink">
+              <Link to="/Board" onClick={toggleBurgerModal}>
+                Board
               </Link>
             </div>
           </div>

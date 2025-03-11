@@ -18,6 +18,13 @@
   margin-left: 25%;
 }
 
+.newsSearchBar > img {
+  width: 110px;
+  height: 22px;
+  padding: 1.7% 0% 0% 1%;
+  opacity: 0.8;
+}
+
 .newsSearchInputBar {
   width: 90%;
   height: 45px;
@@ -31,7 +38,8 @@
 }
 
 .newsSearchInputBar:focus {
-  border: none;
+  outline: none !important;
+  text-decoration: none;
 }
 
 .newsSearchBtn {
@@ -47,43 +55,88 @@
   font-size: 30px;
   text-align: center;
   padding-top: 3px;
+  margin-left: 0.3%;
 }
 
 .newsCellBody {
-  border: 2px solid rgb(18, 51, 120);
+  width: 95%;
+  margin-left: 1.5%;
+  border: none;
   border-radius: 4px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
   padding: 0.3% 1% 1% 1%;
   margin-top: 2%;
 }
 
 .newsCell {
-  border: 1px solid rgb(18, 51, 120);
+  border: 2px solid rgb(248, 197, 202);
   border-radius: 4px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
   padding: 1% 2% 1% 2%;
   margin-top: 1%;
+  display: flex;
+}
+
+.newsThumbnailBox {
+  padding-top: 1%;
+}
+
+.newsThumbnail {
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 4px;
+}
+
+.newsInfo {
 }
 
 .newsCellNewsLink {
-  border: 2px solid rgb(18, 51, 120);
+  border: 2px solid rgb(248, 197, 202);
   border-radius: 4px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
   padding: 0.5% 1% 0.5% 1%;
 }
 
 .newsCellTitle {
+  margin-top: 2%;
+  margin-bottom: 1%;
   font-size: 30px;
 }
 
+.newsCellTitle > a {
+  color: #111;
+  text-decoration: none;
+}
+
 .newsCellDesc {
+  padding-right: 5%;
+}
+
+.newsCellDesc > a {
+  color: #111;
+  text-decoration: none;
+}
+
+.newsCellTitle :hover,
+.newsCellDesc :hover,
+.newsCellTitle :visited,
+.newsCellDesc :visited {
+  color: #777;
+}
+
+.newsCellDate {
+  margin-top: 4%;
+  float: left;
   color: #333;
 }
+
 .newsCellBodyTempText {
   margin-top: 5%;
   text-align: center;
   font-size: 30px;
+  color: #555;
 }
+
 .newsCellBodyTempImage {
   text-align: center;
 }
@@ -93,8 +146,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
-  margin: 30%;
+
+  width: 95%;
+  margin-left: 1.5%;
+  border: none;
+  padding: 0.3% 1% 1% 1%;
+  margin-top: 10%;
 }
 
 .newsLoading img {

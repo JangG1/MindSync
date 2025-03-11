@@ -56,7 +56,11 @@ function Board() {
 
         {isLoading ? (
           <div className="boardLoading">
-            <img src="/image/clush_logo2.png" className="LoadingImage" />
+            <img
+              src="/image/MS_Icon.png"
+              alt="Loading..."
+              className="LoadingImage"
+            />
             <br></br>
             <p>게시글 불러오는 중...</p>
           </div>

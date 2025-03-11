@@ -1,14 +1,13 @@
 .custom-calendar {
-  padding-bottom: 10%;
   width: 95%;
   margin-left: 2.5%;
 }
 
 .calendar-title {
   text-align: center;
-  color: rgb(51, 51, 123);
+  color: rgb(248, 197, 202);
 
-  margin-top: 10%;
+  margin-top: 1%;
 }
 
 .calendar-title-box {
@@ -16,15 +15,52 @@
   font-weight: bold;
   text-decoration: underline;
   text-underline-offset: 10px; /* 밑줄과 텍스트 사이의 간격 */
-  text-decoration-color: rgb(51, 51, 123);
+  text-decoration-color: rgb(248, 197, 202);
 }
 
 .ant-picker-body {
-  border: 4px solid rgb(51, 51, 123);
+  border: 4px solid rgb(248, 197, 202);
   border-radius: 10px;
-
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
 }
+
+/*상단 좌측 날짜 선택 버튼 시작*/
+:where(.css-dev-only-do-not-override-240cud).ant-picker-calendar
+  .ant-picker-calendar-header
+  .ant-picker-calendar-year-select
+  :hover {
+  border: 2px solid rgb(248, 197, 202) !important;
+}
+
+:where(.css-dev-only-do-not-override-240cud).ant-picker-calendar
+  .ant-picker-calendar-header
+  .ant-picker-calendar-month-select
+  :hover {
+  border: 2px solid rgb(248, 197, 202) !important;
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  color: rgb(248, 197, 202);
+  border: 2px solid rgb(248, 197, 202) !important;
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)
+  :hover {
+  color: rgb(248, 197, 202);
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)
+  :visited {
+  color: rgb(248, 197, 202);
+  border: 2px solid rgb(248, 197, 202) !important;
+}
+/*상단 좌측 날짜 선택 버튼 종료*/
 
 .custom-calendar .ant-picker-calendar-date {
   padding: 10%;
@@ -34,8 +70,8 @@
 }
 
 .custom-calendar .ant-picker-calendar-date:hover {
-  background: #e6f7ff; /* 마우스 오버 시 배경색 변경 */
-  border: 2px solid rgb(53, 53, 239);
+  background: rgb(248, 197, 202); /* 마우스 오버 시 배경색 변경 */
+  border: 2px solid rgb(248, 197, 202);
 }
 
 .custom-calendar .custom-date-cell {
@@ -47,8 +83,7 @@
 .deleteBtn {
   width: 18px;
   height: 20px;
-  background-color: rgb(18, 51, 120);
-  color: white;
+  background-color: rgb(248, 197, 202);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -57,14 +92,70 @@
   margin-right: 3%;
 }
 
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-btn-color-link.ant-btn-variant-link {
+  color: white;
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-btn-color-link.ant-btn-variant-link
+  :hover {
+  color: white;
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-btn-color-link.ant-btn-variant-link
+  :hover {
+  color: rgb(248, 197, 202);
+}
+
+:where(
+    .css-dev-only-do-not-override-240cud
+  ).ant-picker-calendar.ant-picker-calendar-full
+  .ant-picker-calendar-date-today {
+  border-top: 3px solid rgb(248, 197, 202);
+}
+
+/*일정 추가(입력바+추가버튼)*/
+:where(.css-dev-only-do-not-override-240cud).ant-modal .ant-modal-body {
+  display: flex;
+}
+
+/*일정 추가(입력바)*/
+:where(.css-dev-only-do-not-override-240cud).ant-input:placeholder-shown {
+  height: 40px;
+  margin-top: 2%;
+}
+
+/*일정 추가(추가버튼)*/
+:where(.css-dev-only-do-not-override-240cud).ant-btn-variant-solid:not(
+    :disabled
+  ):not(.ant-btn-disabled):hover {
+  background-color: rgb(248, 197, 202);
+}
+
+.custom-calendar .custom-date-cell :hover {
+  background-color: rgb(245, 245, 245) !important;
+  color: rgb(248, 197, 202);
+}
+
 .dateAddBtn {
   width: 15%;
   height: 36px;
   font-size: 20px;
   font-weight: bold;
-  background-color: rgb(18, 51, 120);
+  background-color: rgb(248, 197, 202);
   color: white;
   border-radius: 4px;
+  margin-left: 1%;
+}
+
+.dateAddBtn :hover {
+  background-color: rgb(248, 197, 202);
+  color: white;
 }
 
 .ant-picker-calendar-date-value {
@@ -84,13 +175,13 @@
 
 /* 스크롤바의 색상 */
 .ant-picker-calendar-date-content::-webkit-scrollbar-thumb {
-  background-color: rgb(18, 51, 120); /* 스크롤바 색 */
+  background-color: rgb(248, 197, 202); /* 스크롤바 색 */
   border-radius: 10px; /* 스크롤바 둥근 모서리 */
 }
 
 /* 스크롤바 배경색 */
 .ant-picker-calendar-date-content::-webkit-scrollbar-track {
-  background-color: rgb(18, 51, 120);
+  background-color: rgb(248, 197, 202);
   border-radius: 10px;
 }
 
@@ -106,7 +197,7 @@
 }
 
 .weatherBtn {
-  background-color: rgb(18, 51, 120);
+  background-color: rgb(248, 197, 202);
   left: 5%; /* 부모 요소의 가운데에 위치 */
   /* transform: translateX(-50%); 가운데 정렬 */
   z-index: 10; /* 버튼이 다른 요소들 위에 오도록 설정 */
@@ -122,7 +213,7 @@
 }
 
 .dateCell:hover {
-  background-color: rgba(150, 181, 248, 0.861) !important;
+  background-color: rgb(248, 197, 202) !important;
 }
 
 /* 날씨 모달 스타일 시작 */
@@ -144,6 +235,7 @@
 
 .weatherModalLeft {
   width: 50%;
+  margin-top: 10%;
 }
 
 .weatherModalRight {
@@ -158,7 +250,7 @@
 .weatherRightImage {
   width: 160px;
   margin-top: 70%;
-  margin-left: 15%;
+  margin-left: 5%;
 }
 
 .weatherTitle {

@@ -3,7 +3,7 @@ declare module "aos" {
   export default AOS;
 }
 
-declare module "./components/ImageGenerator" {
+declare module "./components/*" {
   const ImageGenerator: React.FC;
   export default ImageGenerator;
 }
