@@ -1,15 +1,16 @@
-from fastapi import FastAPI, HTTPException, Request, APIRouter
+from fastapi import FastAPI, HTTPException, Request, APIRouter, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
+import io
+import json
+import wave
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import uvicorn
 from vosk import Model, KaldiRecognizer
-import wave
-import json
 from app.services.hugging_Image_API import generate_image_from_huggingface
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
 
