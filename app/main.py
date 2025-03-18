@@ -1,22 +1,16 @@
-# main.py
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, APIRouter
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.responses import JSONResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import StreamingResponse
-import io
-from app.services.hugging_Image_API import generate_image_from_huggingface
 from pydantic import BaseModel
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
 import uvicorn
 from vosk import Model, KaldiRecognizer
 import wave
 import json
+from app.services.hugging_Image_API import generate_image_from_huggingface
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
 
 
@@ -25,6 +19,9 @@ load_dotenv(dotenv_path="app/.env")  # app 폴더 내 .env 파일 지정
 
 # FastAPI 애플리케이션 생성
 app = FastAPI()
+
+# API 라우터 설정 (경로 접두어 설정)
+api_router = APIRouter()
 
 # 정적 파일 제공 설정
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
@@ -45,13 +42,14 @@ app.add_middleware(
 class Prompt(BaseModel):
     prompt: str  # 사용자가 입력한 프롬프트
 
+
 # 기본 페이지 렌더링
-@app.get("/", response_class=HTMLResponse)
+@api_router.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "message": "MindSync"})
 
 
-@app.post("/generate-image")
+@api_router.post("/generate-image")
 async def generate_image(prompt: Prompt):
     print(prompt)
     try:
@@ -62,20 +60,21 @@ async def generate_image(prompt: Prompt):
         return StreamingResponse(io.BytesIO(image_data), media_type="image/png")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-# Vork STT Model 경로(한국어 모델)
+
+
+# Vosk STT Model 경로(한국어 모델)
 model_path = os.path.abspath("app/model/vosk-model-small-ko-0.22")
 model = Model(model_path)
 
 
-@app.post("/stt")
+@api_router.post("/stt")
 async def stt(audio: UploadFile = File(...)):
     try:
         # 클라이언트에서 전달한 오디오 파일을 받음
         audio_data = await audio.read()
 
         # 파일을 Wave로 변환하여 Vosk에 전달
-        with wave.open(audio_data, "rb") as wf:
+        with wave.open(io.BytesIO(audio_data), "rb") as wf:
             recognizer = KaldiRecognizer(model, wf.getframerate())
             results = []
             while True:
@@ -93,17 +92,21 @@ async def stt(audio: UploadFile = File(...)):
         return JSONResponse(content={"error": str(e)}, status_code=400)
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
 # 챗봇 API 엔드포인트
 class ChatRequest(BaseModel):
     message: str
 
-@app.post("/chatbot")
+@api_router.post("/chatbot")
 async def chat(request: ChatRequest):
     try:
-        response = chatbot_service.get_response(request.message)
+        response = get_chatbot_response(request.message)  # 서비스 로직 분리
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# '/api/' 접두어로 라우터 포함
+app.include_router(api_router, prefix="/api")
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
