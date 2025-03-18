@@ -59,7 +59,7 @@ const Chatbot = () => {
     setResPrompt(prompt);
 
     try {
-      const res = await axios.post("http://localhost:8000/chatbot", {
+      const res = await axios.post("http://localhost:8000/api/chatbot", {
         prompt: finalPrompt,
       });
       let translatedResponse = await translateToKorean(res.data.response); // 응답을 한글로 변환
