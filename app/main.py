@@ -18,6 +18,8 @@ from vosk import Model, KaldiRecognizer
 import wave
 import json
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
+
+
 # 환경 변수 로드
 load_dotenv(dotenv_path="app/.env")  # app 폴더 내 .env 파일 지정
 
@@ -95,11 +97,13 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 # 챗봇 API 엔드포인트
-@app.post("/chatbot")
-async def chatbot(prompt: Prompt):
+class ChatRequest(BaseModel):
+    message: str
 
+@app.post("/chatbot")
+async def chat(request: ChatRequest):
     try:
-        response_text = get_chatbot_response(prompt.prompt)
-        return JSONResponse(content={"response": response_text})
+        response = chatbot_service.get_response(request.message)
+        return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

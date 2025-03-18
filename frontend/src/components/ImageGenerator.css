@@ -65,7 +65,7 @@
 .createImage {
   width: 90%;
   height: 97%;
-  border: 2px solid rgb(248, 197, 202);
+  border: 2px solid #333;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   text-align: center;
   color: #888;

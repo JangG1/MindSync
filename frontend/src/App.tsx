@@ -120,7 +120,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <footer>
+        {/* <footer>
           <div>
             <img
               src="/image/logo.jpg"
@@ -137,7 +137,7 @@ const App: React.FC = () => {
           </div>
           <br />
           <div className="footerDesc">MingSync is comming...</div>
-        </footer>
+        </footer> */}
       </div>
     </Router>
   );

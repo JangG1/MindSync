@@ -6,6 +6,7 @@ const Chatbot = () => {
   const [responseText, setResponseText] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [prompt, setPrompt] = useState<string>(""); // 사용자 입력을 위한 state
+  const [resPrompt, setResPrompt] = useState<string>(""); // 사용자 입력을 위한 state
   const [error, setError] = useState<string>(""); // 이미지 로딩 실패 시 에러 메시지 저장
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,22 +51,18 @@ const Chatbot = () => {
     setLoading(true);
     setError(""); // 에러 초기화
 
+    let finalPrompt = prompt;
+    if (isKorean(prompt)) {
+      finalPrompt = await translateToEnglish(prompt);
+    }
+
+    setResPrompt(prompt);
+
     try {
-      let finalPrompt = prompt;
-      if (isKorean(prompt)) {
-        finalPrompt = await translateToEnglish(prompt);
-      }
-
-      const response = await fetch("http://localhost:8000/chatbot", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: finalPrompt }),
+      const res = await axios.post("http://localhost:8000/chatbot", {
+        prompt: finalPrompt,
       });
-
-      const data = await response.json();
-      const translatedResponse = await translateToKorean(data.response); // 응답을 한글로 변환
+      let translatedResponse = await translateToKorean(res.data.response); // 응답을 한글로 변환
 
       setPrompt("");
       setResponseText(translatedResponse);
@@ -93,37 +90,74 @@ const Chatbot = () => {
             alt="placeholderImg"
           />
           <h2>무엇을 도와드릴까요?</h2>
+
+          <div className="inputContainer1">
+            <input
+              className="cbTextBar"
+              type="text"
+              value={prompt}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="질문을 입력하세요"
+            />
+
+            {loading ? (
+              <img
+                src="/image/cbSendBtn.PNG"
+                alt=""
+                className="cbSendBtnLoading"
+              />
+            ) : (
+              <img
+                src="/image/cbSendBtn.PNG"
+                alt=""
+                onClick={handleSendMessage}
+                className="cbSendBtnNotLoading"
+              />
+            )}
+          </div>
         </div>
       )}
 
-      {error && (
-        <div style={{ color: "red", marginTop: "10px" }}>
-          <strong>오류:</strong> {error}
+      {responseText && (
+        <div className="cbResBox">
+          {error && (
+            <div style={{ color: "red", marginTop: "10px" }}>
+              <strong>오류:</strong> {error}
+            </div>
+          )}
+
+          <div className="cbUserMessage">{resPrompt}</div>
+
+          <div className="cbBotMessage">{responseText}</div>
+
+          <div className="inputContainer2">
+            <input
+              className="cbTextBar"
+              type="text"
+              value={prompt}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="질문을 입력하세요"
+            />
+
+            {loading ? (
+              <img
+                src="/image/cbSendBtn.PNG"
+                alt=""
+                className="cbSendBtnLoading"
+              />
+            ) : (
+              <img
+                src="/image/cbSendBtn.PNG"
+                alt=""
+                onClick={handleSendMessage}
+                className="cbSendBtnNotLoading"
+              />
+            )}
+          </div>
         </div>
       )}
-
-      {responseText && <div className="cbResBox">{responseText}</div>}
-
-      <div className="inputContainer">
-        <input
-          className="cbTextBar"
-          type="text"
-          value={prompt}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="질문을 입력하세요"
-        />
-
-        {loading ? (
-          <button disabled={loading} className="cbSendBtnLoading">
-            🧠
-          </button>
-        ) : (
-          <button onClick={handleSendMessage} className="cbSendBtnNotLoading">
-            🧠
-          </button>
-        )}
-      </div>
     </div>
   );
 };
