@@ -57,9 +57,9 @@ const Chatbot = () => {
     }
 
     setResPrompt(prompt);
-    const EX_IP = process.env.REACT_APP_EX_IP || "https://clush.shop:7777";
+
     try {
-      const res = await axios.post(`${EX_IP}/api/chatbot`, {
+      const res = await axios.post(`https://mindsync.site:8000/api/chatbot`, {
         prompt: finalPrompt,
       });
       let translatedResponse = await translateToKorean(res.data.response); // 응답을 한글로 변환

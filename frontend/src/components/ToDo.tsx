@@ -83,7 +83,6 @@ const STT = () => {
       console.log("음성 인식 종료");
       setIsRecording(false);
       setLoading(false);
-      sendAudioToVosk(); // Vosk 서버로 데이터 전송
     };
 
     recognition.onerror = (error: any) => {
@@ -92,46 +91,6 @@ const STT = () => {
     };
 
     recognition.start();
-  };
-
-  // Vosk 서버로 오디오 데이터를 전송하는 함수
-  const sendAudioToVosk = async () => {
-    if (!mediaStream) {
-      console.error("마이크 스트림이 없습니다");
-      return;
-    }
-
-    try {
-      const audioChunks: any[] = [];
-
-      const mediaRecorder = new MediaRecorder(mediaStream, {
-        mimeType: "audio/webm", // 오디오 형식 설정
-      });
-
-      mediaRecorder.ondataavailable = (event) => {
-        audioChunks.push(event.data); // 음성 데이터를 수집
-      };
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-        const formData = new FormData();
-        formData.append("audio", audioBlob);
-
-        // FastAPI 서버에 음성 데이터를 POST 요청으로 전송
-        const response = await fetch("http://localhost:8000/stt", {
-          // FastAPI는 8000번 포트에서 실행 중
-          method: "POST",
-          body: formData,
-        });
-        const data = await response.json();
-        setTranscript(data.transcript); // Vosk의 결과로 받은 텍스트 업데이트
-      };
-
-      mediaRecorder.start();
-    } catch (error) {
-      console.error("Vosk로 음성을 전송하는 중 오류 발생:", error);
-      setError("이미지를 불러오지 못했습니다. 다시 시도해주세요.");
-    }
   };
 
   return (

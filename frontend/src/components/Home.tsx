@@ -29,11 +29,12 @@ const TodoApp: React.FC = () => {
     if (!keyword) return;
 
     setIsLoading(true); // 데이터 요청 시작 시 로딩 상태 활성화
-    const EX_IP = process.env.REACT_APP_EX_IP || "https://clush.shop:7777";
 
     try {
       const response = await axios.get<{ data: { items: NewsItem[] } }>(
-        `${EX_IP}/clushAPI/news/${encodeURIComponent(keyword)}`
+        `https://mindsync.site:7777/clushAPI/news/${encodeURIComponent(
+          keyword
+        )}`
       );
       setNews(response.data.data.items);
       console.log(news);

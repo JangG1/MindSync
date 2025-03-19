@@ -119,25 +119,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* <footer>
-          <div>
-            <img
-              src="/image/logo.jpg"
-              className="footerLogo"
-              alt="Footer Logo"
-            />
-            <a className="focus" href="/">
-              <img
-                src="/image/topBtn.png"
-                className="topBtn"
-                alt="Top Button"
-              />
-            </a>
-          </div>
-          <br />
-          <div className="footerDesc">MingSync is comming...</div>
-        </footer> */}
       </div>
     </Router>
   );
