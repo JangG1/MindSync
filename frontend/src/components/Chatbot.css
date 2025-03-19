@@ -102,3 +102,19 @@
   text-align: left;
   margin-top: 3%;
 }
+
+.cbUserMessage {
+  display: inline-block;
+  max-width: 70%;
+  background-color: #cce7ff; /* 예시 사용자 메시지 배경 */
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.cbBotMessage {
+  display: inline-block;
+  max-width: 70%;
+  background-color: #f1f1f1; /* 예시 봇 메시지 배경 */
+  padding: 10px;
+  border-radius: 10px;
+}

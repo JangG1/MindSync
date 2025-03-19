@@ -1,18 +1,14 @@
-from fastapi import FastAPI, HTTPException, Request, APIRouter, UploadFile, File
+from fastapi import FastAPI, HTTPException, Request, APIRouter
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-import os
-import io
-import json
-import wave
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import uvicorn
+import io
 from app.services.hugging_Image_API import generate_image_from_huggingface
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
-
 
 # 환경 변수 로드
 load_dotenv(dotenv_path="app/.env")  # app 폴더 내 .env 파일 지정
@@ -42,13 +38,12 @@ app.add_middleware(
 class Prompt(BaseModel):
     prompt: str  # 사용자가 입력한 프롬프트
 
-
 # 기본 페이지 렌더링
 @api_router.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "message": "MindSync"})
 
-
+# 이미지 생성 API
 @api_router.post("/generate-image")
 async def generate_image(prompt: Prompt):
     print(prompt)
@@ -61,19 +56,20 @@ async def generate_image(prompt: Prompt):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# 챗봇 API 엔드포인트
-class ChatRequest(BaseModel):
+
+
+# 대화 내용 저장을 위한 모델
+class Message(BaseModel):
+    user: str
     message: str
 
 @api_router.post("/chatbot")
-async def chat(request: ChatRequest):
-    print(request)
+async def chat(message: Message):    
     try:
-        response = get_chatbot_response(request.message)  # 서비스 로직 분리
+        response = get_chatbot_response(message.user, message.message)  # 서비스 로직 분리
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 # '/api/' 접두어로 라우터 포함
 app.include_router(api_router, prefix="/api")
