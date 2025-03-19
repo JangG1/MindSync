@@ -59,9 +59,10 @@ const Chatbot = () => {
     setResPrompt(prompt);
 
     try {
-      const res = await axios.post(`https://mindsync.site:8000/api/chatbot`, {
-        prompt: finalPrompt,
+      const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+        message: finalPrompt,
       });
+
       let translatedResponse = await translateToKorean(res.data.response); // 응답을 한글로 변환
 
       setPrompt("");

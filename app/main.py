@@ -10,7 +10,6 @@ import wave
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import uvicorn
-from vosk import Model, KaldiRecognizer
 from app.services.hugging_Image_API import generate_image_from_huggingface
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
 
@@ -62,43 +61,13 @@ async def generate_image(prompt: Prompt):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
-# Vosk STT Model 경로(한국어 모델)
-model_path = os.path.abspath("app/model/vosk-model-small-ko-0.22")
-model = Model(model_path)
-
-
-@api_router.post("/stt")
-async def stt(audio: UploadFile = File(...)):
-    try:
-        # 클라이언트에서 전달한 오디오 파일을 받음
-        audio_data = await audio.read()
-
-        # 파일을 Wave로 변환하여 Vosk에 전달
-        with wave.open(io.BytesIO(audio_data), "rb") as wf:
-            recognizer = KaldiRecognizer(model, wf.getframerate())
-            results = []
-            while True:
-                data = wf.readframes(4000)
-                if len(data) == 0:
-                    break
-                if recognizer.AcceptWaveform(data):
-                    results.append(recognizer.Result())
-
-            # 변환된 텍스트 반환
-            final_result = recognizer.FinalResult()
-            response_data = json.loads(final_result)
-            return JSONResponse(content={"transcript": response_data["text"]})
-    except Exception as e:
-        return JSONResponse(content={"error": str(e)}, status_code=400)
-
-
 # 챗봇 API 엔드포인트
 class ChatRequest(BaseModel):
     message: str
 
 @api_router.post("/chatbot")
 async def chat(request: ChatRequest):
+    print(request)
     try:
         response = get_chatbot_response(request.message)  # 서비스 로직 분리
         return {"response": response}

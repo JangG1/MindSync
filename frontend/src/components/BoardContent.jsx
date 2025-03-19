@@ -19,9 +19,11 @@ function BoardContent() {
 
   // 게시물 상세 내용 조회
   useEffect(() => {
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
+
     setIsLoading(true);
     axios
-      .get(`https://mindsync.site:7777/clushAPI/getBoard/${boardNo}`) // 해당 게시물의 ID로 API 호출
+      .get(EX_IP + `/clushAPI/getBoard/${boardNo}`) // 해당 게시물의 ID로 API 호출
       .then((response) => {
         setBoardDetails(response.data); // 상태에 저장
       })
@@ -33,7 +35,7 @@ function BoardContent() {
       });
     // 댓글 조회
     axios
-      .get(`https://mindsync.site:7777/clushAPI/getComments/${boardNo}`) // 해당 게시물의 댓글 조회
+      .get(EX_IP + `/clushAPI/getComments/${boardNo}`) // 해당 게시물의 댓글 조회
       .then((response) => {
         setComments(response.data); // 댓글 목록 상태에 저장
       })
@@ -45,12 +47,13 @@ function BoardContent() {
   // 게시글 수정 (PUT)
   const handleUpdateMessage = () => {
     const pw = process.env.REACT_APP_ADMIN_PASSWORD;
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
     if (boardDetails.nickname == "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
       if (pw == password) {
         axios
-          .put(`https://mindsync.site:7777/clushAPI/updateBoard/${boardNo}`, {
+          .put(EX_IP + `/clushAPI/updateBoard/${boardNo}`, {
             nickname: boardDetails.nickname,
             title: boardDetails.title,
             content: updateContent,
@@ -65,7 +68,7 @@ function BoardContent() {
       }
     } else if (boardDetails.nickname != "관리자") {
       axios
-        .delete(`https://mindsync.site:7777/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
+        .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
         .then((response) => {
           alert("게시물이 삭제되었습니다.");
           window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
@@ -79,12 +82,13 @@ function BoardContent() {
   // 게시물 삭제 함수
   const deleteBoard = () => {
     const pw = process.env.REACT_APP_ADMIN_PASSWORD;
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
     if (boardDetails.nickname == "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
       if (pw == password) {
         axios
-          .delete(`https://mindsync.site:7777/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
+          .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
           .then((response) => {
             alert("게시물이 삭제되었습니다.");
             window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
@@ -97,7 +101,7 @@ function BoardContent() {
       }
     } else if (boardDetails.nickname != "관리자") {
       axios
-        .delete(`https://mindsync.site:7777/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
+        .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
         .then((response) => {
           alert("게시물이 삭제되었습니다.");
           window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
@@ -110,12 +114,15 @@ function BoardContent() {
 
   // 댓글 작성 함수
   const handleAddComment = () => {
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
+
     if (replyData.trim() === "") {
       alert("댓글을 작성해주세요.");
       return;
     }
+
     axios
-      .post("https://mindsync.site:7777/clushAPI/addComment", {
+      .post(EX_IP + "/clushAPI/addComment", {
         boardNo: Number(boardNo),
         nickname: nickname,
         content: replyData,

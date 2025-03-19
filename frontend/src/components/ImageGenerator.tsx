@@ -41,7 +41,7 @@ const App: React.FC = () => {
       }
 
       const response = await axios.post(
-        "https://mindsync.site:8000/api/generate-image",
+        "http://127.0.0.1:8000/api/generate-image",
         { prompt: finalPrompt },
         { responseType: "blob" }
       );

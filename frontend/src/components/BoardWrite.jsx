@@ -9,8 +9,10 @@ function BoardWrite() {
   const [message3, setMessage3] = useState("");
 
   const handleSendMessage = () => {
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
+
     axios
-      .post("https://mindsync.site:7777/clushAPI/boardSave", {
+      .post(EX_IP + "/clushAPI/boardSave", {
         nickname: message1,
         title: message2,
         content: message3,

@@ -8,9 +8,11 @@ function Board() {
   const [isLoading, setIsLoading] = useState(false);
   // 게시판 모든 내용 조회
   useEffect(() => {
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
+
     setIsLoading(true); // 데이터 요청 시작 시 로딩 상태 활성화
     axios
-      .get("https://mindsync.site:7777/clushAPI/getAllBoard")
+      .get(EX_IP + `/clushAPI/getAllBoard`)
       .then((response) => {
         setBoardData(response.data); // 받은 데이터로 상태 업데이트
       })

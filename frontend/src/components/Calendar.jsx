@@ -16,7 +16,7 @@ const MyCalendar = () => {
   );
 
   useEffect(() => {
-    const EX_IP = process.env.REACT_APP_REQUEST_URI;
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
     // 날씨 데이터를 API로부터 가져옴
     axios

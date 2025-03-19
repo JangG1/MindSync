@@ -26,15 +26,15 @@ const TodoApp: React.FC = () => {
     });
   }, []);
   const fetchNews = async (): Promise<void> => {
+    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
+
     if (!keyword) return;
 
     setIsLoading(true); // 데이터 요청 시작 시 로딩 상태 활성화
 
     try {
       const response = await axios.get<{ data: { items: NewsItem[] } }>(
-        `https://mindsync.site:7777/clushAPI/news/${encodeURIComponent(
-          keyword
-        )}`
+        EX_IP + `/clushAPI/news/${encodeURIComponent(keyword)}`
       );
       setNews(response.data.data.items);
       console.log(news);
