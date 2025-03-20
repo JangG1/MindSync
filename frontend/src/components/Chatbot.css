@@ -83,38 +83,33 @@
   opacity: 0.5;
 }
 
-.cbUserMessage {
+.chatMessage {
+  display: flex;
+  margin: 10px 0;
+}
+
+.userMessage {
+  justify-content: flex-end;
+}
+
+.botMessage {
+  justify-content: flex-start;
+}
+
+.bubble {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 70%;
+  word-break: break-word;
+}
+
+.userBubble {
   background-color: rgb(248, 197, 202);
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 20px;
-  max-width: 40%;
-  float: right;
+  border-top-right-radius: 0;
 }
 
-.cbBotMessage {
+.botBubble {
   background-color: #f1f1f1;
-  color: #333;
-  padding: 10px 15px;
-  border-radius: 20px;
-  float: left;
-  max-width: 80%;
-  text-align: left;
-  margin-top: 3%;
-}
-
-.cbUserMessage {
-  display: inline-block;
-  max-width: 70%;
-  background-color: #cce7ff; /* 예시 사용자 메시지 배경 */
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.cbBotMessage {
-  display: inline-block;
-  max-width: 70%;
-  background-color: #f1f1f1; /* 예시 봇 메시지 배경 */
-  padding: 10px;
-  border-radius: 10px;
+  color: black;
+  border-top-left-radius: 0;
 }

@@ -64,7 +64,7 @@ class Message(BaseModel):
     message: str
 
 @api_router.post("/chatbot")
-async def chat(message: Message):    
+async def chat(message: Message):
     try:
         response = get_chatbot_response(message.user, message.message)  # 서비스 로직 분리
         return {"response": response}
