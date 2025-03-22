@@ -16,7 +16,6 @@ r = redis.Redis(host='127.0.0.1', port=6379, decode_responses=True, password="12
 
 
 def translate(text: str, src: str, dest: str) -> str:
-    print("Translate Start")
     """텍스트를 번역 (예: 한글 → 영어, 영어 → 한글)"""
     params = {"q": text, "langpair": f"{src}|{dest}"}
     try:
@@ -28,29 +27,20 @@ def translate(text: str, src: str, dest: str) -> str:
         return text  # 번역 실패 시 원본 반환
 
 
-def get_chatbot_response(user: str, message: str) -> dict:
+def get_chatbot_response(chatNo: str, message: str) -> dict:
     """사용자의 한글 메시지를 처리하고 챗봇 응답을 한글로 반환"""
-    print("Chatbot API Start")
-    print(f"User: {user}, Message: {message}")
 
-    user_chat_key = f"chat_history:{user}"
+    user_chat_key = f"chat_history:{chatNo}"
 
     try:
         # 1. 한글 → 영어 번역
         translated_message = translate(message, "ko", "en")
-        print("translated message")
-        print(translated_message)
+
         # 2. 챗봇 API 요청 (영어)
         payload = {"inputs": translated_message}
-        print("payload")
-        print(payload)
         response = requests.post(CHATBOT_API_URL, headers=HEADERS, json=payload)
-        print("response")
-        print(response)
         response.raise_for_status()
         data = response.json()
-
-        print("?")
 
         chatbot_response_en = (
             data[0]["generated_text"]
@@ -58,10 +48,9 @@ def get_chatbot_response(user: str, message: str) -> dict:
             else "Sorry, I can't generate a response."
         )
         
-        print("??")
         # 3. 챗봇 응답을 한글로 번역
         chatbot_response_ko = translate(chatbot_response_en, "en", "ko")
-        print("번역된 챗봇 응답 : " + chatbot_response_ko)
+
         # 4. Redis에 저장
         r.rpush(user_chat_key, f"User: {message}")
         r.rpush(user_chat_key, f"Chatbot: {chatbot_response_ko}")
@@ -70,8 +59,8 @@ def get_chatbot_response(user: str, message: str) -> dict:
         r.ltrim(user_chat_key, -100, -1)
 
         # 5. 대화 기록 반환
-        chat_history = get_chat_history(user)
-        print(chat_history)
+        chat_history = get_chat_history(chatNo)
+
         return {"response": chatbot_response_ko, "chat_history": chat_history}
 
     except requests.exceptions.RequestException as e:
@@ -80,7 +69,7 @@ def get_chatbot_response(user: str, message: str) -> dict:
         return {"error": f"예상치 못한 오류가 발생했습니다: {e}"}
 
 
-def get_chat_history(user: str) -> list:
+def get_chat_history(chatNo: str) -> list:
     """Redis에서 사용자의 전체 대화 기록 가져오기"""
-    user_chat_key = f"chat_history:{user}"
+    user_chat_key = f"chat_history:{chatNo}"
     return r.lrange(user_chat_key, 0, -1)

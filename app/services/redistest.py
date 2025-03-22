@@ -10,7 +10,7 @@ print("key1:", r.get("1"))
 r.ltrim("chat_history", -100, -1)
 
 # Redis에서 대화 목록 가져오기
-chat_history = r.lrange("chat_history:User1", 0, -1)
+chat_history = r.lrange("chat_history:Chat1", 0, -1)
 
 # 결과 출력
 print("chat list:")
