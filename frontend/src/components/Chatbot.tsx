@@ -109,8 +109,6 @@ const Chatbot: React.FC = () => {
     setActiveChat(0);
     if (activeChat <= chatRooms.length) {
       setActiveChat(chatRooms.length + 1);
-      console.log(chatRooms.length);
-      console.log("현재 활성화 채팅 넘버 " + activeChat);
     }
   };
 
@@ -133,7 +131,7 @@ const Chatbot: React.FC = () => {
           새 채팅방 열기
         </button>
         <br />
-        {chatRooms.length > 0 &&
+        {chatRooms.length > 1 &&
           chatRooms.map((room) => (
             <div key={room} className="chatRoomWrapper">
               <button

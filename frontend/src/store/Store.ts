@@ -63,11 +63,11 @@ export const useChatStore = create<ChatStore>()(
 
       createNewChatRoom: (value) => {
         const newChatId = value; // 새 채팅방 ID 생성 예시
-        set({
-          chatRooms: [newChatId - 1], // 기본 채팅방과 새 채팅방
+        set((state) => ({
+          chatRooms: [...state.chatRooms, newChatId - 1], // 기존 채팅방 유지 + 새 채팅방 추가
           activeChat: newChatId, // 새 채팅방 활성화
           waitingForNewChat: false, // 대기 상태 해제
-        });
+        }));
       },
 
       removeChatRoom: (chatId) => {
@@ -83,7 +83,13 @@ export const useChatStore = create<ChatStore>()(
         });
       },
 
-      setActiveChat: (chatId) => set({ activeChat: chatId }), // 특정 채팅방을 활성화
+      setActiveChat: (value) => {
+        const newChatId = value; // 특정 채팅방을 활성화
+        set({
+          activeChat: newChatId,
+        });
+        console.log("여기는 store : " + newChatId);
+      },
     }),
     { name: "chat-storage" } // 로컬스토리지에 저장
   )
