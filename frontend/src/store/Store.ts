@@ -55,7 +55,7 @@ interface ChatStore {
 export const useChatStore = create<ChatStore>()(
   persist(
     (set) => ({
-      chatRooms: [0], // 기본 채팅방 (영구 저장)
+      chatRooms: [], // 기본 채팅방 (영구 저장)
       activeChat: 1, // 첫 번째 채팅방을 활성화
       waitingForNewChat: false, // 초기 대기 상태는 false
 
@@ -64,7 +64,7 @@ export const useChatStore = create<ChatStore>()(
       createNewChatRoom: (value) => {
         const newChatId = value; // 새 채팅방 ID 생성 예시
         set((state) => ({
-          chatRooms: [...state.chatRooms, newChatId - 1], // 기존 채팅방 유지 + 새 채팅방 추가
+          chatRooms: [...state.chatRooms, newChatId], // 기존 채팅방 유지 + 새 채팅방 추가
           activeChat: newChatId, // 새 채팅방 활성화
           waitingForNewChat: false, // 대기 상태 해제
         }));

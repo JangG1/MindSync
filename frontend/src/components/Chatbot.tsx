@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, act } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Chatbot.css";
 import { useChatStore } from "../store/Store";
@@ -25,11 +25,11 @@ const Chatbot: React.FC = () => {
   });
 
   useEffect(() => {
-    //startNewChat();
-    console.log("chatRooms : " + chatRooms);
-    console.log("activeChat : " + activeChat);
-    console.log("waitingForNewChat : " + waitingForNewChat);
-    // chatHistory가 변경될 때마다 스크롤을 맨 아래로 이동
+    console.log("chatRooms : ", chatRooms);
+    console.log("chatRooms.length : ", chatRooms.length);
+    console.log("activeChat : ", activeChat);
+    console.log("waitingForNewChat : ", waitingForNewChat);
+
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -39,12 +39,13 @@ const Chatbot: React.FC = () => {
     setPrompt(e.target.value);
   };
 
+  // 채팅 히스토리를 서버에서 가져오는 함수
   const getChat = async () => {
     setLoading(true);
     setError("");
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/getChat", {
+      const res = await axios.post(`http://127.0.0.1:8000/api/getChat`, {
         chatNo: "Chat" + activeChat,
       });
 
@@ -62,6 +63,7 @@ const Chatbot: React.FC = () => {
     }
   };
 
+  // 메시지 전송 함수
   const handleSendMessage = async () => {
     if (!prompt.trim()) return;
 
@@ -74,18 +76,15 @@ const Chatbot: React.FC = () => {
         message: prompt,
       });
 
-      // 새로운 채팅방을 생성할 조건 (최신 채팅방 + 1)
-      const newChatId = chatRooms.length + 1;
+      const newChatId = Math.max(...chatRooms, 0) + 1;
       console.log("newChatId : " + newChatId);
 
-      // 새 채팅방을 열 때만 생성하도록 변경
-      if (activeChat + 1 == newChatId) {
+      if (activeChat === newChatId) {
         createNewChatRoom(newChatId); // 새로운 채팅방 생성
         setChatHistory((prev) => ({ ...prev, [newChatId]: [] }));
-        setActiveChat(newChatId); // 숫자 타입으로 활성화
+        setActiveChat(newChatId);
       }
 
-      setActiveChat(activeChat);
       setChatHistory((prev) => ({
         ...prev,
         [activeChat]: res.data.response.chat_history || [],
@@ -98,15 +97,15 @@ const Chatbot: React.FC = () => {
     }
   };
 
+  // 엔터키로 메시지 전송
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSendMessage();
     }
   };
 
-  // 새로운 채팅방 추가
+  // 채팅방 추가 함수
   const handleAddChatRoom = () => {
-    setActiveChat(0);
     if (activeChat <= chatRooms.length) {
       setActiveChat(chatRooms.length + 1);
     }
@@ -114,8 +113,8 @@ const Chatbot: React.FC = () => {
 
   const handleRemoveChatRoom = (chatId: number) => {
     removeChatRoom(chatId);
-    if (activeChat == chatId) {
-      setActiveChat(0); // 삭제한 채팅방이 활성화된 채팅방이라면 활성화된 채팅방을 초기화
+    if (activeChat === chatId) {
+      setActiveChat(0);
     }
   };
 
@@ -131,7 +130,7 @@ const Chatbot: React.FC = () => {
           새 채팅방 열기
         </button>
         <br />
-        {chatRooms.length > 1 &&
+        {chatRooms.length > 0 &&
           chatRooms.map((room) => (
             <div key={room} className="chatRoomWrapper">
               <button
@@ -223,10 +222,7 @@ const Chatbot: React.FC = () => {
             <img
               src="/image/cbSendBtn.PNG"
               alt="전송"
-              onClick={() => {
-                setActiveChat(activeChat);
-                handleSendMessage();
-              }}
+              onClick={handleSendMessage}
               className={loading ? "cbSendBtnLoading2" : "cbSendBtnNotLoading2"}
             />
           </div>
