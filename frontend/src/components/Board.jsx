@@ -82,6 +82,7 @@ function Board() {
           </div>
         )}
       </div>
+      <div className="blank"></div>
     </div>
   );
 }

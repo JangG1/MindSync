@@ -186,6 +186,7 @@ const STT = () => {
           </div>
         )}
       </div>
+      <div className="blank"></div>
     </div>
   );
 };

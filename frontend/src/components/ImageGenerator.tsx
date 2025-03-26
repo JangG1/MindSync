@@ -146,6 +146,7 @@ const App: React.FC = () => {
             ))}
         </div>
       </div>
+      <div className="blank"></div>
     </div>
   );
 };

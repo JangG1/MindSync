@@ -243,6 +243,7 @@ const MyCalendar = () => {
           </Modal>
         )}
       </div>
+      <div className="blank"></div>
     </div>
   );
 };

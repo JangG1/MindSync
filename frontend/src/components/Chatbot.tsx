@@ -14,47 +14,71 @@ const Chatbot: React.FC = () => {
     chatRooms,
     activeChat,
     waitingForNewChat,
-    startNewChat,
+    getInChat,
     removeChatRoom,
     setActiveChat,
     createNewChatRoom,
   } = useChatStore();
 
   const [chatHistory, setChatHistory] = useState<{ [key: string]: string[] }>({
-    Chat1: [],
+    1: [],
   });
 
   useEffect(() => {
+    //getInChat(false);
+    console.log("waitingForNewChat : ", waitingForNewChat);
+    if (!waitingForNewChat) {
+      setActiveChat(chatRooms.length + 1);
+    }
+
     console.log("chatRooms : ", chatRooms);
     console.log("chatRooms.length : ", chatRooms.length);
-    console.log("activeChat : ", activeChat);
-    console.log("waitingForNewChat : ", waitingForNewChat);
+    console.log("초기 activeChat : ", activeChat);
+
+    if (chatRooms.length !== 0) {
+      // 채팅방이 1개라도 있는 경우
+    }
 
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chatHistory]);
+  }, [chatRooms.length]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value);
   };
 
   // 채팅 히스토리를 서버에서 가져오는 함수
-  const getChat = async () => {
+  const getChat = async (roomNo: number) => {
     setLoading(true);
     setError("");
 
+    getInChat(true);
+
     try {
       const res = await axios.post(`http://127.0.0.1:8000/api/getChat`, {
-        chatNo: "Chat" + activeChat,
+        chatNo: "Chat" + roomNo,
       });
 
-      console.log(`채팅 내용 (${activeChat}) 조회:`, res.data.chat_history);
+      console.log(`기존 채팅 내용 (${roomNo}) 조회:`, res.data.chat_history);
 
       setChatHistory((prev) => ({
         ...prev,
-        [activeChat]: res.data.chat_history || [],
+        [roomNo]: res.data.chat_history || [],
       }));
+
+      // 데이터가 로드되었으므로 activeChat을 설정합니다.
+      setActiveChat(roomNo);
+
+      if (res.data.chat_history && res.data.chat_history.length > 0) {
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+      console.log("chatHistory : " + chatHistory[roomNo]);
+      console.log("현재 activeChat : " + activeChat);
     } catch (error) {
       console.error("Error fetching chatbot response:", error);
       setError("챗봇 응답을 가져오는 중 오류가 발생했습니다.");
@@ -76,20 +100,48 @@ const Chatbot: React.FC = () => {
         message: prompt,
       });
 
-      const newChatId = Math.max(...chatRooms, 0) + 1;
+      getInChat(true);
+
+      const newChatId: number = Math.max(...chatRooms, 0) + 1;
       console.log("newChatId : " + newChatId);
+      console.log(
+        `새로운 채팅 내용 (${activeChat}) 조회:`,
+        res.data.response.chat_history
+      );
 
       if (activeChat === newChatId) {
+        console.log("activeChat === newChatId 일치함");
+
         createNewChatRoom(newChatId); // 새로운 채팅방 생성
-        setChatHistory((prev) => ({ ...prev, [newChatId]: [] }));
-        setActiveChat(newChatId);
+
+        setChatHistory((prev) => ({
+          ...prev,
+          [newChatId]: res.data.response.chat_history,
+        }));
+      } else {
+        console.log("기존방[" + activeChat + "]에서 추가 대화");
+        setChatHistory((prev) => ({
+          ...prev,
+          [activeChat]: res.data.response.chat_history || [],
+        }));
       }
 
-      setChatHistory((prev) => ({
-        ...prev,
-        [activeChat]: res.data.response.chat_history || [],
-      }));
+      console.log("chatHistory : " + chatHistory[newChatId]);
+
       setPrompt("");
+
+      if (
+        res.data.response.chat_history &&
+        res.data.response.chat_history.length > 0
+      ) {
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+
+      console.log("현재 activeChat : " + activeChat);
     } catch (error) {
       setError("챗봇 응답을 가져오는 중 오류가 발생했습니다.");
     } finally {
@@ -106,15 +158,19 @@ const Chatbot: React.FC = () => {
 
   // 채팅방 추가 함수
   const handleAddChatRoom = () => {
-    if (activeChat <= chatRooms.length) {
-      setActiveChat(chatRooms.length + 1);
+    getInChat(false);
+    const newChatId = Math.max(...chatRooms, 0) + 1;
+    console.log("handleAddChatRoom : " + newChatId);
+    setActiveChat(newChatId);
+    if (activeChat - 1 === chatRooms.length) {
+      createNewChatRoom(newChatId);
     }
   };
 
   const handleRemoveChatRoom = (chatId: number) => {
     removeChatRoom(chatId);
     if (activeChat === chatId) {
-      setActiveChat(0);
+      getInChat(true);
     }
   };
 
@@ -122,11 +178,7 @@ const Chatbot: React.FC = () => {
     <div className="cb">
       {/* 채팅방 목록 */}
       <div className="chatList">
-        <button
-          className="addChatRoom"
-          onClick={handleAddChatRoom}
-          disabled={waitingForNewChat}
-        >
+        <button className="addChatRoom" onClick={handleAddChatRoom}>
           새 채팅방 열기
         </button>
         <br />
@@ -138,8 +190,7 @@ const Chatbot: React.FC = () => {
                   room === activeChat ? "active" : ""
                 }`}
                 onClick={() => {
-                  setActiveChat(room);
-                  getChat();
+                  getChat(room);
                 }}
               >
                 {room}
@@ -155,14 +206,14 @@ const Chatbot: React.FC = () => {
       </div>
 
       {/* 기본 화면: 새 채팅 시작 안내 */}
-      {!chatHistory[activeChat]?.length ? (
+      {!waitingForNewChat ? (
         <div className="cbPlaceholder">
           <img
             src="/image/MS_Icon.png"
             className="cbPlaceholderImg"
             alt="placeholderImg"
           />
-          <h2>무엇을 도와드릴까요?</h2>
+          <h2>오늘은 무슨일이 있었나요?</h2>
 
           <div className="inputContainer1">
             <input
@@ -171,7 +222,7 @@ const Chatbot: React.FC = () => {
               value={prompt}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder="질문을 입력하세요"
+              placeholder="질문/인사를 해주세요"
             />
             <img
               src="/image/cbSendBtn.PNG"
@@ -185,28 +236,42 @@ const Chatbot: React.FC = () => {
         <div className="cbResBox">
           {error && <div className="error">{error}</div>}
 
-          {chatHistory[activeChat] && (
+          {!loading ? (
             <div className="cbResBox">
-              {chatHistory[activeChat].map((chat, index) => {
-                const isUser = chat.startsWith("User:");
-                return (
-                  <div
-                    ref={chatEndRef}
-                    key={index}
-                    className={`chatMessage ${
-                      isUser ? "userMessage" : "botMessage"
-                    }`}
-                  >
-                    <div
-                      className={`chatBubble ${
-                        isUser ? "userBubble" : "botBubble"
-                      }`}
-                    >
-                      {chat.replace("User:", "").replace("Chatbot:", "").trim()}
-                    </div>
-                  </div>
-                );
-              })}
+              {chatHistory[activeChat]?.length
+                ? chatHistory[activeChat].map((chat, index) => {
+                    const isUser = chat.startsWith("User:");
+                    return (
+                      <div
+                        ref={chatEndRef}
+                        key={index}
+                        className={`chatMessage ${
+                          isUser ? "userMessage" : "botMessage"
+                        }`}
+                      >
+                        <div
+                          className={`chatBubble ${
+                            isUser ? "userBubble" : "botBubble"
+                          }`}
+                        >
+                          {chat
+                            .replace("User:", "")
+                            .replace("Chatbot:", "")
+                            .trim()}
+                        </div>
+                      </div>
+                    );
+                  })
+                : null}
+            </div>
+          ) : (
+            <div className="cbPlaceholder">
+              <img
+                src="/image/MS_Icon.png"
+                className="cbPlaceholderImg"
+                alt="placeholderImg"
+              />
+              <p>응답을 생성하고 있습니다.</p>
             </div>
           )}
 
@@ -217,7 +282,7 @@ const Chatbot: React.FC = () => {
               value={prompt}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder="질문을 입력하세요"
+              placeholder="질문/인사를 해주세요"
             />
             <img
               src="/image/cbSendBtn.PNG"

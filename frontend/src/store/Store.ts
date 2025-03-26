@@ -45,7 +45,7 @@ interface ChatStore {
   chatRooms: number[]; // 채팅방 목록
   activeChat: number; // 현재 활성화된 채팅방
   waitingForNewChat: boolean; // 새 채팅방 대기 상태
-  startNewChat: () => void; // 새 채팅방 시작
+  getInChat: (value: boolean) => void; //
   createNewChatRoom: (message: number) => void; // 채팅방 생성 및 첫 메시지 추가
   removeChatRoom: (chatId: number) => void; // 채팅방 삭제
   setActiveChat: (chatId: number) => void; // 활성 채팅방 변경
@@ -55,18 +55,17 @@ interface ChatStore {
 export const useChatStore = create<ChatStore>()(
   persist(
     (set) => ({
-      chatRooms: [], // 기본 채팅방 (영구 저장)
-      activeChat: 1, // 첫 번째 채팅방을 활성화
-      waitingForNewChat: false, // 초기 대기 상태는 false
+      chatRooms: [],
+      activeChat: 0,
+      waitingForNewChat: false,
 
-      startNewChat: () => set({ activeChat: 1, waitingForNewChat: true }), // 새 채팅방 시작 (대기 상태로 변경)
+      getInChat: (value) => set({ waitingForNewChat: value }),
 
       createNewChatRoom: (value) => {
-        const newChatId = value; // 새 채팅방 ID 생성 예시
+        const newChatId = value;
         set((state) => ({
-          chatRooms: [...state.chatRooms, newChatId], // 기존 채팅방 유지 + 새 채팅방 추가
-          activeChat: newChatId, // 새 채팅방 활성화
-          waitingForNewChat: false, // 대기 상태 해제
+          chatRooms: [...state.chatRooms, newChatId],
+          activeChat: newChatId,
         }));
       },
 
@@ -75,22 +74,30 @@ export const useChatStore = create<ChatStore>()(
           const updatedRooms = state.chatRooms.filter(
             (room) => room !== chatId
           );
+
           return {
-            chatRooms: updatedRooms.length > 0 ? updatedRooms : [1], // 기본 채팅방으로 복귀
-            activeChat: updatedRooms.length > 0 ? updatedRooms[0] : 1, // 첫 채팅방 활성화
-            waitingForNewChat: false, // 대기 상태 해제
+            chatRooms: updatedRooms.length > 0 ? updatedRooms : [1],
+            activeChat: chatId,
+            waitingForNewChat: false,
           };
         });
       },
 
       setActiveChat: (value) => {
-        const newChatId = value; // 특정 채팅방을 활성화
-        set({
-          activeChat: newChatId,
-        });
-        console.log("여기는 store : " + newChatId);
+        set({ activeChat: value });
+        console.log("여기는 store : " + value);
       },
     }),
-    { name: "chat-storage" } // 로컬스토리지에 저장
+    {
+      name: "chat-storage",
+      partialize: (state) => ({
+        chatRooms: state.chatRooms,
+      }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.setActiveChat(state.chatRooms.length + 1);
+        }
+      },
+    }
   )
 );
