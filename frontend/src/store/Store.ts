@@ -4,7 +4,6 @@ import { persist } from "zustand/middleware";
 // 할 일 객체의 타입 정의
 interface Todo {
   id: number;
-  text: string;
   time: string;
 }
 
@@ -40,62 +39,83 @@ export const useStore = create<TodoStore>()(
   )
 );
 
-// Zustand 상태 타입 정의
-interface ChatStore {
-  chatRooms: number[]; // 채팅방 목록
-  activeChat: number; // 현재 활성화된 채팅방
-  waitingForNewChat: boolean; // 새 채팅방 대기 상태
-  getInChat: (value: boolean) => void; //
-  createNewChatRoom: (message: number) => void; // 채팅방 생성 및 첫 메시지 추가
-  removeChatRoom: (chatId: number) => void; // 채팅방 삭제
-  setActiveChat: (chatId: number) => void; // 활성 채팅방 변경
+export interface ChatRoom {
+  roomNo: number;
+  createdAt: string;
 }
 
-// 영구 상태 관리 (persist 사용)
+interface ChatStore {
+  chatRooms: ChatRoom[];
+  activeChat: number; // 활성화된 채팅방의 roomNo
+  waitingForNewChat: boolean;
+  getInChat: (value: boolean) => void;
+  createFirstChatRoom: (roomNo: number) => void;
+  createNewChatRoom: (roomNo: number) => void;
+  removeChatRoom: (roomNo: number) => void;
+  setActiveChat: (roomNo: number) => void;
+}
+
 export const useChatStore = create<ChatStore>()(
   persist(
     (set) => ({
       chatRooms: [],
-      activeChat: 0,
+      activeChat: 1,
       waitingForNewChat: false,
 
       getInChat: (value) => set({ waitingForNewChat: value }),
 
-      createNewChatRoom: (value) => {
-        const newChatId = value;
-        set((state) => ({
-          chatRooms: [...state.chatRooms, newChatId],
-          activeChat: newChatId,
+      createFirstChatRoom: (roomNo) => {
+        const newRoom: ChatRoom = {
+          roomNo,
+          createdAt: new Date().toLocaleDateString(),
+        };
+        set(() => ({
+          chatRooms: [newRoom],
+          activeChat: roomNo,
         }));
       },
 
-      removeChatRoom: (chatId) => {
-        set((state) => {
-          const updatedRooms = state.chatRooms.filter(
-            (room) => room !== chatId
-          );
-
-          return {
-            chatRooms: updatedRooms.length > 0 ? updatedRooms : [1],
-            activeChat: chatId,
-            waitingForNewChat: false,
-          };
-        });
+      createNewChatRoom: (roomNo) => {
+        const newRoom: ChatRoom = {
+          roomNo,
+          createdAt: new Date().toLocaleDateString(),
+        };
+        set((state) => ({
+          chatRooms: [...state.chatRooms, newRoom],
+          activeChat: roomNo,
+        }));
       },
 
-      setActiveChat: (value) => {
-        set({ activeChat: value });
-        console.log("여기는 store : " + value);
+      removeChatRoom: (roomNo) =>
+        set((state) => {
+          const updatedRooms = state.chatRooms.filter(
+            (room) => room.roomNo !== roomNo
+          );
+          return {
+            chatRooms: updatedRooms,
+            activeChat: updatedRooms.length > 0 ? updatedRooms[0].roomNo : 0,
+            waitingForNewChat: false,
+          };
+        }),
+
+      setActiveChat: (roomNo) => {
+        set({ activeChat: roomNo });
+        console.log("Active chat room: " + roomNo);
       },
     }),
     {
       name: "chat-storage",
       partialize: (state) => ({
         chatRooms: state.chatRooms,
+        activeChat: state.activeChat,
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          state.setActiveChat(state.chatRooms.length + 1);
+          state.setActiveChat(
+            state.chatRooms.length > 0
+              ? state.chatRooms[state.chatRooms.length - 1].roomNo
+              : 0
+          );
         }
       },
     }

@@ -91,6 +91,23 @@ async def getChat(request: ChatRequest):
         raise HTTPException(status_code=500, detail=f"Redis 오류 발생: {str(e)}")
 
     
+@api_router.post("/deleteChat")
+async def delete_chat(request: ChatRequest):
+    chat_no = request.chatNo
+    print(chat_no)
+    try:
+        r = redis.Redis(host="127.0.0.1", port=6379, decode_responses=True, password="1234")
+        r.ping()  # Redis 연결 확인
+        result = r.delete(f"chat_history:{chat_no}")
+        
+        if result:
+            return {"message": f"채팅 {chat_no}가 삭제되었습니다."}
+        else:
+            raise HTTPException(status_code=404, detail="채팅을 찾을 수 없습니다.")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Redis 오류 발생: {str(e)}")
+
+
 # '/api/' 접두어로 라우터 포함
 app.include_router(api_router, prefix="/api")
 
