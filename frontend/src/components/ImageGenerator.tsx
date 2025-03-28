@@ -124,7 +124,11 @@ const App: React.FC = () => {
         <div className="createImageBox">
           {loading && (
             <div className="igLoadingBox">
-              <img src="/image/MS_Icon.png" alt="Loading..." />
+              <img
+                src="/image/MS_Icon.png"
+                className="igLoadingImg"
+                alt="Loading..."
+              />
               <p>이미지를 생성하고 있습니다...</p>
             </div>
           )}

@@ -114,13 +114,33 @@
   margin: 10%;
 }
 
-.boardLoading img {
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.LoadingImage {
   width: 100px;
   height: 100px;
+  animation: loadingAnimation 1.5s infinite ease-in-out;
 }
 
 .boardLoading p {
   margin-top: 10px;
   font-size: 18px;
   font-weight: bold;
+}
+
+.boardTemp > img {
+  width: 10%;
 }

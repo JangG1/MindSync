@@ -1,146 +1,360 @@
-import React, { useState, useEffect } from "react";
-import "./Home.css";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import "./Home.css";
+import { useChatStore } from "../store/Store";
 import AOS from "aos";
 
-// 뉴스 아이템 타입 정의
-interface NewsItem {
-  title: string;
-  link: string;
-  thumbnail: string;
-  description: string;
-  originallink: string;
-  pubDate: string;
-}
+const Chatbot: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [prompt, setPrompt] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-const TodoApp: React.FC = () => {
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [keyword, setKeyword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // Zustand에서 상태 가져오기
+  const {
+    chatRooms,
+    activeChat,
+    waitingForNewChat,
+    getInChat,
+    removeChatRoom,
+    setActiveChat,
+    createFirstChatRoom,
+    createNewChatRoom,
+  } = useChatStore();
+
+  const [chatHistory, setChatHistory] = useState<{ [key: string]: string[] }>({
+    1: [],
+  });
 
   useEffect(() => {
+    console.log("activeChat : " + activeChat);
     AOS.init({
-      duration: 1000, // 애니메이션 지속 시간 (ms)
       once: true, // 스크롤 한 번만 애니메이션 실행
-      easing: "ease-in-out", // 애니메이션 가속도
     });
-  }, []);
-  const fetchNews = async (): Promise<void> => {
-    const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
-    if (!keyword) return;
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatHistory]);
 
-    setIsLoading(true); // 데이터 요청 시작 시 로딩 상태 활성화
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrompt(e.target.value);
+  };
+
+  // 채팅 히스토리를 서버에서 가져오는 함수
+  const getChat = async (roomNo: number) => {
+    setLoading(true);
+    setError("");
+
+    getInChat(true);
 
     try {
-      const response = await axios.get<{ data: { items: NewsItem[] } }>(
-        EX_IP + `/clushAPI/news/${encodeURIComponent(keyword)}`
-      );
-      setNews(response.data.data.items);
-      console.log(news);
+      const res = await axios.post(`http://127.0.0.1:8000/api/getChat`, {
+        chatNo: "Chat" + roomNo,
+      });
+
+      setChatHistory((prev) => ({
+        ...prev,
+        [roomNo]: res.data.chat_history || [],
+      }));
+
+      setActiveChat(roomNo);
+
+      if (res.data.chat_history && res.data.chat_history.length > 0) {
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
     } catch (error) {
-      console.error("Error fetching news:", error);
+      console.error("Error fetching chatbot response:", error);
+      setError(
+        "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+      );
     } finally {
-      setIsLoading(false); // 요청 완료 후 로딩 상태 비활성화
+      setLoading(false);
     }
   };
 
-  const cleanChar = (title: string): string => {
-    if (!title) return "";
-    return title
-      .replace(/&quot;/g, '"')
-      .replace(/<br\s*\/?>/g, " ")
-      .replace(/<b>/g, " ")
-      .replace(/<\/b>/g, " ");
+  // 메시지 전송 함수 (새로운 채팅)
+  const handleSendMessage1 = async () => {
+    if (!prompt.trim()) return;
+    setLoading(true);
+    setError("");
+    try {
+      getInChat(true);
+      let roomNo = 1;
+
+      if (chatRooms.length === 0) {
+        // 최초 채팅방 생성 (roomNo 1)
+        const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+          chatNo: "Chat" + roomNo,
+          message: prompt,
+        });
+
+        if (res.data.response.error) {
+          return setError(
+            "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+          );
+        }
+
+        createFirstChatRoom(roomNo);
+        setChatHistory((prev) => ({
+          ...prev,
+          [roomNo]: res.data.response.chat_history,
+        }));
+      } else {
+        // 새로운 채팅방 생성
+        roomNo = Math.max(...chatRooms.map((room) => room.roomNo)) + 1;
+
+        const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+          chatNo: "Chat" + roomNo,
+          message: prompt,
+        });
+
+        if (res.data.response.error) {
+          return setError(
+            "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+          );
+        }
+
+        createNewChatRoom(roomNo);
+        setChatHistory((prev) => ({
+          ...prev,
+          [roomNo]: res.data.response.chat_history,
+        }));
+      }
+      setPrompt("");
+    } catch (error) {
+      setError(
+        "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 메시지 전송 함수 (선택 채팅방 유지)
+  const handleSendMessage2 = async () => {
+    if (!prompt.trim()) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+        chatNo: "Chat" + activeChat,
+        message: prompt,
+      });
+
+      if (res.data.response.error) {
+        return setError(
+          "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+        );
+      }
+
+      setChatHistory((prev) => ({
+        ...prev,
+        [activeChat]: res.data.response.chat_history,
+      }));
+
+      setPrompt("");
+
+      if (
+        res.data.response.chat_history &&
+        res.data.response.chat_history.length > 0
+      ) {
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    } catch (error) {
+      setError(
+        "⚠ 챗봇 응답을 가져오는 중 오류가 발생했습니다. 다시 시도해주세요."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 채팅 삭제 함수
+  const deleteChat = async (roomNo: number) => {
+    setLoading(true);
+    setError("");
+
+    getInChat(false);
+
+    try {
+      const res = await axios.post(`http://127.0.0.1:8000/api/deleteChat`, {
+        chatNo: "Chat" + roomNo,
+      });
+
+      // 삭제 후 채팅방 목록 및 내역 제거
+      removeChatRoom(roomNo);
+      setChatHistory((prev) => {
+        const newHistory = { ...prev };
+        delete newHistory[roomNo];
+        return newHistory;
+      });
+      console.log(`채팅방 ${roomNo} 삭제 완료`);
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+      setError("⚠ 채팅 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 엔터키로 메시지 전송
+  const handleKeyDown1 = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSendMessage1();
+    }
+  };
+  const handleKeyDown2 = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSendMessage2();
+    }
+  };
+
+  // 채팅방 추가 함수
+  const handleAddChatRoom = () => {
+    getInChat(false);
   };
 
   return (
-    <div>
-      <div className="newsSearchBar">
-        <img src="/image/logo.jpg" alt="Loading..." />
-        <input
-          type="text"
-          value={keyword}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setKeyword(e.target.value)
-          }
-          className="newsSearchInputBar"
-          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === "Enter") {
-              fetchNews();
-            }
-          }}
-        />
-        <button className="newsSearchBtn" onClick={fetchNews}>
-          🧠
+    <div className="cb">
+      {/* 채팅방 목록 */}
+      <div className="chatList">
+        <button className="addChatRoom" onClick={handleAddChatRoom}>
+          새 채팅방 열기
         </button>
+        <div className="cbChatList">
+          <div className="cbChatListImg">
+            <img src="/image/MS_Icon.png" alt="placeholderImg" />
+          </div>
+          <div className="cbChatListText">
+            <span>채팅 기록</span>
+          </div>
+        </div>
+        <br />
+        {chatRooms.length > 0 &&
+          chatRooms
+            .sort((a, b) => b.roomNo - a.roomNo) // roomNo에 의한 숫자 정렬
+            .map((room) => (
+              <div key={room.roomNo} className="chatRoomWrapper">
+                <button
+                  className={`chatRoomButton ${
+                    room.roomNo === activeChat ? "active" : ""
+                  }`}
+                  onClick={() => getChat(room.roomNo)}
+                >
+                  {room.roomNo} (생성일: {room.createdAt})
+                  <button
+                    className="removeChatRoomButton"
+                    onClick={() => deleteChat(room.roomNo)}
+                  >
+                    X
+                  </button>
+                </button>
+              </div>
+            ))}
       </div>
 
-      {/* ✅ 로딩 중 화면 표시 */}
-      {isLoading ? (
-        <div className="newsLoading">
-          <img src="/image/MS_Icon.png" alt="Loading..." />
-          <br />
-          <p>뉴스를 불러오는 중...</p>
-        </div>
-      ) : news.length > 0 ? (
-        <div className="newsCellBody">
-          {news.map((item, index) => (
-            <div key={index} className="newsCell">
-              <div className="newsInfo">
-                <div className="newsCellTitle">
-                  <a
-                    href={item.originallink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {cleanChar(item.title)}
-                  </a>
-                </div>
-                <br />
-                <div className="newsCellDesc">
-                  <a
-                    href={item.originallink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {cleanChar(item.description)}
-                  </a>
-                </div>
-                <br />
-                <div className="newsCellDate">
-                  {new Date(item.pubDate).toLocaleString()}
-                </div>
-              </div>
+      {/* 기본 화면: 새 채팅 시작 안내 */}
+      {!waitingForNewChat ? (
+        <div className="cbPlaceholder">
+          <img
+            src="/image/MS_Icon.png"
+            className="cbPlaceholderImg"
+            alt="placeholderImg"
+            data-aos="fade-right"
+            data-aos-duration="1500"
+          />
+          <h2>오늘은 무슨일이 있었나요?</h2>
 
-              <div className="newsThumbnailBox">
-                <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={item.thumbnail || "/image/MS_Icon.png"} // 썸네일이 없으면 기본 이미지를 사용
-                    alt=""
-                    className="newsThumbnail"
-                  />
-                </a>
-              </div>
-            </div>
-          ))}
+          <div className="inputContainer1">
+            <input
+              className="cbTextBar1"
+              type="text"
+              value={prompt}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown1}
+              placeholder="질문/인사를 해주세요"
+            />
+            <img
+              src="/image/cbSendBtn.PNG"
+              alt="전송"
+              onClick={handleSendMessage1}
+              className={loading ? "cbSendBtnLoading1" : "cbSendBtnNotLoading1"}
+            />
+          </div>
         </div>
       ) : (
-        <div className="newsCellBodyTemp">
-          <div
-            className="newsCellBodyTempText"
-            data-aos="fade-down"
-            data-aos-duration="1500"
-          >
-            무엇이든 검색해보세요!
-          </div>
-          <br />
-          <div className="newsCellBodyTempImage">
+        <div className="cbResBox">
+          {error && <div className="error">{error}</div>}
+
+          {!loading ? (
+            <div className="cbResBox">
+              {chatHistory[activeChat]?.length
+                ? chatHistory[activeChat].map((chat, index) => {
+                    const isUser = chat.startsWith("User:");
+                    return (
+                      <div
+                        ref={chatEndRef}
+                        key={index}
+                        className={`chatMessage ${
+                          isUser ? "userMessage" : "botMessage"
+                        }`}
+                      >
+                        {!isUser && (
+                          <img
+                            src="/image/MS_Icon.png"
+                            alt="챗봇 아이콘"
+                            className="chatBotIcon"
+                          />
+                        )}
+                        <div
+                          className={`chatBubble ${
+                            isUser ? "userBubble" : "botBubble"
+                          }`}
+                        >
+                          {chat
+                            .replace("User:", "")
+                            .replace("Chatbot:", "")
+                            .trim()}
+                        </div>
+                      </div>
+                    );
+                  })
+                : null}
+            </div>
+          ) : (
+            <div className="cbLoading">
+              <img
+                src="/image/MS_Icon.png"
+                className="cbLoadingImg"
+                alt="로딩 아이콘"
+              />
+              <div>챗봇이 답변을 준비 중입니다...</div>
+            </div>
+          )}
+
+          <div className="inputContainer2">
+            <input
+              className="cbTextBar2"
+              type="text"
+              value={prompt}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown2}
+              placeholder="질문/인사를 해주세요"
+            />
             <img
-              src="/image/MS_Icon.png"
-              alt="Loading..."
-              data-aos="fade-right"
-              data-aos-duration="1500"
+              src="/image/cbSendBtn.PNG"
+              alt="전송"
+              onClick={handleSendMessage2}
+              className={loading ? "cbSendBtnLoading2" : "cbSendBtnNotLoading2"}
             />
           </div>
         </div>
@@ -149,4 +363,4 @@ const TodoApp: React.FC = () => {
   );
 };
 
-export default TodoApp;
+export default Chatbot;

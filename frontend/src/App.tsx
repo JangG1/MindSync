@@ -10,7 +10,7 @@ import Calendar from "./components/Calendar";
 import Board from "./components/Board";
 import BoardWrite from "./components/BoardWrite";
 import BoardContent from "./components/BoardContent";
-import Chatbot from "./components/Chatbot";
+import News from "./components/News";
 
 // BurgerModal 상태를 관리하는 타입
 type BurgerModalState = boolean;
@@ -33,17 +33,17 @@ const App: React.FC = () => {
     <Router>
       <div className="appContainer">
         {/* 네비게이션 바 */}
-        <div className="menuBar">
-          <img
-            src="/image/burgerBtn.png"
-            className="burgerMenuBtn"
-            onClick={toggleBurgerModal}
-            alt="메뉴 버튼"
-          />
-
-          <div>
+        <div className="menuBarOut">
+          <div className="burgerMenuBtn">
+            <img
+              src="/image/burgerBtn.png"
+              onClick={toggleBurgerModal}
+              alt="메뉴 버튼"
+            />
+          </div>
+          <div className="logo">
             <a href="/">
-              <img src="/image/logo.jpg" className="logo" alt="로고" />
+              <img src="/image/logo.jpg" alt="로고" />
             </a>
           </div>
         </div>
@@ -54,7 +54,7 @@ const App: React.FC = () => {
             <Route path="/ImageGenerator" element={<ImageGenerator />} />
             <Route path="/ToDo" element={<ToDo />} />
             <Route path="/Calendar" element={<Calendar />} />
-            <Route path="/Chatbot" element={<Chatbot />} />
+            <Route path="/News" element={<News />} />
             <Route path="/Board" element={<Board />} />
             <Route path="/BoardWrite" element={<BoardWrite />} />
             <Route path="/BoardContent/:boardNo" element={<BoardContent />} />
@@ -71,18 +71,18 @@ const App: React.FC = () => {
 
         {/* 버거 메뉴 모달 */}
         <div className={`burgerMenu ${isBurgerModalVisible ? "show" : "hide"}`}>
-          <div className="menuBar">
-            {/* 내부 햄버거 버튼 클릭 시 닫기 */}
-            <img
-              src="/image/burgerBtn.png"
-              className="burgerMenuBtn"
-              onClick={toggleBurgerModal}
-              alt="닫기 버튼"
-            />
-
-            <div>
+          {/* 내부 햄버거 버튼 클릭 시 닫기 */}
+          <div className="menuBarIn">
+            <div className="burgerMenuBtn">
+              <img
+                src="/image/burgerBtn.png"
+                onClick={toggleBurgerModal}
+                alt="메뉴 버튼"
+              />
+            </div>
+            <div className="logo">
               <a href="/">
-                <img src="/image/logo.jpg" className="logo" alt="로고" />
+                <img src="/image/logo.jpg" alt="로고" />
               </a>
             </div>
           </div>
@@ -107,8 +107,8 @@ const App: React.FC = () => {
             </div>
             <br />
             <div className="burgerLinkLink">
-              <Link to="/Chatbot" onClick={toggleBurgerModal}>
-                Chatbot
+              <Link to="/News" onClick={toggleBurgerModal}>
+                News
               </Link>
             </div>
             <br />

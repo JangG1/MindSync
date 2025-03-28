@@ -112,9 +112,25 @@
   height: 55%;
 }
 
-.igLoadingBox > img {
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.igLoadingImg {
   width: 36%;
   height: 55%;
   text-align: center;
   color: #888;
+  animation: loadingAnimation 1.5s infinite ease-in-out;
 }

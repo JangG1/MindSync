@@ -78,7 +78,8 @@ function Board() {
           ))
         ) : (
           <div className="boardTemp" style={styles.boardTemp}>
-            게시글이 없습니다.
+            <img src="/image/MS_Icon.png" alt="Placeholder" />
+            <h3>게시글이 없습니다.</h3>
           </div>
         )}
       </div>

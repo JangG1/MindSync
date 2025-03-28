@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 // 할 일 객체의 타입 정의
 interface Todo {
   id: number;
+  text: string;
   time: string;
 }
 
@@ -65,9 +66,13 @@ export const useChatStore = create<ChatStore>()(
       getInChat: (value) => set({ waitingForNewChat: value }),
 
       createFirstChatRoom: (roomNo) => {
+        const currentTime = new Date()
+          .toISOString() // UTC로 ISO 형식 (YYYY-MM-DDTHH:mm:ss.sssZ)
+          .slice(0, 10) // 'YYYY-MM-DDTHH:mm' 까지 자르고
+          .replace("T", " "); // 'T'를 공백으로 변경하여 'YYYY-MM-DD HH:mm' 형식으로 저장
         const newRoom: ChatRoom = {
           roomNo,
-          createdAt: new Date().toLocaleDateString(),
+          createdAt: currentTime,
         };
         set(() => ({
           chatRooms: [newRoom],
@@ -76,9 +81,13 @@ export const useChatStore = create<ChatStore>()(
       },
 
       createNewChatRoom: (roomNo) => {
+        const currentTime = new Date()
+          .toISOString()
+          .slice(0, 10)
+          .replace("T", " ");
         const newRoom: ChatRoom = {
           roomNo,
-          createdAt: new Date().toLocaleDateString(),
+          createdAt: currentTime,
         };
         set((state) => ({
           chatRooms: [...state.chatRooms, newRoom],
@@ -93,7 +102,7 @@ export const useChatStore = create<ChatStore>()(
           );
           return {
             chatRooms: updatedRooms,
-            activeChat: updatedRooms.length > 0 ? updatedRooms[0].roomNo : 0,
+            activeChat: updatedRooms.length > 0 ? updatedRooms[0].roomNo : 1,
             waitingForNewChat: false,
           };
         }),
@@ -114,7 +123,7 @@ export const useChatStore = create<ChatStore>()(
           state.setActiveChat(
             state.chatRooms.length > 0
               ? state.chatRooms[state.chatRooms.length - 1].roomNo
-              : 0
+              : 1
           );
         }
       },

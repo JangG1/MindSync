@@ -119,19 +119,27 @@ const STT = () => {
         </div>
         <div className="todoList">
           <div className="todoListTitle">TO-DO LIST</div>
-          {todos.map((todo) => (
-            <div className="todoIdx" key={todo.id}>
-              <div className="todoTime">{todo.time}</div>
-              <div className="todoText">{todo.text}</div>
 
-              <button
-                className="todoDeleteBtn"
-                onClick={() => deleteTodo(todo.id)}
-              >
-                X
-              </button>
+          {todos.length === 0 ? (
+            <div className="todoPlaceholder">
+              <img src="/image/MS_Icon.png" alt="Placeholder" />
+              <h3>일정을 추가해주세요.</h3>
             </div>
-          ))}
+          ) : (
+            todos.map((todo) => (
+              <div className="todoIdx" key={todo.id}>
+                <div className="todoTime">{todo.time}</div>
+                <div className="todoText">{todo.text}</div>
+
+                <button
+                  className="todoDeleteBtn"
+                  onClick={() => deleteTodo(todo.id)}
+                >
+                  X
+                </button>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

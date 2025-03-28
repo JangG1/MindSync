@@ -1,6 +1,7 @@
 .custom-calendar {
-  width: 95%;
-  margin-left: 2.5%;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 2%;
 }
 
 .calendar-title {
@@ -261,4 +262,31 @@
   color: #2c3e50;
 }
 
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.calLoading {
+  height: 55vh;
+  text-align: center;
+}
+
+.calLoadingImg {
+  position: relative;
+  margin-top: 80px;
+  width: 70px;
+  height: 70px;
+  animation: loadingAnimation 1.5s infinite ease-in-out;
+}
 /* 날씨 모달 스타일 끝 */

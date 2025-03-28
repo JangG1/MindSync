@@ -10,6 +10,7 @@ const MyCalendar = () => {
   const [weatherData, setWeatherData] = useState(null); // 날씨 데이터를 저장할 상태
   const [isWeatherModalVisible, setIsWeatherModalVisible] = useState(false); // 날씨 정보 모달 상태
   const [isDateAddModalVisible, setIsDateAddModalVisible] = useState(false); // 일정 추가 모달 상태
+  const [isLoading, setIsLoading] = useState(false);
   const today = dayjs();
   const validDates = Array.from({ length: 5 }, (_, i) =>
     today.add(i + 1, "day").format("YYYY-MM-DD")
@@ -17,7 +18,7 @@ const MyCalendar = () => {
 
   useEffect(() => {
     const EX_IP = process.env.REACT_APP_API_URL_JAVA;
-
+    setIsLoading(true);
     // 날씨 데이터를 API로부터 가져옴
     axios
       .get(EX_IP + `/clushAPI/weather`)
@@ -27,6 +28,8 @@ const MyCalendar = () => {
       .catch((error) => {
         console.error("날씨 데이터를 가져오는 데 실패했습니다:", error);
       });
+
+    setIsLoading(false);
   }, []);
 
   const weatherModal = (value) => {
@@ -214,32 +217,46 @@ const MyCalendar = () => {
 
       <div>
         {/* 날씨 모달 */}
-        {isWeatherModalVisible && selectedDate && weatherData && (
+        {isWeatherModalVisible && (
           <Modal
             visible={isWeatherModalVisible}
             onCancel={() => setIsWeatherModalVisible(false)}
             footer={null}
           >
-            <div className="weatherModal">
-              <div className="weatherModalLeft">
-                {/* 날씨 데이터에 기반한 정보 출력 */}
-                <div className="weatherTitle">날씨</div>
-                <p>{selectedDate}</p>
-                <p>기온: {weatherData[selectedDate]?.avg_temp}°C</p>
-                <p>최고 기온: {weatherData[selectedDate]?.max_temp}°C</p>
-                <p>최저 기온: {weatherData[selectedDate]?.min_temp}°C</p>
-                <p>습도: {weatherData[selectedDate]?.humidity}%</p>
-                <p>
-                  날씨: {translateWeather(weatherData[selectedDate]?.weather)}
-                </p>
-              </div>
-              <div className="weatherModalRight">
+            {isLoading ? (
+              <div className="calLoading">
                 <img
-                  src={getWeatherImage(weatherData[selectedDate]?.weather)}
-                  className="weatherRightImage"
+                  src="/image/MS_Icon.png"
+                  className="calLoadingImg"
+                  alt="loading"
                 />
+                <p>날씨 정보를 불러오고 있습니다.</p>
               </div>
-            </div>
+            ) : (
+              selectedDate &&
+              weatherData && (
+                <div className="weatherModal">
+                  <div className="weatherModalLeft">
+                    <div className="weatherTitle">날씨</div>
+                    <p>{selectedDate}</p>
+                    <p>기온: {weatherData[selectedDate]?.avg_temp}°C</p>
+                    <p>최고 기온: {weatherData[selectedDate]?.max_temp}°C</p>
+                    <p>최저 기온: {weatherData[selectedDate]?.min_temp}°C</p>
+                    <p>습도: {weatherData[selectedDate]?.humidity}%</p>
+                    <p>
+                      날씨:{" "}
+                      {translateWeather(weatherData[selectedDate]?.weather)}
+                    </p>
+                  </div>
+                  <div className="weatherModalRight">
+                    <img
+                      src={getWeatherImage(weatherData[selectedDate]?.weather)}
+                      className="weatherRightImage"
+                    />
+                  </div>
+                </div>
+              )
+            )}
           </Modal>
         )}
       </div>

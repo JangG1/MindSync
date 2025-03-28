@@ -1,171 +1,310 @@
-.newsBody {
-  margin-left: 2%;
-  width: 57%;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 70px rgba(0, 0, 0, 0.5);
-  padding: 3% 1% 2% 1%;
-}
-
-.newsSearchBar {
-  width: 50%;
-  height: 52px;
-  border: 4px solid rgb(248, 197, 202);
-  border-radius: 8px;
-  margin-top: 2%;
-  margin-right: 1%;
-  display: flex;
-  margin-left: 25%;
-}
-
-.newsSearchBar > img {
-  width: 110px;
-  height: 22px;
-  padding: 1.7% 0% 0% 1%;
-  opacity: 0.8;
-}
-
-.newsSearchInputBar {
-  width: 90%;
-  height: 45px;
-  border: none;
-  margin-left: 2px;
-  padding: 6px 12px 1px 12px;
-  margin-bottom: 5%;
-  font-size: 24px;
-  font-family: NanumBarunGothic;
-  font-weight: bold;
-}
-
-.newsSearchInputBar:focus {
-  outline: none !important;
-  text-decoration: none;
-}
-
-.newsSearchBtn {
-  width: 10%;
-  height: 100%;
-  background-color: rgb(248, 197, 202);
-  color: white;
-  border: 4px solid rgb(248, 197, 202);
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  cursor: pointer;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 3px;
-  margin-left: 0.3%;
-}
-
-.newsCellBody {
-  width: 95%;
-  margin-left: 1.5%;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
-  padding: 0.3% 1% 1% 1%;
-  margin-top: 2%;
-}
-
-.newsCell {
-  border: 2px solid rgb(248, 197, 202);
-  border-radius: 4px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-  padding: 1% 2% 1% 2%;
+.cb {
+  width: 100%;
+  height: 100vh;
   margin-top: 1%;
   display: flex;
-  justify-content: space-between; /* 양쪽 정렬 */
+}
+
+.chatList {
+  background-color: #edecec;
+  width: 24%;
+  margin-top: -50%;
+  margin-left: -1%;
+  padding-top: 55%;
+}
+
+.cbChatList {
+  display: flex; /* 가로로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
+  height: 5%;
 }
 
-.newsThumbnailBox {
-  padding-top: 1%;
+.cbChatListImg {
+  width: 40%;
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
 }
 
-.newsThumbnail {
-  max-width: 250px;
-  max-height: 250px;
+.cbChatListImg > img {
+  width: 30%;
+  padding-left: 70%;
+}
+
+.cbChatListText {
+  width: 60%;
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+}
+
+.cbChatListText > span {
+  font-size: 6px;
+  padding-left: 5%;
+}
+
+.addChatRoom {
+  background-color: rgb(248, 197, 202);
+  color: white;
+  width: 40%;
+  max-width: 40%;
+  max-height: 80px; /* 높이 고정 */
+  margin: 7% 0% 7% 30%;
+  padding: 4% 2% 4% 2%;
+  border: none;
+  border-radius: 6px;
+  font-size: 4px;
+  cursor: pointer;
+}
+
+.addChatRoom:hover {
+  box-shadow: 5px 5px 5px rgba(248, 197, 202, 0.5);
+}
+
+.chatRoomButton {
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0);
+  width: 80%;
+  margin: 0% 0% 2% 12.5%;
+  padding: 4% 4% 4% 4%;
+  border: none;
   border-radius: 4px;
+  font-size: 6px;
+  cursor: pointer;
 }
 
-.newsInfo {
+.chatRoomButton:hover {
+  width: 80%;
+  background-color: #cacaca; /* 배경색 변경 */
+  color: #333; /* 글자색 변경 */
+  transform: scale(1.05); /* 살짝 확대 */
+  transition: all 0.2s ease-in-out;
 }
 
-.newsCellNewsLink {
-  border: 2px solid rgb(248, 197, 202);
-  border-radius: 4px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-  padding: 0.5% 1% 0.5% 1%;
+.removeChatRoomButton {
+  background-color: rgba(0, 0, 0, 0);
+  width: 1%;
+  border: none;
+  float: right;
+  margin: 2px 0 0 0;
+  font-size: 10px;
+  color: #edecec;
+  cursor: pointer;
 }
 
-.newsCellTitle {
-  margin-top: 2%;
+.removeChatRoomButton:hover {
+  color: #696969;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.cbLoadingImg {
+  animation: loadingAnimation 1.5s infinite ease-in-out;
+}
+
+.cbPlaceholder,
+.cbLoading {
+  width: 100%;
+  height: 55vh;
+  padding: 8% 2% 2% 0%;
+  text-align: center;
+}
+
+.cbPlaceholderImg,
+.cbLoadingImg {
+  width: 10%;
+  height: 35%;
+}
+
+.inputContainer1 {
+  width: 50%;
+  height: 25vh !important;
+  margin-top: 1%;
+  margin-bottom: 5%;
+  margin-left: 25%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  font-size: 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.inputContainer2 {
+  width: 40%;
+  height: 25vh !important;
+  margin-top: 1%;
   margin-bottom: 1%;
-  font-size: 30px;
+  margin-left: 39.5%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  font-size: 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  position: fixed;
 }
 
-.newsCellTitle > a {
-  color: #111;
-  text-decoration: none;
+.cbTextBar1 {
+  width: 88%;
+  height: 20vh;
+  padding: 1% 1% 4% 1%;
+  border: none;
+  outline: none;
 }
 
-.newsCellDesc {
-  padding-right: 5%;
+.cbTextBar2 {
+  width: 88%;
+  height: 18.5vh;
+  padding: 3% 1% 1% 1%;
+  border: none;
+  outline: none;
 }
 
-.newsCellDesc > a {
-  color: #111;
-  text-decoration: none;
-}
-
-.newsCellTitle :hover,
-.newsCellDesc :hover,
-.newsCellTitle :visited,
-.newsCellDesc :visited {
-  color: #777;
-}
-
-.newsCellDate {
-  margin-top: 4%;
-  float: left;
-  color: #333;
-}
-
-.newsCellBodyTempText {
-  margin-top: 5%;
+.cbSendBtnNotLoading1,
+.cbSendBtnLoading1 {
+  width: 8%;
+  height: 6vh;
+  background-color: rgb(248, 197, 202);
+  color: white;
+  border: none;
+  margin: 20% 1% 1% 1%;
+  border-radius: 4px;
+  cursor: pointer;
   text-align: center;
-  font-size: 30px;
-  color: #555;
+  overflow: hidden;
 }
 
-.newsCellBodyTempImage {
+.cbSendBtnNotLoading2,
+.cbSendBtnLoading2 {
+  width: 8%;
+  height: 6vh;
+  background-color: rgb(248, 197, 202);
+  color: white;
+  border: none;
+  margin: 20% 1% 1% 1%;
+  border-radius: 4px;
+  cursor: pointer;
   text-align: center;
+  overflow: hidden;
+  font-size: 14px;
 }
 
-.newsCellBodyTempImage > img {
-  width: 15%;
+.cbSendBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.newsLoading {
+.cbSendBtnLoading1,
+.cbSendBtnLoading2 {
+  opacity: 0.5;
+}
+
+.cbResBox {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  width: 95%;
-  margin-left: 1.5%;
-  border: none;
-  padding: 0.3% 1% 1% 1%;
-  margin-top: 10%;
+  gap: 10px;
+  width: 100%;
+  height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1% 3% 1% 1%;
 }
 
-.newsLoading img {
-  width: 100px;
-  height: 100px;
+.cbResBox::-webkit-scrollbar {
+  display: none;
 }
 
-.newsLoading p {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
+.chatMessage {
+  width: 100%;
+  display: flex;
+}
+
+.userMessage {
+  justify-content: flex-end;
+}
+
+.botMessage {
+  justify-content: flex-start;
+}
+
+.chatBubble {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.userBubble {
+  background-color: rgb(248, 197, 202);
+  border-radius: 10px 10px 0 10px;
+}
+
+.botBubble {
+  background-color: #e5e5ea;
+  color: black;
+  border-radius: 10px 10px 10px 0;
+}
+
+.chatBotIcon {
+  width: 3%;
+  margin: 0% 1% 0% 0%;
+}
+
+.error {
+  text-align: center;
+  padding: 2% 2% 2% 2%;
+  border-radius: 12px;
+  width: 90%;
+  margin-left: 5%;
+  color: red;
+  background-color: rgb(248, 197, 202);
+}
+
+@media (min-width: 1000px) {
+  .addChatRoom,
+  .cbChatListText > span,
+  .chatRoomButton,
+  .cbSendBtnNotLoading1,
+  .cbSendBtnLoading1,
+  .cbSendBtnNotLoading2,
+  .cbSendBtnLoading2 {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .addChatRoom,
+  .cbChatListText > span,
+  .chatRoomButton,
+  .cbSendBtnNotLoading1,
+  .cbSendBtnLoading1,
+  .cbSendBtnNotLoading2,
+  .cbSendBtnLoading2 {
+    font-size: 18px;
+  }
 }
