@@ -29,9 +29,9 @@ templates = Jinja2Templates(directory="app/templates")
 # CORS 미들웨어 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # React 클라이언트만 허용
+    allow_origins=["*"],  # React 클라이언트만 허용
     allow_credentials=True,
-    allow_methods=["POST", "GET"], # 불필요한 DELETE, PUT 제한
+    allow_methods=["*"], # 불필요한 DELETE, PUT 제한
     allow_headers=["*"],  # 모든 헤더 허용
 )
 
