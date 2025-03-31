@@ -27,8 +27,5 @@ jobs:
     - name: Deploy Frontend to Oracle VM
       run: |
         sshpass -p "${{ secrets.SUDO_PASSWORD }}" ssh -v -o StrictHostKeyChecking=no dio@192.168.56.1 'bash -s' << EOF
-          echo "permission for fonts"
-          echo "${SUDO_PASSWORD}" | sudo -S chmod u+w /mindsync/frontend/build/fonts/*
-          echo "${SUDO_PASSWORD}" | sudo -S chown dio:dio /mindsync/frontend/build/fonts/*
           /mindsync/deploy_front.sh
         EOF
