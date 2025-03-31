@@ -3,6 +3,9 @@
 # Ignoring specific React file
 MindSync/app/env
 MindSync/frontend/env
+MindSync/runserver.bat
+MindSync/.gitignore
+MindSync/.gitattributes
 
 .github/workflows
 
