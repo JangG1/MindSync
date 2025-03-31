@@ -11,12 +11,39 @@
   margin-top: -50%;
   margin-left: -1%;
   padding-top: 55%;
+  overflow-y: auto;
+}
+
+.addChatRoom {
+  background-color: rgb(248, 197, 202);
+  color: white;
+  width: 40%;
+  max-width: 40%;
+  max-height: 80px; /* 높이 고정 */
+  margin: 7% 0% 14% 30%;
+  padding: 4% 2% 4% 2%;
+  border: none;
+  border-radius: 6px;
+  font-size: 6px;
+  cursor: pointer;
+}
+
+.addChatRoom:hover {
+  box-shadow: 5px 5px 5px rgba(248, 197, 202, 0.5);
+}
+
+.blankChatList {
+  text-align: center;
+  margin-top: 10%;
+  font-size: 4px;
+  color: #888;
 }
 
 .cbChatList {
   display: flex; /* 가로로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   height: 5%;
+  margin-bottom: 5%;
 }
 
 .cbChatListImg {
@@ -28,7 +55,7 @@
 
 .cbChatListImg > img {
   width: 30%;
-  padding-left: 70%;
+  padding-left: 73%;
 }
 
 .cbChatListText {
@@ -43,30 +70,21 @@
   padding-left: 5%;
 }
 
-.addChatRoom {
-  background-color: rgb(248, 197, 202);
-  color: white;
-  width: 40%;
-  max-width: 40%;
-  max-height: 80px; /* 높이 고정 */
-  margin: 7% 0% 7% 30%;
-  padding: 4% 2% 4% 2%;
-  border: none;
-  border-radius: 6px;
-  font-size: 4px;
-  cursor: pointer;
+.dateGroupWrapper {
+  margin-bottom: 8%;
 }
 
-.addChatRoom:hover {
-  box-shadow: 5px 5px 5px rgba(248, 197, 202, 0.5);
+.dateTitle {
+  font-size: 8px;
+  margin: 1% 0% 2% 15%;
 }
 
 .chatRoomButton {
   text-align: left;
   background-color: rgba(0, 0, 0, 0);
   width: 80%;
-  margin: 0% 0% 2% 12.5%;
-  padding: 4% 4% 4% 4%;
+  margin: 0% 0% 0% 12.5%;
+  padding: 3% 4% 2% 4%;
   border: none;
   border-radius: 4px;
   font-size: 6px;
@@ -86,8 +104,7 @@
   width: 1%;
   border: none;
   float: right;
-  margin: 2px 0 0 0;
-  font-size: 10px;
+  font-size: 6px;
   color: #edecec;
   cursor: pointer;
 }
@@ -126,7 +143,8 @@
 .cbPlaceholderImg,
 .cbLoadingImg {
   width: 10%;
-  height: 35%;
+  height: 32%;
+  margin-top: 5%;
 }
 
 .inputContainer1 {
@@ -141,11 +159,10 @@
   height: 55px;
   color: white;
   font-weight: bold;
-  display: flex;
   font-size: 14px;
-
   border: 1px solid #ccc;
   border-radius: 5px;
+  position: relative;
 }
 
 .inputContainer2 {
@@ -153,34 +170,35 @@
   height: 25vh !important;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 39.5%;
+  margin-left: 38.1%;
   bottom: 0;
   left: 0;
   right: 0;
   height: 55px;
   color: white;
   font-weight: bold;
-  display: flex;
   font-size: 14px;
-
   border: 1px solid #ccc;
   border-radius: 5px;
-
-  position: fixed;
+  position: absolute;
 }
 
 .cbTextBar1 {
   width: 88%;
   height: 20vh;
-  padding: 1% 1% 4% 1%;
+  padding: 1% 1% 4% 0%;
+  font-size: 20px;
   border: none;
   outline: none;
+  left: 2%;
+  position: absolute;
 }
 
 .cbTextBar2 {
   width: 88%;
   height: 18.5vh;
   padding: 3% 1% 1% 1%;
+  font-size: 20px;
   border: none;
   outline: none;
 }
@@ -188,28 +206,30 @@
 .cbSendBtnNotLoading1,
 .cbSendBtnLoading1 {
   width: 8%;
-  height: 6vh;
+  height: 5vh;
+  bottom: 3%;
+  right: 1%;
+  position: absolute;
   background-color: rgb(248, 197, 202);
   color: white;
   border: none;
-  margin: 20% 1% 1% 1%;
   border-radius: 4px;
   cursor: pointer;
-  text-align: center;
   overflow: hidden;
 }
 
 .cbSendBtnNotLoading2,
 .cbSendBtnLoading2 {
   width: 8%;
-  height: 6vh;
+  height: 5vh;
   background-color: rgb(248, 197, 202);
   color: white;
   border: none;
-  margin: 20% 1% 1% 1%;
+  bottom: 3%;
+  right: 1%;
+  position: absolute;
   border-radius: 4px;
   cursor: pointer;
-  text-align: center;
   overflow: hidden;
   font-size: 14px;
 }
@@ -232,7 +252,7 @@
   height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 1% 3% 1% 1%;
+  padding: 2% 3% 1% 1%;
 }
 
 .cbResBox::-webkit-scrollbar {
@@ -254,20 +274,21 @@
 
 .chatBubble {
   max-width: 70%;
-  padding: 10px;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 8px;
 }
 
 .userBubble {
   background-color: rgb(248, 197, 202);
   border-radius: 10px 10px 0 10px;
+  padding: 1% 1% 1% 1%;
 }
 
 .botBubble {
   background-color: #e5e5ea;
   color: black;
   border-radius: 10px 10px 10px 0;
+  padding: 1% 1% 1% 1%;
 }
 
 .chatBotIcon {
@@ -285,26 +306,48 @@
   background-color: rgb(248, 197, 202);
 }
 
-@media (min-width: 1000px) {
-  .addChatRoom,
+@media (min-width: 1100px) {
+  .blankChatList,
+  .chatBubble,
   .cbChatListText > span,
-  .chatRoomButton,
   .cbSendBtnNotLoading1,
   .cbSendBtnLoading1,
   .cbSendBtnNotLoading2,
   .cbSendBtnLoading2 {
+    font-size: 14px;
+  }
+
+  .chatRoomButton,
+  .removeChatRoomButton {
     font-size: 10px;
+  }
+
+  .addChatRoom,
+  .dateTitle {
+    font-size: 12px;
   }
 }
 
 @media (min-width: 1800px) {
-  .addChatRoom,
+  .blankChatList,
+  .chatBubble,
   .cbChatListText > span,
   .chatRoomButton,
+  .removeChatRoomButton,
   .cbSendBtnNotLoading1,
   .cbSendBtnLoading1,
   .cbSendBtnNotLoading2,
   .cbSendBtnLoading2 {
-    font-size: 18px;
+    font-size: 22px;
+  }
+
+  .chatRoomButton,
+  .removeChatRoomButton {
+    font-size: 18x;
+  }
+
+  .addChatRoom,
+  .dateTitle {
+    font-size: 20px;
   }
 }

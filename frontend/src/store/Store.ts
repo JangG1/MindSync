@@ -21,12 +21,20 @@ export const useStore = create<TodoStore>()(
 
       // 할 일 추가
       addTodo: (newTodo) => {
-        const currentTime = new Date()
-          .toISOString() // UTC로 ISO 형식 (YYYY-MM-DDTHH:mm:ss.sssZ)
-          .slice(0, 16) // 'YYYY-MM-DDTHH:mm' 까지 자르고
-          .replace("T", " "); // 'T'를 공백으로 변경하여 'YYYY-MM-DD HH:mm' 형식으로 저장
+        const currentTime = new Date();
+        const localDate =
+          currentTime.getFullYear() +
+          "/" +
+          String(currentTime.getMonth() + 1).padStart(2, "0") +
+          "/" +
+          String(currentTime.getDate()).padStart(2, "0") +
+          " " +
+          String(currentTime.getHours()).padStart(2, "0") +
+          ":" +
+          String(currentTime.getMinutes()).padStart(2, "0");
+
         set((state) => ({
-          todos: [...state.todos, { ...newTodo, time: currentTime }],
+          todos: [...state.todos, { ...newTodo, time: localDate }],
         }));
       },
 
@@ -42,6 +50,7 @@ export const useStore = create<TodoStore>()(
 
 export interface ChatRoom {
   roomNo: number;
+  title: string;
   createdAt: string;
 }
 
@@ -50,8 +59,8 @@ interface ChatStore {
   activeChat: number; // 활성화된 채팅방의 roomNo
   waitingForNewChat: boolean;
   getInChat: (value: boolean) => void;
-  createFirstChatRoom: (roomNo: number) => void;
-  createNewChatRoom: (roomNo: number) => void;
+  createFirstChatRoom: (roomNo: number, title: string) => void;
+  createNewChatRoom: (roomNo: number, title: string) => void;
   removeChatRoom: (roomNo: number) => void;
   setActiveChat: (roomNo: number) => void;
 }
@@ -65,29 +74,48 @@ export const useChatStore = create<ChatStore>()(
 
       getInChat: (value) => set({ waitingForNewChat: value }),
 
-      createFirstChatRoom: (roomNo) => {
-        const currentTime = new Date()
-          .toISOString() // UTC로 ISO 형식 (YYYY-MM-DDTHH:mm:ss.sssZ)
-          .slice(0, 10) // 'YYYY-MM-DDTHH:mm' 까지 자르고
-          .replace("T", " "); // 'T'를 공백으로 변경하여 'YYYY-MM-DD HH:mm' 형식으로 저장
+      createFirstChatRoom: (roomNo, title) => {
+        const currentTime = new Date();
+        const localDate =
+          currentTime.getFullYear() +
+          "." +
+          String(currentTime.getMonth() + 1).padStart(2, "0") +
+          "." +
+          String(currentTime.getDate()).padStart(2, "0") +
+          " " +
+          String(currentTime.getHours()).padStart(2, "0") +
+          ":" +
+          String(currentTime.getMinutes()).padStart(2, "0");
+
         const newRoom: ChatRoom = {
           roomNo,
-          createdAt: currentTime,
+          title,
+          createdAt: localDate,
         };
+
         set(() => ({
           chatRooms: [newRoom],
           activeChat: roomNo,
         }));
       },
 
-      createNewChatRoom: (roomNo) => {
-        const currentTime = new Date()
-          .toISOString()
-          .slice(0, 10)
-          .replace("T", " ");
+      createNewChatRoom: (roomNo, title) => {
+        const currentTime = new Date();
+        const localDate =
+          currentTime.getFullYear() +
+          "." +
+          String(currentTime.getMonth() + 1).padStart(2, "0") +
+          "." +
+          String(currentTime.getDate()).padStart(2, "0") +
+          " " +
+          String(currentTime.getHours()).padStart(2, "0") +
+          ":" +
+          String(currentTime.getMinutes()).padStart(2, "0");
+
         const newRoom: ChatRoom = {
           roomNo,
-          createdAt: currentTime,
+          title,
+          createdAt: localDate,
         };
         set((state) => ({
           chatRooms: [...state.chatRooms, newRoom],

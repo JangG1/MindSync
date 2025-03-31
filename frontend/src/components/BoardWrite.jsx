@@ -3,31 +3,76 @@ import axios from "axios";
 import "./BoardWrite.css";
 import { Link } from "react-router-dom";
 
+function LoadingOverlay() {
+  return (
+    <div className="loadingOverlay">
+      <div className="loadingContent">
+        <img
+          src="/image/MS_Icon.png"
+          alt="Loading..."
+          className="loadingImage"
+        />
+        <p>게시글 작성 중입니다...</p>
+      </div>
+    </div>
+  );
+}
+
 function BoardWrite() {
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = () => {
+    const pw = process.env.REACT_APP_ADMIN_PASSWORD;
     const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
-    axios
-      .post(EX_IP + "/clushAPI/boardSave", {
-        nickname: message1,
-        title: message2,
-        content: message3,
-      })
-      .then((response) => {
-        alert("게시물이 작성되었습니다.");
-        window.location.href = "/Board";
-      })
-      .catch((error) => {
-        console.error("Error sending message:", error);
-      });
+    if (message1 === "관리자") {
+      const password = prompt("비밀번호를 입력하세요:");
+      if (pw === password) {
+        setIsLoading(true);
+        axios
+          .post(EX_IP + "/clushAPI/boardSave", {
+            nickname: message1,
+            title: message2,
+            content: message3,
+          })
+          .then((response) => {
+            alert("게시물이 작성되었습니다.");
+            window.location.href = "/Board";
+          })
+          .catch((error) => {
+            console.error("Error sending message:", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      }
+    } else {
+      setIsLoading(true);
+      axios
+        .post(EX_IP + "/clushAPI/boardSave", {
+          nickname: message1,
+          title: message2,
+          content: message3,
+        })
+        .then((response) => {
+          alert("게시물이 작성되었습니다.");
+          window.location.href = "/Board";
+        })
+        .catch((error) => {
+          console.error("Error sending message:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   };
 
   return (
     <div>
+      {isLoading && <LoadingOverlay />}
       <div className="boardTop"></div>
       <img src="/image/MS_Icon.png" className="boardWriteClushLogo" />
       <div>
@@ -59,7 +104,6 @@ function BoardWrite() {
           <div>내용</div>
           <textarea
             className="boardWriteBody3"
-            type="text"
             value={message3}
             onChange={(e) => setMessage3(e.target.value)}
           />

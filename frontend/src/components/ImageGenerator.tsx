@@ -30,6 +30,8 @@ const App: React.FC = () => {
   };
 
   const generateImage = async () => {
+    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+
     setLoading(true);
     setImage(null);
     setError("");
@@ -41,7 +43,7 @@ const App: React.FC = () => {
       }
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/generate-image",
+        EX_IP + `/api/generate-image`,
         { prompt: finalPrompt },
         { responseType: "blob" }
       );

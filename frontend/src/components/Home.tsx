@@ -4,6 +4,16 @@ import "./Home.css";
 import { useChatStore } from "../store/Store";
 import AOS from "aos";
 
+interface ChatRoom {
+  roomNo: number;
+  title: string;
+  createdAt: string; // or Date if it's a Date object
+}
+
+type ChatRoomGroup = {
+  [date: string]: ChatRoom[];
+};
+
 const Chatbot: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [prompt, setPrompt] = useState<string>("");
@@ -43,13 +53,15 @@ const Chatbot: React.FC = () => {
 
   // 채팅 히스토리를 서버에서 가져오는 함수
   const getChat = async (roomNo: number) => {
+    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+
     setLoading(true);
     setError("");
 
     getInChat(true);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/getChat`, {
+      const res = await axios.post(EX_IP + `/api/getChat`, {
         chatNo: "Chat" + roomNo,
       });
 
@@ -79,6 +91,8 @@ const Chatbot: React.FC = () => {
 
   // 메시지 전송 함수 (새로운 채팅)
   const handleSendMessage1 = async () => {
+    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+
     if (!prompt.trim()) return;
     setLoading(true);
     setError("");
@@ -88,7 +102,7 @@ const Chatbot: React.FC = () => {
 
       if (chatRooms.length === 0) {
         // 최초 채팅방 생성 (roomNo 1)
-        const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+        const res = await axios.post(EX_IP + `/api/chatbot`, {
           chatNo: "Chat" + roomNo,
           message: prompt,
         });
@@ -99,7 +113,8 @@ const Chatbot: React.FC = () => {
           );
         }
 
-        createFirstChatRoom(roomNo);
+        createFirstChatRoom(roomNo, prompt);
+
         setChatHistory((prev) => ({
           ...prev,
           [roomNo]: res.data.response.chat_history,
@@ -108,7 +123,7 @@ const Chatbot: React.FC = () => {
         // 새로운 채팅방 생성
         roomNo = Math.max(...chatRooms.map((room) => room.roomNo)) + 1;
 
-        const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+        const res = await axios.post(EX_IP + `/api/chatbot`, {
           chatNo: "Chat" + roomNo,
           message: prompt,
         });
@@ -119,7 +134,7 @@ const Chatbot: React.FC = () => {
           );
         }
 
-        createNewChatRoom(roomNo);
+        createNewChatRoom(roomNo, prompt);
         setChatHistory((prev) => ({
           ...prev,
           [roomNo]: res.data.response.chat_history,
@@ -137,11 +152,13 @@ const Chatbot: React.FC = () => {
 
   // 메시지 전송 함수 (선택 채팅방 유지)
   const handleSendMessage2 = async () => {
+    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+
     if (!prompt.trim()) return;
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/chatbot`, {
+      const res = await axios.post(EX_IP + `/api/chatbot`, {
         chatNo: "Chat" + activeChat,
         message: prompt,
       });
@@ -180,13 +197,15 @@ const Chatbot: React.FC = () => {
 
   // 채팅 삭제 함수
   const deleteChat = async (roomNo: number) => {
+    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+
     setLoading(true);
     setError("");
 
     getInChat(false);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/deleteChat`, {
+      axios.post(EX_IP + `/api/deleteChat`, {
         chatNo: "Chat" + roomNo,
       });
 
@@ -222,6 +241,16 @@ const Chatbot: React.FC = () => {
   const handleAddChatRoom = () => {
     getInChat(false);
   };
+  // 날짜별로 그룹화
+  const groupedChatRooms: ChatRoomGroup = chatRooms.reduce(
+    (groups: ChatRoomGroup, room) => {
+      const date = room.createdAt.split(" ")[0]; // "2025-03-31 12:00:00" -> "2025-03-31"
+      if (!groups[date]) groups[date] = [];
+      groups[date].push(room);
+      return groups;
+    },
+    {} as ChatRoomGroup
+  );
 
   return (
     <div className="cb">
@@ -239,27 +268,37 @@ const Chatbot: React.FC = () => {
           </div>
         </div>
         <br />
-        {chatRooms.length > 0 &&
-          chatRooms
-            .sort((a, b) => b.roomNo - a.roomNo) // roomNo에 의한 숫자 정렬
-            .map((room) => (
-              <div key={room.roomNo} className="chatRoomWrapper">
-                <button
-                  className={`chatRoomButton ${
-                    room.roomNo === activeChat ? "active" : ""
-                  }`}
-                  onClick={() => getChat(room.roomNo)}
-                >
-                  {room.roomNo} (생성일: {room.createdAt})
-                  <button
-                    className="removeChatRoomButton"
-                    onClick={() => deleteChat(room.roomNo)}
-                  >
-                    X
-                  </button>
-                </button>
+        {chatRooms.length > 0 ? (
+          Object.entries(groupedChatRooms)
+            .sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()) // 날짜별로 내림차순 정렬
+            .map(([date, rooms]: [string, ChatRoom[]]) => (
+              <div key={date} className="dateGroupWrapper">
+                <div className="dateTitle">🧠 {date}</div>
+                {rooms
+                  .sort((a, b) => b.roomNo - a.roomNo) // roomNo 기준으로 정렬
+                  .map((room) => (
+                    <div key={room.roomNo} className="chatRoomWrapper">
+                      <button
+                        className={`chatRoomButton ${
+                          room.roomNo === activeChat ? "active" : ""
+                        }`}
+                        onClick={() => getChat(room.roomNo)}
+                      >
+                        {room.title}
+                        <button
+                          className="removeChatRoomButton"
+                          onClick={() => deleteChat(room.roomNo)}
+                        >
+                          X
+                        </button>
+                      </button>
+                    </div>
+                  ))}
               </div>
-            ))}
+            ))
+        ) : (
+          <div className="blankChatList">채팅이 없습니다.</div>
+        )}
       </div>
 
       {/* 기본 화면: 새 채팅 시작 안내 */}

@@ -172,7 +172,7 @@ const STT = () => {
         {loading && (
           <div className="sstLoadingBox">
             <img src="/image/MS_Icon.png" alt="Loading..." />
-            <h3>음성을 생성하고 있습니다...</h3>
+            <h3>음성을 인식하고 있습니다...</h3>
           </div>
         )}
         {!loading && error && (

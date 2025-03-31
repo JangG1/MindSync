@@ -13,25 +13,43 @@ function BoardContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 5;
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMsg, setIsLoadingMsg] = useState("");
   const [updateContent, setUpdateContent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [contentToggle, setContentToggle] = useState(true);
+
+  function LoadingOverlay() {
+    return (
+      <div className="loadingOverlay">
+        <div className="loadingContent">
+          <img
+            src="/image/MS_Icon.png"
+            alt="Loading..."
+            className="loadingImage"
+          />
+          <p>{loadingMsg}</p>
+        </div>
+      </div>
+    );
+  }
 
   // 게시물 상세 내용 조회
   useEffect(() => {
     const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
     setIsLoading(true);
+    setIsLoadingMsg("게시글을 불러오고 있습니다...");
     axios
       .get(EX_IP + `/clushAPI/getBoard/${boardNo}`) // 해당 게시물의 ID로 API 호출
       .then((response) => {
         setBoardDetails(response.data); // 상태에 저장
       })
       .catch((error) => {
-        console.error("Error fetching board details:", error);
+        console.error("게시글을 불러오지 못했습니다.", error);
       })
       .finally(() => {
         setIsLoading(false); // 요청 완료 후 로딩 상태 비활성화
+        setIsLoadingMsg("");
       });
     // 댓글 조회
     axios
@@ -52,6 +70,8 @@ function BoardContent() {
     if (boardDetails.nickname == "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
       if (pw == password) {
+        setIsLoading(true);
+        setIsLoadingMsg("게시글을 수정하고 있습니다...");
         axios
           .put(EX_IP + `/clushAPI/updateBoard/${boardNo}`, {
             nickname: boardDetails.nickname,
@@ -62,19 +82,31 @@ function BoardContent() {
             alert("게시물이 수정되었습니다.");
             window.location.href = "/Board";
           })
-          .catch((error) => console.error("Error updating message:", error));
+          .catch((error) => console.error("Error updating message:", error))
+          .finally(() => {
+            setIsLoading(false);
+            setIsLoadingMsg("");
+          });
       } else {
         alert("패스워드가 일치하지 않습니다.");
       }
     } else if (boardDetails.nickname != "관리자") {
+      setIsLoading(true);
+      setIsLoadingMsg("게시글을 수정하고 있습니다...");
       axios
-        .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
-        .then((response) => {
-          alert("게시물이 삭제되었습니다.");
-          window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
+        .put(EX_IP + `/clushAPI/updateBoard/${boardNo}`, {
+          nickname: boardDetails.nickname,
+          title: boardDetails.title,
+          content: updateContent,
         })
-        .catch((error) => {
-          console.error("Error deleting board:", error);
+        .then((response) => {
+          alert("게시물이 수정되었습니다.");
+          window.location.href = "/Board";
+        })
+        .catch((error) => console.error("Error updating message:", error))
+        .finally(() => {
+          setIsLoading(false);
+          setIsLoadingMsg("");
         });
     }
   };
@@ -87,6 +119,8 @@ function BoardContent() {
     if (boardDetails.nickname == "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
       if (pw == password) {
+        setIsLoading(true);
+        setIsLoadingMsg("게시글을 삭제하고 있습니다...");
         axios
           .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
           .then((response) => {
@@ -94,12 +128,18 @@ function BoardContent() {
             window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
           })
           .catch((error) => {
-            console.error("Error deleting board:", error);
+            console.error("게시물 삭제중 오류가 발생했습니다.", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+            setIsLoadingMsg("");
           });
       } else {
         alert("패스워드가 일치하지 않습니다.");
       }
     } else if (boardDetails.nickname != "관리자") {
+      setIsLoading(true);
+      setIsLoadingMsg("게시글을 삭제하고 있습니다...");
       axios
         .delete(EX_IP + `/clushAPI/removeBoard/${boardNo}`) // 게시물 삭제 API 호출 (DELETE 요청)
         .then((response) => {
@@ -107,7 +147,11 @@ function BoardContent() {
           window.location.href = "/Board"; // 삭제 후 게시판 페이지로 이동
         })
         .catch((error) => {
-          console.error("Error deleting board:", error);
+          console.error("게시물 삭제중 오류가 발생했습니다.", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setIsLoadingMsg("");
         });
     }
   };
@@ -120,7 +164,8 @@ function BoardContent() {
       alert("댓글을 작성해주세요.");
       return;
     }
-
+    setIsLoading(true);
+    setIsLoadingMsg("댓글을 작성하고 있습니다...");
     axios
       .post(EX_IP + "/clushAPI/addComment", {
         boardNo: Number(boardNo),
@@ -134,7 +179,11 @@ function BoardContent() {
         window.location.reload();
       })
       .catch((error) => {
-        console.error("Error adding comment:", error);
+        console.error("댓글 작성이 취소되었습니다. 다시 시도해 주세요", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsLoadingMsg("");
       });
   };
 
@@ -179,13 +228,8 @@ function BoardContent() {
 
   return (
     <div>
-      {isLoading ? (
-        <div className="boardLoading">
-          <img src="/image/MS_Icon.png" className="LoadingImage" />
-          <br></br>
-          <p>게시글 불러오는 중...</p>
-        </div>
-      ) : boardDetails ? (
+      {isLoading && <LoadingOverlay />}
+      {boardDetails ? (
         <div className="boardContentContainer">
           <div className="boardContent">
             <h1 className="boardContentTitle">{boardDetails.title}</h1>

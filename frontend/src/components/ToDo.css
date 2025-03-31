@@ -1,4 +1,5 @@
 .stt {
+  margin-top: 5%;
 }
 
 .inputArea {
@@ -86,7 +87,7 @@
   border: 0.1px solid rgb(248, 197, 202);
   display: flex;
 
-  padding: 10px 0px 10px 10px;
+  padding: 5px 0px 5px 10px;
 }
 
 .todoTime {
@@ -176,8 +177,8 @@
 }
 
 .createVoiceAfter {
-  width: 100%;
-  height: 66vh;
+  width: 98%;
+  height: 52.5vh;
   border: 4px solid rgb(248, 197, 202);
   border-radius: 10px;
   box-shadow: 0 0 70px rgba(0, 0, 0, 0.5);
@@ -191,7 +192,7 @@
 .sstPlaceholder,
 .sstLoadingBox {
   width: 100%;
-  height: 16%;
+  height: 38vh;
   border: 4px solid rgb(248, 197, 202);
   border-radius: 10px;
   box-shadow: 0 0 70px rgba(0, 0, 0, 0.5);
@@ -212,6 +213,7 @@
 .sstPlaceholder > img,
 .sstLoadingBox > img,
 .todoPlaceholder > img {
+  margin-top: 2%;
   width: 10%;
   color: #888;
 }
@@ -219,4 +221,23 @@
 .createVoiceBefore > h3,
 .todoPlaceholder > h3 {
   font-size: 14px;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.sstLoadingBox > img {
+  animation: loadingAnimation 1.5s infinite ease-in-out;
 }
