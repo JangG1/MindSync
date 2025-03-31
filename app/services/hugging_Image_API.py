@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import requests
 import logging
 import time
-import logging
 
 # 환경 변수 로드
 load_dotenv(dotenv_path="app/.env")  # app 폴더 내 .env 파일 지정
@@ -23,7 +22,8 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def generate_image_from_huggingface(prompt: str, retries: int = 3, delay: int = 3):
+# 이미지 생성 함수
+def generate_image_from_huggingface(prompt: str, retries: int = 5, delay: int = 5):
     try:
         data = {"inputs": prompt}
         
@@ -34,13 +34,20 @@ def generate_image_from_huggingface(prompt: str, retries: int = 3, delay: int = 
             logging.info(f"Response Text: {response.text}")
 
             if response.status_code == 200:
+                logging.info("Image generated successfully!")
                 return response.content
-            elif attempt < retries - 1:
-                logging.warning(f"Retrying in {delay} seconds...")
+            elif response.status_code == 500:  # Server-side error, may need more retries
+                logging.warning(f"Server error 500 encountered. Retrying in {delay} seconds...")
+                time.sleep(delay)
+            elif response.status_code == 503:  # Service unavailable, maybe retry
+                logging.warning(f"Service unavailable (503). Retrying in {delay} seconds...")
                 time.sleep(delay)
             else:
-                raise Exception(f"Failed to generate image after {retries} attempts: {response.status_code}, {response.text}")
-
-    except Exception as e:
+                raise Exception(f"Failed to generate image after {attempt + 1} attempts: {response.status_code}, {response.text}")
+        
+        # If we exhausted all attempts
+        raise Exception(f"Failed to generate image after {retries} attempts.")
+    
+    except requests.exceptions.RequestException as e:
         logging.error(f"Error during image generation: {str(e)}")
         raise Exception(f"Error during image generation: {str(e)}")
