@@ -53,7 +53,8 @@ const Chatbot: React.FC = () => {
 
   // 채팅 히스토리를 서버에서 가져오는 함수
   const getChat = async (roomNo: number) => {
-    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    //const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    const EX_IP = "http://127.0.0.1:8000";
 
     setLoading(true);
     setError("");
@@ -91,7 +92,8 @@ const Chatbot: React.FC = () => {
 
   // 메시지 전송 함수 (새로운 채팅)
   const handleSendMessage1 = async () => {
-    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    //const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    const EX_IP = "http://127.0.0.1:8000";
 
     if (!prompt.trim()) return;
     setLoading(true);
@@ -152,7 +154,8 @@ const Chatbot: React.FC = () => {
 
   // 메시지 전송 함수 (선택 채팅방 유지)
   const handleSendMessage2 = async () => {
-    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    //const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    const EX_IP = "http://127.0.0.1:8000";
 
     if (!prompt.trim()) return;
     setLoading(true);
@@ -197,7 +200,8 @@ const Chatbot: React.FC = () => {
 
   // 채팅 삭제 함수
   const deleteChat = async (roomNo: number) => {
-    const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    //const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
+    const EX_IP = "http://127.0.0.1:8000";
 
     setLoading(true);
     setError("");
