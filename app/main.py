@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import uvicorn
 import io
-from app.services.hugging_Image_API import generate_image_from_huggingface
+from app.services.huggingFace_ImageGenerator_API import generate_image_from_huggingface
 from app.services.chatbot_service import get_chatbot_response  # 서비스 로직 분리
 import redis
 

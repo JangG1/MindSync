@@ -8,8 +8,7 @@ load_dotenv("app/.env")
 
 # API 정보
 TRANSLATION_API_URL = "https://api.mymemory.translated.net/get"  # 번역 API
-#CHATBOT_API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-3B"
-CHATBOT_API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
+CHATBOT_API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-3B"
 HEADERS = {"Authorization": f"Bearer {os.getenv('HUGGINGFACE_API_TOKEN')}"}
 
 # Redis 연결
