@@ -193,9 +193,34 @@
 <h4>- 채팅방별로 삭제 가능 </h4>
  
 <br> 
+
+<li>Chat Start</li>
+<br>
  <kbd>
-  준비중
+  <img width="820" src="https://github.com/user-attachments/assets/c8617d64-b89a-472d-b4b8-b2a05b4d9187">  
   </kbd><br>
+<br>
+
+<li>New Chat(Chat Separate)</li>
+<br>
+ <kbd>
+  <img width="820" src="https://github.com/user-attachments/assets/dba9e265-abff-4d8b-9d6e-9b3c34cd7d3a">
+  </kbd><br>
+<br>
+
+<li>Chat Keep</li>
+<br>
+ <kbd>
+  <img width="820" src="https://github.com/user-attachments/assets/614b0b30-a70a-4641-8d54-4fe901d73bab">
+  </kbd><br>
+<br>
+
+<li>Chat List Delete</li>
+<br>
+ <kbd>
+    <img width="820" src="https://github.com/user-attachments/assets/93aeeaef-fa78-415e-9f13-10ae635a5e36">
+  </kbd><br>
+<br>
  
 <h3> 2. Image Generator <h3>
 
@@ -204,7 +229,7 @@
  
 <br> 
  <kbd>
-    준비중
+  <img width="820" src="https://github.com/user-attachments/assets/bf36c9db-4328-4ef9-8b50-81d3e4ae6d20">
   </kbd><br>
 
 <h3> 3. To-Do Page </h3>
@@ -214,9 +239,19 @@
 <h4>- 텍스트 또는 STT(Web Speech API, Chrome 내장 API)를 통해 할일 추가 </h4>
  
 <br> 
+<li>Add ToDo By Text</li>
+<br>
  <kbd>
-   준비중
+  <img width="820" src="https://github.com/user-attachments/assets/637b5a2d-4900-4589-86c9-90551fb309d7">
   </kbd><br>
+<br>
+
+<li>Add ToDo By STT</li>
+<br>
+ <kbd>
+  <img width="820" src="https://github.com/user-attachments/assets/3a0b7bde-b1f6-4058-898e-7576b5abf206">
+  </kbd><br>
+<br>
 
 <h3> 4. Calendar Page <h3>
 
@@ -225,9 +260,19 @@
 <h4>- OpenWeather API를 이용해 해당 날짜 기준 5일치의 날씨 정보 제공</h4>
  
 <br> 
+<li>Add Date</li>
+<br>
  <kbd>
-   준비중
+  <img width="820" src="https://github.com/user-attachments/assets/9e97ac91-37aa-4261-9d1a-938b9c5aa829">
   </kbd><br>
+<br>
+
+<li>Show Weather Modal</li>
+<br>
+ <kbd>
+  <img width="820" src="https://github.com/user-attachments/assets/3e9e0031-4db2-49ce-8f32-1fef910278fd">
+  </kbd><br>
+<br>
  
 
   <h3> 5. News Page <h3>
@@ -239,7 +284,7 @@
  
 <br> 
  <kbd>
-    준비중
+  <img width="820" src="https://github.com/user-attachments/assets/0d6a8f2d-59d1-41e9-96d6-baa42c725f54">
   </kbd><br>
  
 <h3> 6. Board Page <h3>
@@ -250,28 +295,28 @@
 <h4>- 댓글 5개 단위의 페이지네이션</h4>
 
 <br>
-<li>Board Insert</li>
+<li>Board Create</li>
 <br>
  <kbd>
-  준비중
+  <img width="820" src="https://github.com/user-attachments/assets/9e97ac91-37aa-4261-9d1a-938b9c5aa829">
   </kbd><br>
 <br>
- <li>Board Put</li>
+ <li>Board Modify</li>
  <br>
  <kbd>
-  준비중
+  <img width="820" src="https://github.com/user-attachments/assets/e7e3d02c-cdfd-48fa-95da-407c33795445">
   </kbd><br>
   <br>
 <li>Board Delete</li>
 <br>
  <kbd>
-  준비중
+  <img width="820" src="https://github.com/user-attachments/assets/9e222b07-c5b2-4363-a77e-c84933b0c6a3">
   </kbd><br>
   <br>
 <li>Comment</li>
 <br>
  <kbd>
-  준비중
+  <img width="820" src="https://github.com/user-attachments/assets/9b921495-4720-4f78-a45a-117b0a0703da">
   </kbd><br>
   <br>
 <hr>
