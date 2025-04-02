@@ -69,7 +69,6 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
   <h4>📡 Server</h4>
 <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=black">
 <img src="https://img.shields.io/badge/CentOS 7-262577?style=for-the-badge&logo=CentOS&logoColor=white">
-<img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white">
 
  <h4> 🚀 CI/CD 🚀 </h4>
 <div>
