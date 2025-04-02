@@ -336,7 +336,7 @@ function BoardContent() {
           </div>
         </div>
       ) : (
-        <div>게시물 로딩 실패</div> // 로딩 실패 시 메시지
+        <div></div> // 로딩 실패 시 메시지
       )}
     </div>
   );
