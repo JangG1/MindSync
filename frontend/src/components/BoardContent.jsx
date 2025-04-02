@@ -215,7 +215,7 @@ function BoardContent() {
   };
 
   const handleChange = (e) => {
-    setUpdateContent(e.target.value); // Get the value from the event
+    setUpdateContent(e.target.value);
   };
 
   const indexOfLastComment = currentPage * commentsPerPage;
