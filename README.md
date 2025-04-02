@@ -29,8 +29,6 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 
 - Swagger UI: [[Swagger Link](http://clush.shop:7777/clushAPI/swagger-ui/index.html#/)]
 
-<br>
-
 <hr>
 
 <h3> 📅 Period 📅 </h3>
