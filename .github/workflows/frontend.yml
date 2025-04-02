@@ -26,6 +26,7 @@ jobs:
 
     - name: Deploy Frontend to Oracle VM
       run: |
-        sshpass -p "${{ secrets.SUDO_PASSWORD }}" ssh -v -o StrictHostKeyChecking=no dio@192.168.56.1 'bash -s' << EOF
+        ssh -v -o StrictHostKeyChecking=no dio@192.168.56.1 'bash -s' << 'EOF'          
+          export SUDO_PASSWORD="${{ secrets.SUDO_PASSWORD }}"
           /mindsync/deploy_front.sh
         EOF
