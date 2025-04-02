@@ -22,7 +22,7 @@
 
 ## Project Demo
 
-- Link : https://MindSync.site
+- Link : https://mindsync.site/
 
 ## API 명세서
 
