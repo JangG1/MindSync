@@ -40,8 +40,8 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li> Image Generator: Hugging Face API(Model: dreamshaper-8)를 통한 키워드의 이미지 생성</li>
 <li> Chatbot: Hugging Face API(Model: blenderbot-3B)로 텍스트 대화형 챗봇 구현</li>
 <li> Redis(NoSQL, Key-Value)를 통해 채팅방별 내용 저장</li>
-<li> News: Naver News API를 통한 기사 검색과 할일 추가 기능(상태 관리 라이브러리 Zustand를 이용한 데이터 보존) </li>
-<li> To-Do: 텍스트 또는 STT를 통해 할일 추가 기능(Zustand 이용) 구현</li>
+<li> News: Naver News API를 통한 뉴스 기사 크롤링 </li>
+<li> To-Do: 텍스트 또는 STT를 통해 할일 추가 기능(상태 관리 Zustand 이용) 구현</li>
 <li> Calendar: Ant-Design의 Calendar를 커스터마이징 및 OpenWeather API를 통한 해당 날짜 기준 5일치의 날씨 정보 가져오기 </li>
 <li> Board: 게시판 CRUD 기능 및 해당 게시판의 댓글 달기 기능</li>
 <li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> (GitHub Actions, Shell Script) </li>
