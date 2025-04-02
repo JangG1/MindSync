@@ -45,7 +45,8 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li> Calendar: Ant-Design의 Calendar를 커스터마이징 및 OpenWeather API를 통한 해당 날짜 기준 <br>  
      　5일치의 날씨 정보 가져오기 </li>
 <li> Board: 게시판 CRUD 기능 및 해당 게시판의 댓글 달기 기능</li>
-<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> (GitHub Actions, Shell Script) </li>
+<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> 
+     　(GitHub Actions, Shell Script) </li>
 <hr>
 
 <h3>📚 Skill 📚</h3>
