@@ -238,7 +238,7 @@ function BoardContent() {
                 게시판 번호: {boardDetails.boardNo}
               </span>
               <span className="boardContentDate">
-                작성 날짜: {formatDate(boardDetails.board_date)}
+                작성 날짜: {formatDate(boardDetails.boardDate)}
               </span>
               <span className="boardContentNickname">
                 작성자: {boardDetails.nickname}
