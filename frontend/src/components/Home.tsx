@@ -54,7 +54,6 @@ const Chatbot: React.FC = () => {
   // 채팅 히스토리를 서버에서 가져오는 함수
   const getChat = async (roomNo: number) => {
     const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
-    
 
     setLoading(true);
     setError("");
@@ -62,7 +61,7 @@ const Chatbot: React.FC = () => {
     getInChat(true);
 
     try {
-      const res = await axios.post(EX_IP + `/api/getChat`, {
+      const res = await axios.post(EX_IP + `/msAPI/getChat`, {
         chatNo: "Chat" + roomNo,
       });
 
@@ -93,7 +92,6 @@ const Chatbot: React.FC = () => {
   // 메시지 전송 함수 (새로운 채팅)
   const handleSendMessage1 = async () => {
     const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
-    
 
     if (!prompt.trim()) return;
     setLoading(true);
@@ -104,7 +102,7 @@ const Chatbot: React.FC = () => {
 
       if (chatRooms.length === 0) {
         // 최초 채팅방 생성 (roomNo 1)
-        const res = await axios.post(EX_IP + `/api/chatbot`, {
+        const res = await axios.post(EX_IP + `/msAPI/chatbot`, {
           chatNo: "Chat" + roomNo,
           message: prompt,
         });
@@ -125,7 +123,7 @@ const Chatbot: React.FC = () => {
         // 새로운 채팅방 생성
         roomNo = Math.max(...chatRooms.map((room) => room.roomNo)) + 1;
 
-        const res = await axios.post(EX_IP + `/api/chatbot`, {
+        const res = await axios.post(EX_IP + `/msAPI/chatbot`, {
           chatNo: "Chat" + roomNo,
           message: prompt,
         });
@@ -155,13 +153,12 @@ const Chatbot: React.FC = () => {
   // 메시지 전송 함수 (선택 채팅방 유지)
   const handleSendMessage2 = async () => {
     const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
-    
 
     if (!prompt.trim()) return;
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(EX_IP + `/api/chatbot`, {
+      const res = await axios.post(EX_IP + `/msAPI/chatbot`, {
         chatNo: "Chat" + activeChat,
         message: prompt,
       });
@@ -201,7 +198,6 @@ const Chatbot: React.FC = () => {
   // 채팅 삭제 함수
   const deleteChat = async (roomNo: number) => {
     const EX_IP = process.env.REACT_APP_API_URL_FASTAPI;
-    
 
     setLoading(true);
     setError("");
@@ -209,7 +205,7 @@ const Chatbot: React.FC = () => {
     getInChat(false);
 
     try {
-      axios.post(EX_IP + `/api/deleteChat`, {
+      axios.post(EX_IP + `/msAPI/deleteChat`, {
         chatNo: "Chat" + roomNo,
       });
 

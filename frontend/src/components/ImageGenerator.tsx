@@ -43,7 +43,7 @@ const App: React.FC = () => {
       }
 
       const response = await axios.post(
-        EX_IP + `/api/generate-image`,
+        EX_IP + `/msAPI/generate-image`,
         { prompt: finalPrompt },
         { responseType: "blob" }
       );

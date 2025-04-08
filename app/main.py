@@ -109,7 +109,7 @@ async def delete_chat(request: ChatRequest):
 
 
 # '/api/' 접두어로 라우터 포함
-app.include_router(api_router, prefix="/api")
+app.include_router(api_router, prefix="/msAPI")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
