@@ -2,6 +2,7 @@
 
 <hr>
 
+<img width="820" alt="main" src="https://github.com/user-attachments/assets/dfd334f3-61b3-4308-9383-35ff8622719b" />
 
 <hr>
 
@@ -21,10 +22,13 @@
 
 ## Project Demo
 
-- Link : https://MindSync.site
+- Link : https://mindsync.site/
 
+## API 명세서
 
-<br>
+API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통해 접속할 수 있습니다.
+
+- Swagger UI: [[Swagger Link](http://clush.shop:7777/clushAPI/swagger-ui/index.html#/)]
 
 <hr>
 
@@ -34,13 +38,15 @@
 <h3>🎯 Purpose 🎯</h3>
 <li> 기존 Clush Project 고도화 </li>
 <li> Image Generator: Hugging Face API(Model: dreamshaper-8)를 통한 키워드의 이미지 생성</li>
-<li> Chatbot: Hugging Face API(Model: blenderbot-3B)를 텍스트 대화형 챗봇 구현</li>
+<li> Chatbot: Hugging Face API(Model: blenderbot-3B)로 텍스트 대화형 챗봇 구현</li>
 <li> Redis(NoSQL, Key-Value)를 통해 채팅방별 내용 저장</li>
-<li> News: Naver News API를 통한 기사 검색과 할일 추가 기능(상태 관리 라이브러리 Zustand를 이용한 데이터 보존) </li>
-<li> To-Do: 텍스트 또는 STT를 통해 할일 추가 기능(Zustand 이용) 구현</li>
-<li> Calendar: Ant-Design의 Calendar를 커스터마이징 및 OpenWeather API를 통한 해당 날짜 기준 5일치의 날씨 정보 가져오기 </li>
+<li> News: Naver News API를 통한 뉴스 기사 크롤링 </li>
+<li> To-Do: 텍스트 또는 STT를 통해 할일 추가 기능(상태 관리 Zustand 이용) 구현</li>
+<li> Calendar: Ant-Design의 Calendar를 커스터마이징 및 OpenWeather API를 통한 해당 날짜 기준 <br>  
+     　5일치의 날씨 정보 가져오기 </li>
 <li> Board: 게시판 CRUD 기능 및 해당 게시판의 댓글 달기 기능</li>
-<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> (GitHub Actions, Shell Script) </li>
+<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> 
+     　(GitHub Actions, Shell Script) </li>
 <hr>
 
 <h3>📚 Skill 📚</h3>
@@ -65,7 +71,6 @@
   <h4>📡 Server</h4>
 <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=black">
 <img src="https://img.shields.io/badge/CentOS 7-262577?style=for-the-badge&logo=CentOS&logoColor=white">
-<img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white">
 
  <h4> 🚀 CI/CD 🚀 </h4>
 <div>
@@ -123,6 +128,7 @@
 <img src="https://img.shields.io/badge/Workbench-21759B?style=for-the-badge&logo=MySQL&logoColor=white">
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
+<img src="https://img.shields.io/badge/ChatGPT-F05032?style=for-the-badge&logo=ChatGPT&logoColor=white">
 </div>
 
 <br>
@@ -190,7 +196,7 @@
 <h4>- 새 채팅방 열기 버튼으로 분리된 채팅방 생성 </h4>
 <h4>- 분리된 채팅방 내용 각 별도 저장(Redis, Key-Value) </h4>
 <h4>- 날짜별로 채팅방 분류 </h4>
-<h4>- 채팅방별로 삭제 가능 </h4>
+<h4>- 채팅방별로 삭제 가능(Redis, Zustand(Local) 모두 삭제) </h4>
  
 <br> 
 
@@ -215,7 +221,7 @@
   </kbd><br>
 <br>
 
-<li>Chat List Delete</li>
+<li>Chat List Delete(Redis, Zustand) </li>
 <br>
  <kbd>
     <img width="820" src="https://github.com/user-attachments/assets/93aeeaef-fa78-415e-9f13-10ae635a5e36">
