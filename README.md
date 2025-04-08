@@ -196,7 +196,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <h4>- 새 채팅방 열기 버튼으로 분리된 채팅방 생성 </h4>
 <h4>- 분리된 채팅방 내용 각 별도 저장(Redis, Key-Value) </h4>
 <h4>- 날짜별로 채팅방 분류 </h4>
-<h4>- 채팅방별로 삭제 가능 </h4>
+<h4>- 채팅방별로 삭제 가능(Redis, Zustand(Local) 모두 삭제) </h4>
  
 <br> 
 
@@ -221,7 +221,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
   </kbd><br>
 <br>
 
-<li>Chat List Delete</li>
+<li>Chat List Delete(Redis, Zustand) </li>
 <br>
  <kbd>
     <img width="820" src="https://github.com/user-attachments/assets/93aeeaef-fa78-415e-9f13-10ae635a5e36">
