@@ -138,51 +138,40 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 
 ### 1. ChatBot
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/20075577-775d-4d43-b3e2-244cb49f649a">  
+ </kbd><br>
 
 ### 2. Image Generator
 
- <kbd>
-준비중...
-  </kbd><br>
-
-### 3. To-Do ###
-
- <kbd>
-준비중...
-  </kbd><br>
-
-### 4. Calendar ###
-
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/62cd31ca-b566-4280-8b37-1b814906fe25">  
+ </kbd><br>
   
-### 5. News ###
+### 3. News ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/052f20f6-7d55-4b63-99c4-bb5e5d1a89ba">  
+ </kbd><br>
 
-### 6. Board ###
+### 4. Board ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/6c1c3f6f-0587-439f-8acf-89610030f4ea">  
+ </kbd><br>
   
-### 7. CI/CD ###
+### 5. CI/CD ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/a32c244d-0792-420e-a058-1ee6f0895f22">  
+ </kbd><br>
 
 ### 7. ERD
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+
+     준비중...
+ </kbd><br>
 
 <br>
 <hr>
