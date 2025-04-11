@@ -89,7 +89,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <img src="https://img.shields.io/badge/Axios-10A0CC?style=for-the-badge&logo=Axios&logoColor=white">
 <img src="https://img.shields.io/badge/AOS-3399FF?style=for-the-badge&logo=AOS&logoColor=white">
 <img src="https://img.shields.io/badge/Zustand-4FC08D?style=for-the-badge&logo=Zustand&logoColor=white">
-<img src="https://img.shields.io/badge/Ant Design-0170FE?style=for-the-badge&logo=Ant Design&logoColor=white">
+<img src="https://img.shields.io/badge/Ant Design-0170FE?style=for-the-badge&logo=AntDesign&logoColor=white">
 
  <br>
  
