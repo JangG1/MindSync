@@ -74,7 +74,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 
  <h4> 🚀 CI/CD 🚀 </h4>
 <div>
-<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHubActions&logoColor=white">
 </div>
 </div>
 
@@ -94,11 +94,11 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
  <br>
  
   <h4>🎛 Back</h4>
-<img src="https://img.shields.io/badge/Hugging Face API-FFD21E?style=for-the-badge&logo=Hugging Face&logoColor=333">
+<img src="https://img.shields.io/badge/Hugging Face API-FFD21E?style=for-the-badge&logo=HuggingFace&logoColor=333">
 <img src="https://img.shields.io/badge/Naver News API-03C75A?style=for-the-badge&logo=Naver&logoColor=white">
 <img src="https://img.shields.io/badge/Jsoup-E1B133?style=for-the-badge&logo=Jsoup&logoColor=white">
 <img src="https://img.shields.io/badge/OpenWeather API-03C75A?style=for-the-badge&logo=OpenWeather&logoColor=white">
-<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=SpringSecurity&logoColor=white">
 <img src="https://img.shields.io/badge/SpringDoc Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black">
 <img src="https://img.shields.io/badge/junit-25A162?style=for-the-badge&logo=junit5&logoColor=white">
 <img src="https://img.shields.io/badge/Mockito-FF6A33?style=for-the-badge&logo=Mockito&logoColor=white">
@@ -109,7 +109,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
  
   <h4>📡 Server</h4>
 <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
-<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=black">
+<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=ApacheTomcat&logoColor=black">
 <img src="https://img.shields.io/badge/OpenSSL-721412?style=for-the-badge&logo=OpenSSL&logoColor=white">
 <img src="https://img.shields.io/badge/Certbot-0066FF?style=for-the-badge&logo=Certbot&logoColor=white">
 </div>
@@ -120,9 +120,9 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <h3>🛠️ Tool 🛠️</h3>
 <br>
 <div>
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white">
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white">
 <img src="https://img.shields.io/badge/STS-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
-<img src="https://img.shields.io/badge/Oracle VM VirtualBox-183A61?style=for-the-badge&logo=Oracle VirtualBox&logoColor=white">
+<img src="https://img.shields.io/badge/Oracle VM VirtualBox-183A61?style=for-the-badge&logo=OracleVirtualBox&logoColor=white">
 <img src="https://img.shields.io/badge/FileZilla-BF0000?style=for-the-badge&logo=FileZilla&logoColor=white">
 <img src="https://img.shields.io/badge/Putty-EC1C24?style=for-the-badge&logo=Putty&logoColor=white">
 <img src="https://img.shields.io/badge/Workbench-21759B?style=for-the-badge&logo=MySQL&logoColor=white">
