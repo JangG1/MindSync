@@ -61,7 +61,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
   
   <br>
   <h4>🎛 Back</h4>
-<img src="https://img.shields.io/badge/SpringBoot 3.2.2-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/SpringBoot 3.2.2-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
 <img src="https://img.shields.io/badge/Java 17-FD5F07?style=for-the-badge&logo=Java&logoColor=white">
 <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white">
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white">
