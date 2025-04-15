@@ -166,12 +166,6 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
    <img width="820" src="https://github.com/user-attachments/assets/a32c244d-0792-420e-a058-1ee6f0895f22">  
  </kbd><br>
 
-### 7. ERD ###
-
- <kbd> 
-     준비중...
- </kbd>
-
 <br>
 <hr>
 
