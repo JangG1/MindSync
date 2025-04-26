@@ -61,7 +61,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
   
   <br>
   <h4>🎛 Back</h4>
-<img src="https://img.shields.io/badge/SpringBoot 3.2.2-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/SpringBoot 3.2.2-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
 <img src="https://img.shields.io/badge/Java 17-FD5F07?style=for-the-badge&logo=Java&logoColor=white">
 <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white">
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white">
@@ -74,7 +74,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 
  <h4> 🚀 CI/CD 🚀 </h4>
 <div>
-<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHubActions&logoColor=white">
 </div>
 </div>
 
@@ -89,16 +89,16 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <img src="https://img.shields.io/badge/Axios-10A0CC?style=for-the-badge&logo=Axios&logoColor=white">
 <img src="https://img.shields.io/badge/AOS-3399FF?style=for-the-badge&logo=AOS&logoColor=white">
 <img src="https://img.shields.io/badge/Zustand-4FC08D?style=for-the-badge&logo=Zustand&logoColor=white">
-<img src="https://img.shields.io/badge/Ant Design-0170FE?style=for-the-badge&logo=Ant Design&logoColor=white">
+<img src="https://img.shields.io/badge/Ant Design-0170FE?style=for-the-badge&logo=AntDesign&logoColor=white">
 
  <br>
  
   <h4>🎛 Back</h4>
-<img src="https://img.shields.io/badge/Hugging Face API-FFD21E?style=for-the-badge&logo=Hugging Face&logoColor=333">
+<img src="https://img.shields.io/badge/Hugging Face API-FFD21E?style=for-the-badge&logo=HuggingFace&logoColor=333">
 <img src="https://img.shields.io/badge/Naver News API-03C75A?style=for-the-badge&logo=Naver&logoColor=white">
 <img src="https://img.shields.io/badge/Jsoup-E1B133?style=for-the-badge&logo=Jsoup&logoColor=white">
 <img src="https://img.shields.io/badge/OpenWeather API-03C75A?style=for-the-badge&logo=OpenWeather&logoColor=white">
-<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=SpringSecurity&logoColor=white">
 <img src="https://img.shields.io/badge/SpringDoc Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black">
 <img src="https://img.shields.io/badge/junit-25A162?style=for-the-badge&logo=junit5&logoColor=white">
 <img src="https://img.shields.io/badge/Mockito-FF6A33?style=for-the-badge&logo=Mockito&logoColor=white">
@@ -109,7 +109,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
  
   <h4>📡 Server</h4>
 <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
-<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=black">
+<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=ApacheTomcat&logoColor=black">
 <img src="https://img.shields.io/badge/OpenSSL-721412?style=for-the-badge&logo=OpenSSL&logoColor=white">
 <img src="https://img.shields.io/badge/Certbot-0066FF?style=for-the-badge&logo=Certbot&logoColor=white">
 </div>
@@ -120,9 +120,9 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <h3>🛠️ Tool 🛠️</h3>
 <br>
 <div>
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white">
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white">
 <img src="https://img.shields.io/badge/STS-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
-<img src="https://img.shields.io/badge/Oracle VM VirtualBox-183A61?style=for-the-badge&logo=Oracle VirtualBox&logoColor=white">
+<img src="https://img.shields.io/badge/Oracle VM VirtualBox-183A61?style=for-the-badge&logo=OracleVirtualBox&logoColor=white">
 <img src="https://img.shields.io/badge/FileZilla-BF0000?style=for-the-badge&logo=FileZilla&logoColor=white">
 <img src="https://img.shields.io/badge/Putty-EC1C24?style=for-the-badge&logo=Putty&logoColor=white">
 <img src="https://img.shields.io/badge/Workbench-21759B?style=for-the-badge&logo=MySQL&logoColor=white">
@@ -136,53 +136,35 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 
 <h3>📈 Architecture 📉</h3>
 
-### 1. ChatBot
+### 1. ChatBot ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/20075577-775d-4d43-b3e2-244cb49f649a">  
+ </kbd><br>
 
-### 2. Image Generator
+### 2. Image Generator ###
 
- <kbd>
-준비중...
-  </kbd><br>
-
-### 3. To-Do ###
-
- <kbd>
-준비중...
-  </kbd><br>
-
-### 4. Calendar ###
-
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/62cd31ca-b566-4280-8b37-1b814906fe25">  
+ </kbd><br>
   
-### 5. News ###
+### 3. News ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/052f20f6-7d55-4b63-99c4-bb5e5d1a89ba">  
+ </kbd><br>
 
-### 6. Board ###
+### 4. Board ###
 
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/6c1c3f6f-0587-439f-8acf-89610030f4ea">  
+ </kbd><br>
   
-### 7. CI/CD ###
+### 5. CI/CD ###
 
- <kbd>
-준비중...
-  </kbd><br>
-
-### 7. ERD
-
- <kbd>
-준비중...
-  </kbd><br>
+ <kbd> 
+   <img width="820" src="https://github.com/user-attachments/assets/a32c244d-0792-420e-a058-1ee6f0895f22">  
+ </kbd><br>
 
 <br>
 <hr>
