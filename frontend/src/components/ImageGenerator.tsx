@@ -114,7 +114,7 @@ const App: React.FC = () => {
             </li>
             <li style={{ color: "red" }}>
               무료 버전의 API 특성상 트래픽 증가로 인해 일시적으로 이미지 생성이
-              불가할 수 있습니다.
+              느리거나 불가할 수 있습니다.
             </li>
             <li style={{ color: "red" }}>
               계속해서 실패할 경우 잠시 시간을 둔 후 다양한 키워드로
@@ -131,7 +131,12 @@ const App: React.FC = () => {
                 className="igLoadingImg"
                 alt="Loading..."
               />
-              <p>이미지를 생성하고 있습니다...</p>
+              <p>
+                이미지를 생성하고 있습니다.
+                <br />
+                <br />
+                1~2분 소요될 수 있습니다.
+              </p>
             </div>
           )}
           {!loading && error && (

@@ -252,7 +252,8 @@
   height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 2% 3% 1% 1%;
+  padding: 2% 1.5% 1% 0.2%;
+  margin-bottom: 3%;
 }
 
 .cbResBox::-webkit-scrollbar {
@@ -270,6 +271,8 @@
 
 .botMessage {
   justify-content: flex-start;
+  white-space: pre-line;
+  padding: 1%;
 }
 
 .chatBubble {
@@ -280,19 +283,20 @@
 
 .userBubble {
   background-color: rgb(248, 197, 202);
-  border-radius: 10px 10px 0 10px;
+  border-radius: 10px 0px 10px 10px;
   padding: 1% 1% 1% 1%;
 }
 
 .botBubble {
   background-color: #e5e5ea;
   color: black;
-  border-radius: 10px 10px 10px 0;
+  border-radius: 0px 10px 10px 10px;
   padding: 1% 1% 1% 1%;
 }
 
 .chatBotIcon {
-  width: 3%;
+  width: 40px;
+  height: 40px;
   margin: 0% 1% 0% 0%;
 }
 

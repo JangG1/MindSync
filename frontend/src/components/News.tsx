@@ -51,7 +51,9 @@ const TodoApp: React.FC = () => {
       .replace(/&quot;/g, '"')
       .replace(/<br\s*\/?>/g, " ")
       .replace(/<b>/g, " ")
-      .replace(/<\/b>/g, " ");
+      .replace(/<\/b>/g, " ")
+      .replace(/<&lt;>/g, " ")
+      .replace(/<&gt;>/g, " ");
   };
 
   return (

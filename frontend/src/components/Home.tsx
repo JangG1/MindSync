@@ -113,12 +113,24 @@ const Chatbot: React.FC = () => {
           );
         }
 
+        // 응답 데이터를 처리하여 포맷
+        const chatHistoryWithFormattedMessages =
+          res.data.response.chat_history.map((chat: string) => {
+            return Format(chat);
+          });
+
         createFirstChatRoom(roomNo, prompt);
 
         setChatHistory((prev) => ({
           ...prev,
-          [roomNo]: res.data.response.chat_history,
+          [roomNo]: chatHistoryWithFormattedMessages,
         }));
+
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       } else {
         // 새로운 채팅방 생성
         roomNo = Math.max(...chatRooms.map((room) => room.roomNo)) + 1;
@@ -134,11 +146,23 @@ const Chatbot: React.FC = () => {
           );
         }
 
+        // 응답 데이터를 처리하여 포맷
+        const chatHistoryWithFormattedMessages =
+          res.data.response.chat_history.map((chat: string) => {
+            return Format(chat);
+          });
+
         createNewChatRoom(roomNo, prompt);
         setChatHistory((prev) => ({
           ...prev,
-          [roomNo]: res.data.response.chat_history,
+          [roomNo]: chatHistoryWithFormattedMessages,
         }));
+
+        setTimeout(() => {
+          if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
       setPrompt("");
     } catch (error) {
@@ -169,9 +193,16 @@ const Chatbot: React.FC = () => {
         );
       }
 
+      // 응답 데이터를 처리하여 포맷
+      const chatHistoryWithFormattedMessages =
+        res.data.response.chat_history.map((chat: string) => {
+          const formattedChat = chat.replace(/\n/g, "<br />"); // 줄바꿈을 <br />로 바꾸어 HTML에서 새 줄로 표시
+          return formattedChat;
+        });
+
       setChatHistory((prev) => ({
         ...prev,
-        [activeChat]: res.data.response.chat_history,
+        [activeChat]: chatHistoryWithFormattedMessages,
       }));
 
       setPrompt("");
@@ -251,6 +282,25 @@ const Chatbot: React.FC = () => {
     },
     {} as ChatRoomGroup
   );
+
+  // 챗봇 응답 포맷(줄바꿈)
+  const Format = (text: string) => {
+    // 숫자 점 공백 기준으로 줄바꿈 적용
+    if (!text) return "";
+
+    return text
+      .replace(/요\:/g, "요.")
+      .replace(/다\:/g, "다.")
+      .replace(/다\./g, "다.\n")
+      .replace(/&quot;/g, '"')
+      .replace(/\*\*/g, " ")
+      .replace(/<br\s*\/?>/g, " ")
+      .replace(/<b>/g, " ")
+      .replace(/<\/b>/g, " ")
+      .replace(/<&lt;>/g, " ")
+      .replace(/###/g, " ")
+      .replace(/<&gt;>/g, " ");
+  };
 
   return (
     <div className="cb">
@@ -359,10 +409,12 @@ const Chatbot: React.FC = () => {
                             isUser ? "userBubble" : "botBubble"
                           }`}
                         >
-                          {chat
-                            .replace("User:", "")
-                            .replace("Chatbot:", "")
-                            .trim()}
+                          {Format(
+                            chat
+                              .replace("User:", "")
+                              .replace("Chatbot:", "")
+                              .trim()
+                          )}
                         </div>
                       </div>
                     );

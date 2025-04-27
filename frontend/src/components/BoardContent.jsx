@@ -67,9 +67,9 @@ function BoardContent() {
     const pw = process.env.REACT_APP_ADMIN_PASSWORD;
     const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
-    if (boardDetails.nickname == "관리자") {
+    if (boardDetails.nickname === "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
-      if (pw == password) {
+      if (pw === password) {
         setIsLoading(true);
         setIsLoadingMsg("게시글을 수정하고 있습니다...");
         axios
@@ -90,7 +90,7 @@ function BoardContent() {
       } else {
         alert("패스워드가 일치하지 않습니다.");
       }
-    } else if (boardDetails.nickname != "관리자") {
+    } else if (boardDetails.nickname !== "관리자") {
       setIsLoading(true);
       setIsLoadingMsg("게시글을 수정하고 있습니다...");
       axios
@@ -116,9 +116,9 @@ function BoardContent() {
     const pw = process.env.REACT_APP_ADMIN_PASSWORD;
     const EX_IP = process.env.REACT_APP_API_URL_JAVA;
 
-    if (boardDetails.nickname == "관리자") {
+    if (boardDetails.nickname === "관리자") {
       const password = prompt("비밀번호를 입력하세요:");
-      if (pw == password) {
+      if (pw === password) {
         setIsLoading(true);
         setIsLoadingMsg("게시글을 삭제하고 있습니다...");
         axios
@@ -137,7 +137,7 @@ function BoardContent() {
       } else {
         alert("패스워드가 일치하지 않습니다.");
       }
-    } else if (boardDetails.nickname != "관리자") {
+    } else if (boardDetails.nickname !== "관리자") {
       setIsLoading(true);
       setIsLoadingMsg("게시글을 삭제하고 있습니다...");
       axios
