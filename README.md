@@ -202,14 +202,14 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li>Keep Chat</li>
 <br>
  <kbd>
-  <img width="820" src="https://github.com/user-attachments/assets/3714154c-2121-46e8-80c5-35e618cd39e9">
+  <img width="820" src="https://github.com/user-attachments/assets/d8e01ba4-58d9-4b4d-ab4c-5e20373e4013">
   </kbd><br>
 <br>
 
 <li>Chat List Delete(Redis, Zustand) </li>
 <br>
  <kbd>
-    <img width="820" src="https://github.com/user-attachments/assets/b340a235-8cc2-4da3-87c6-f06367d16552">
+    <img width="820" src="https://github.com/user-attachments/assets/ddc5cd5f-bdb4-4325-bdc6-8a5f2c01b5a1">
   </kbd><br>
 <br>
  
