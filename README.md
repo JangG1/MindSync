@@ -188,7 +188,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li>Chat Start</li>
 <br>
  <kbd>
-  <img width="820" src="https://github.com/user-attachments/assets/810f95d7-c22e-49c8-a55c-5de2497e4dd7">  
+  <img width="820" src="https://github.com/user-attachments/assets/6c4e00fb-e814-4869-b5a1-8f629e442483">  
   </kbd><br>
 <br>
 
@@ -199,10 +199,10 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
   </kbd><br>
 <br>
 
-<li>Chat Keep</li>
+<li>Keep Chat</li>
 <br>
  <kbd>
-  <img width="820" src="https://github.com/user-attachments/assets/614b0b30-a70a-4641-8d54-4fe901d73bab">
+  <img width="820" src="https://github.com/user-attachments/assets/3714154c-2121-46e8-80c5-35e618cd39e9">
   </kbd><br>
 <br>
 
