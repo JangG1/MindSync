@@ -174,9 +174,10 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <h3>🔨 Advanced Feature 🔨</h3>
 
 <h3> 1. Chatbot Page(Main Page) </h3>
+- Model: <s>dreamshaper-8</s> -> FLUX로 변경 [2025/04/28] *무료 버전에 의한 요청 90%의 503 응답 에러
 
 <h3>👉 Description <h3>
-<h4>- 텍스트 형식의 인사/질문으로 챗봇과 대화(영어 지원 모델, 한글은 영어 자동번역 요청 및 응답)</h4>
+<h4>- 텍스트 형식의 인사/질문으로 챗봇과 대화(한글/영어 지원 모델)</h4>
 <h4>- 새 채팅방 열기 버튼으로 분리된 채팅방 생성 </h4>
 <h4>- 분리된 채팅방 내용 각 별도 저장(Redis, Key-Value) </h4>
 <h4>- 날짜별로 채팅방 분류 </h4>
@@ -187,14 +188,14 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li>Chat Start</li>
 <br>
  <kbd>
-  <img width="820" src="https://github.com/user-attachments/assets/c8617d64-b89a-472d-b4b8-b2a05b4d9187">  
+  <img width="820" src="https://github.com/user-attachments/assets/810f95d7-c22e-49c8-a55c-5de2497e4dd7">  
   </kbd><br>
 <br>
 
 <li>New Chat(Chat Separate)</li>
 <br>
  <kbd>
-  <img width="820" src="https://github.com/user-attachments/assets/dba9e265-abff-4d8b-9d6e-9b3c34cd7d3a">
+  <img width="820" src="https://github.com/user-attachments/assets/2858f7f0-e1fe-4ef6-8347-1a5fa5d39ca9">
   </kbd><br>
 <br>
 
@@ -208,7 +209,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <li>Chat List Delete(Redis, Zustand) </li>
 <br>
  <kbd>
-    <img width="820" src="https://github.com/user-attachments/assets/93aeeaef-fa78-415e-9f13-10ae635a5e36">
+    <img width="820" src="https://github.com/user-attachments/assets/b340a235-8cc2-4da3-87c6-f06367d16552">
   </kbd><br>
 <br>
  
