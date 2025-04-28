@@ -174,7 +174,7 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <h3>🔨 Advanced Feature 🔨</h3>
 
 <h3> 1. Chatbot Page(Main Page) </h3>
-- Model: <s>dreamshaper-8</s> -> FLUX로 변경 [2025/04/28] *무료 버전에 의한 요청 90%의 503 응답 에러
+- Model: <s>Hugging Face: blenderbot-3B</s> -> Cohere: command-a-03-2025로 변경 [2025/04/28] *무료 버전에 의한 요청 90%의 503 응답 에러
 
 <h3>👉 Description <h3>
 <h4>- 텍스트 형식의 인사/질문으로 챗봇과 대화(한글/영어 지원 모델)</h4>
@@ -214,7 +214,8 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 <br>
  
 <h3> 2. Image Generator <h3>
-
+- Model: <s>dreamshaper-8</s> -> FLUX로 변경 [2025/04/28] *무료 버전에 의한 요청 90%의 503 응답 에러
+     
 <h3>👉 Description <h3>
 <h4>- 키워드 또는 문장을 요청(한글은 영어 자동번역 요청)하게 되면 해당되는 이미지 생성 </h4>
  
