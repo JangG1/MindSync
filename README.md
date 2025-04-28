@@ -141,13 +141,13 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 ### 1. ChatBot ###
 
  <kbd> 
-   <img width="820" src="https://github.com/user-attachments/assets/20075577-775d-4d43-b3e2-244cb49f649a">  
+   <img width="820" src="https://github.com/user-attachments/assets/d6fc2499-1d60-4058-bc9c-4cdceca4be24">  
  </kbd><br>
 
 ### 2. Image Generator ###
 
  <kbd> 
-   <img width="820" src="https://github.com/user-attachments/assets/62cd31ca-b566-4280-8b37-1b814906fe25">  
+   <img width="820" src="https://github.com/user-attachments/assets/d5f67a06-c729-493a-bd77-039e036e1381">  
  </kbd><br>
   
 ### 3. News ###
