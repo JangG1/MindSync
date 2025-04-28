@@ -196,8 +196,7 @@ const Chatbot: React.FC = () => {
       // 응답 데이터를 처리하여 포맷
       const chatHistoryWithFormattedMessages =
         res.data.response.chat_history.map((chat: string) => {
-          const formattedChat = chat.replace(/\n/g, "<br />"); // 줄바꿈을 <br />로 바꾸어 HTML에서 새 줄로 표시
-          return formattedChat;
+          return Format(chat);
         });
 
       setChatHistory((prev) => ({
