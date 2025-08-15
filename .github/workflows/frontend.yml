@@ -9,6 +9,8 @@ on:
     branches: [ main ]
     paths:
       - 'frontend/**'
+    paths-ignore:
+      - 'README.md'  
   workflow_dispatch:
 
 jobs:
