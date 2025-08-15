@@ -9,6 +9,8 @@ on:
     branches: [ main ]
     paths:
       - 'app/**'  # 백엔드 코드 변경 시 실행
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 jobs:
