@@ -8,9 +8,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'app/**'  # 백엔드 코드 변경 시 실행
-    paths-ignore:
-      - 'README.md'
+      - 'app/**'  # 백엔드 코드 변경 시 실행    
+      - '!README.md'
   workflow_dispatch:
 
 jobs:
