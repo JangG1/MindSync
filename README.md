@@ -36,7 +36,6 @@ API 문서는 Swagger를 통해 확인할 수 있습니다. 아래 링크를 통
 - 2025/03/06 ~ 2025/03/31 (25Days)
 
 <h3>🎯 Purpose 🎯</h3>
-<li> 기존 Clush Project 고도화 </li>
 <li> Image Generator: Hugging Face: Image Generator API를 통한 키워드의 이미지 생성</li>
 - Model: <s>dreamshaper-8</s> -> FLUX로 변경 [2025/04/28] *무료 버전에 의한 요청 90%의 503 응답 에러
 <li> Chatbot: Cohere(Model: command-a-03-2025)로 텍스트 대화형 챗봇 구현</li>
